@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+<preface>
+   <title>Introduction</title>
+   <para>
+   The goal of Seam Faces is to provide a fully integrated CDI programming model to the JavaServer Faces (JSF) 2.0
+   web-framework. With features such as observing Events, providing injection support for life-cycle artifacts
+   (FacesContext, NavigationHandler,) and more. 
+   </para>
+
+<!--
+vim:et:ts=3:sw=3:tw=120
+-->
+</preface>

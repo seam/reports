@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>seam-documents-parent</artifactId>
+		<groupId>org.jboss.seam.documents</groupId>
+		<version>3.0.0-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>seam-documents</artifactId>
+	<version>3.0.0-SNAPSHOT</version>
+
+	<packaging>jar</packaging>
+	<name>Seam Documents Module Core Implementation</name>
+
+	<dependencies>
+		<dependency>
+			<artifactId>seam-documents-api</artifactId>
+			<groupId>org.jboss.seam.documents</groupId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+      <dependency>
+         <groupId>org.jboss.weld</groupId>
+         <artifactId>weld-extensions</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <scope>provided</scope>
+      </dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>code-coverage</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>emma-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.maven.plugin</groupId>
+						<artifactId>emma4it-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>

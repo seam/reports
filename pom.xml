@@ -93,9 +93,9 @@
    </developers>
 
    <scm>
-      <connection>scm:svn:http://anonsvn.jboss.org/repos/seam/modules/documents/trunk </connection>
-      <developerConnection>scm:svn:https://svn.jboss.org/repos/seam/modules/documents/trunk </developerConnection>
-      <url>http://fisheye.jboss.org/browse/Seam/modules/documents/trunk</url>
+      <connection>scm:git:git://github.com/seam/documents.git </connection>
+      <developerConnection>scm:git:git@github.com:seam/documents.git </developerConnection>
+      <url>http://github.com/seam/documents</url>
    </scm>
 </project>
 

@@ -4,22 +4,22 @@
    <parent>
       <groupId>org.jboss.seam</groupId>
       <artifactId>seam-parent</artifactId>
-      <version>1</version>
+      <version>10</version>
    </parent>
 
-   <artifactId>seam-documents-parent</artifactId>
-   <groupId>org.jboss.seam.documents</groupId>
+   <artifactId>seam-reports-parent</artifactId>
+   <groupId>org.jboss.seam.reports</groupId>
    <version>3.0.0-SNAPSHOT</version>
 
    <packaging>pom</packaging>
-   <name>Seam Documents Module Parent POM</name>
+   <name>Seam Reports Module Parent POM</name>
 
    <prerequisites>
       <maven>3.0</maven>
    </prerequisites>
 
    <description>
-		The Parent for Seam Documents Modules
+		The Parent for Seam Reports Modules
 	</description>
 
    <url>http://www.seamframework.org</url>
@@ -30,27 +30,19 @@
    </modules>
 
    <properties>
-      <seam.version>3.0.0.b01</seam.version>
-      <seam.i18n.version>3.0.0.Alpha1</seam.i18n.version>
+      <seam.version>3.0.0.Final</seam.version>
+      <seam.i18n.version>3.0.0.Final</seam.i18n.version>
    </properties>
 
    <dependencyManagement>
       <dependencies>
-
          <dependency>
             <groupId>org.jboss.seam</groupId>
-            <artifactId>seam</artifactId>
+            <artifactId>seam-bom</artifactId>
             <version>${seam.version}</version>
             <scope>import</scope>
             <type>pom</type>
          </dependency>
-
-         <dependency>
-            <groupId>org.jboss.seam.international</groupId>
-            <artifactId>seam-international-api</artifactId>
-            <version>${seam.i18n.version}</version>
-         </dependency>
-
       </dependencies>
    </dependencyManagement>
 
@@ -80,12 +72,10 @@
 
    <developers>
       <developer>
-         <name>Lincoln Baxter, III</name>
-         <email>lincolnbaxter@gmail.com</email>
-         <url>http://ocpsoft.com</url>
-         <organization>JBoss, by Red Hat</organization>
-         <organizationUrl>http://jboss.org</organizationUrl>
-         <timezone>EST</timezone>
+         <name>George Gastaldi</name>
+         <email>gegastaldi@gmail.com</email>
+         <url>http://gastaldi.wordpress.com</url>
+         <timezone>UTC-3</timezone>
          <roles>
             <role>Project Lead</role>
          </roles>
@@ -93,9 +83,9 @@
    </developers>
 
    <scm>
-      <connection>scm:git:git://github.com/seam/documents.git </connection>
-      <developerConnection>scm:git:git@github.com:seam/documents.git </developerConnection>
-      <url>http://github.com/seam/documents</url>
+      <connection>scm:git:git://github.com/seam/reports.git </connection>
+      <developerConnection>scm:git:git@github.com:seam/reports.git </developerConnection>
+      <url>http://github.com/seam/reports</url>
    </scm>
 </project>
 

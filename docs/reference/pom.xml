@@ -3,15 +3,15 @@
 
    <modelVersion>4.0.0</modelVersion>
 
-   <groupId>org.jboss.seam.documents</groupId>
-   <artifactId>seam-documents-reference-guide</artifactId>
+   <groupId>org.jboss.seam.reports</groupId>
+   <artifactId>seam-reports-reference-guide</artifactId>
    <version>3.0.0-SNAPSHOT</version>
    <packaging>jdocbook</packaging>
-   <name>Seam Documents Module Reference Guide</name>
+   <name>Seam reports Module Reference Guide</name>
 
    <parent>
-      <groupId>org.jboss.seam.documents</groupId>
-      <artifactId>seam-documents-parent</artifactId>
+      <groupId>org.jboss.seam.reports</groupId>
+      <artifactId>seam-reports-parent</artifactId>
       <version>3.0.0-SNAPSHOT</version>
       <relativePath>../../pom.xml</relativePath>
    </parent>

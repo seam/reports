@@ -4,15 +4,15 @@
    <modelVersion>4.0.0</modelVersion>
 
    <parent>
-      <groupId>org.jboss.seam.documents</groupId>
-      <artifactId>seam-documents-parent</artifactId>
+      <groupId>org.jboss.seam.reports</groupId>
+      <artifactId>seam-reports-parent</artifactId>
       <version>3.0.0-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
 
-   <artifactId>seam-documents-distribution</artifactId>
-   <name>Seam Documents Distribution</name>
-   <description>Builds a Seam Documents release distribution</description>
+   <artifactId>seam-reports-distribution</artifactId>
+   <name>Seam reports Distribution</name>
+   <description>Builds a Seam reports release distribution</description>
    <packaging>pom</packaging>
 
    <properties>
@@ -21,30 +21,30 @@
 
    <dependencies>
       <dependency>
-         <groupId>org.jboss.seam.documents</groupId>
-         <artifactId>seam-documents-api</artifactId>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports-api</artifactId>
 	     <version>3.0.0-SNAPSHOT</version>
          <optional>true</optional>
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.seam.documents</groupId>
-         <artifactId>seam-documents</artifactId>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports</artifactId>
       	 <version>3.0.0-SNAPSHOT</version>
          <optional>true</optional>
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.seam.documents</groupId>
-         <artifactId>seam-documents-api</artifactId>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports-api</artifactId>
          <version>${project.version}</version>
          <classifier>sources</classifier>
          <optional>true</optional>
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.seam.documents</groupId>
-         <artifactId>seam-documents-api</artifactId>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports-api</artifactId>
          <version>${project.version}</version>
          <classifier>javadoc</classifier>
          <optional>true</optional>
@@ -52,23 +52,23 @@
 
 
       <dependency>
-         <groupId>org.jboss.seam.documents</groupId>
-         <artifactId>seam-documents</artifactId>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports</artifactId>
          <version>${project.version}</version>
          <classifier>sources</classifier>
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.seam.documents</groupId>
-         <artifactId>seam-documents</artifactId>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports</artifactId>
          <version>${project.version}</version>
          <classifier>javadoc</classifier>
          <optional>true</optional>
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.seam.documents</groupId>
-         <artifactId>seam-documents-reference-guide</artifactId>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports-reference-guide</artifactId>
          <version>${project.version}</version>
          <type>war</type>
          <optional>true</optional>
@@ -77,7 +77,7 @@
    </dependencies>
 
    <build>
-      <finalName>seam-documents</finalName>
+      <finalName>seam-reports</finalName>
       <plugins>
          <plugin>
             <groupId>org.apache.maven.plugins</groupId>

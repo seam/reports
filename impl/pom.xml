@@ -2,29 +2,25 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<artifactId>seam-documents-parent</artifactId>
-		<groupId>org.jboss.seam.documents</groupId>
+		<artifactId>seam-reports-parent</artifactId>
+		<groupId>org.jboss.seam.reports</groupId>
 		<version>3.0.0-SNAPSHOT</version>
       <relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>seam-documents</artifactId>
+	<artifactId>seam-reports</artifactId>
 	<version>3.0.0-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
-	<name>Seam Documents Module Core Implementation</name>
+	<name>Seam Reports Module Core Implementation</name>
 
 	<dependencies>
 		<dependency>
-			<artifactId>seam-documents-api</artifactId>
-			<groupId>org.jboss.seam.documents</groupId>
+			<artifactId>seam-reports-api</artifactId>
+			<groupId>org.jboss.seam.reports</groupId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>
-      <dependency>
-         <groupId>org.jboss.weld</groupId>
-         <artifactId>weld-extensions</artifactId>
-      </dependency>
       <dependency>
          <groupId>org.slf4j</groupId>
          <artifactId>slf4j-api</artifactId>

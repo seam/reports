@@ -12,7 +12,7 @@ import org.junit.Test;
 public class ReportsTest {
     @Inject
     @JasperReports
-    SeamReportCompiler compiler;
+    SeamReportLoader compiler;
 
     @Test
     public void testCompilation() throws Exception {

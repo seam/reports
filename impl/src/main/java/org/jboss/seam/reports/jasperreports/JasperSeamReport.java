@@ -2,6 +2,9 @@ package org.jboss.seam.reports.jasperreports;
 
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.SeamReport;
@@ -23,15 +26,13 @@ public class JasperSeamReport implements SeamReport {
     }
 
     @Override
-    public SeamReportInstance fill(SeamReportDataSource dataSource) throws SeamReportException {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public SeamReportInstance fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters);
+            return new JasperSeamReportInstance(filledReport);
+        } catch (JRException e) {
+            throw new SeamReportException(e);
+        }
     }
 
 }

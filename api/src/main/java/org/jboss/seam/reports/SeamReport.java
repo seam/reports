@@ -15,7 +15,5 @@ import java.util.Map;
  */
 public interface SeamReport {
 
-    SeamReportInstance fill(SeamReportDataSource dataSource) throws SeamReportException;
-
     SeamReportInstance fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException;
 }

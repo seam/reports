@@ -1,8 +1,7 @@
 package org.jboss.seam.reports;
 
-import java.io.IOException;
 
-public class SeamReportException extends IOException {
+public class SeamReportException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 

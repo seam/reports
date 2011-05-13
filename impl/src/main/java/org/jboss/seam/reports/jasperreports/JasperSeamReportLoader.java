@@ -11,7 +11,7 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import org.jboss.seam.reports.SeamReport;
 import org.jboss.seam.reports.SeamReportException;
 import org.jboss.seam.reports.SeamReportLoader;
-import org.jboss.seam.reports.SeamReportPrint;
+import org.jboss.seam.reports.SeamReportInstance;
 import org.jboss.seam.reports.annotations.JasperReports;
 
 @JasperReports
@@ -38,10 +38,10 @@ public class JasperSeamReportLoader implements SeamReportLoader {
     }
 
     @Override
-    public SeamReportPrint loadPrint(InputStream input) throws SeamReportException {
+    public SeamReportInstance loadReportInstance(InputStream input) throws SeamReportException {
         try {
             JasperPrint print = (JasperPrint)JRLoader.loadObject(input);
-            return new JasperSeamReportPrint(print);
+            return new JasperSeamReportInstance(print);
         } catch (JRException e) {
             throw new SeamReportException(e);
         }

@@ -2,7 +2,7 @@ package org.jboss.seam.reports;
 
 import java.io.OutputStream;
 
-public interface SeamReportPrint {
+public interface SeamReportInstance {
 
     boolean isOutputTypeSupported(SeamReportOutputType type);
 

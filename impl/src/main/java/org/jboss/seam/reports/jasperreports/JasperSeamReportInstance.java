@@ -6,14 +6,13 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 import org.jboss.seam.reports.SeamReportException;
 import org.jboss.seam.reports.SeamReportOutputType;
-import org.jboss.seam.reports.SeamReportPrint;
+import org.jboss.seam.reports.SeamReportInstance;
 
-public class JasperSeamReportPrint implements SeamReportPrint {
+public class JasperSeamReportInstance implements SeamReportInstance {
 
     private JasperPrint jasperPrint;
 
-    public JasperSeamReportPrint(JasperPrint jasperPrint) {
-        super();
+    public JasperSeamReportInstance(JasperPrint jasperPrint) {
         this.jasperPrint = jasperPrint;
     }
 

@@ -15,5 +15,5 @@ public interface SeamReportLoader {
 
     SeamReport loadReport(InputStream input) throws SeamReportException;
 
-    SeamReportPrint loadPrint(InputStream input) throws SeamReportException;
+    SeamReportInstance loadReportInstance(InputStream input) throws SeamReportException;
 }

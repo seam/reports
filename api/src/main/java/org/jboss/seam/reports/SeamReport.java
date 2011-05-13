@@ -7,7 +7,7 @@ import java.util.Map;
  * 
  * This object are normally created using a {@link SeamReportLoader}.
  * 
- * Produces {@link SeamReportPrint} objects by filling them with a {@link SeamReportDataSource} object and some optional
+ * Produces {@link SeamReportInstance} objects by filling them with a {@link SeamReportDataSource} object and some optional
  * parameters
  * 
  * @author george
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public interface SeamReport {
 
-    SeamReportPrint fill(SeamReportDataSource dataSource) throws SeamReportException;
+    SeamReportInstance fill(SeamReportDataSource dataSource) throws SeamReportException;
 
-    SeamReportPrint fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException;
+    SeamReportInstance fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException;
 }

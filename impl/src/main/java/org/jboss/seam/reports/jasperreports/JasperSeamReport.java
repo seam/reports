@@ -7,7 +7,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import org.jboss.seam.reports.SeamReport;
 import org.jboss.seam.reports.SeamReportDataSource;
 import org.jboss.seam.reports.SeamReportException;
-import org.jboss.seam.reports.SeamReportPrint;
+import org.jboss.seam.reports.SeamReportInstance;
 
 public class JasperSeamReport implements SeamReport {
 
@@ -23,13 +23,13 @@ public class JasperSeamReport implements SeamReport {
     }
 
     @Override
-    public SeamReportPrint fill(SeamReportDataSource dataSource) throws SeamReportException {
+    public SeamReportInstance fill(SeamReportDataSource dataSource) throws SeamReportException {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public SeamReportPrint fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException {
+    public SeamReportInstance fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException {
         // TODO Auto-generated method stub
         return null;
     }

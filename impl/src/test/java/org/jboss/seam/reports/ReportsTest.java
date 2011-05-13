@@ -18,7 +18,7 @@ public class ReportsTest {
     public void testCompilation() throws Exception {
         InputStream is = null; // Report source
         SeamReport report = compiler.compile(is);
-        SeamReportPrint print = report.fill(getDataSource(), null);
+        SeamReportInstance print = report.fill(getDataSource(), null);
 
         OutputStream os = new ByteArrayOutputStream(); // OutputStream
         // Render output as the desired content

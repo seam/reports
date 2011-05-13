@@ -1,91 +1,101 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-   <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.jboss.seam</groupId>
-      <artifactId>seam-parent</artifactId>
-      <version>10</version>
-   </parent>
+	<parent>
+		<groupId>org.jboss.seam</groupId>
+		<artifactId>seam-parent</artifactId>
+		<version>10</version>
+	</parent>
 
-   <artifactId>seam-reports-parent</artifactId>
-   <groupId>org.jboss.seam.reports</groupId>
-   <version>3.0.0-SNAPSHOT</version>
+	<artifactId>seam-reports-parent</artifactId>
+	<groupId>org.jboss.seam.reports</groupId>
+	<version>3.0.0-SNAPSHOT</version>
 
-   <packaging>pom</packaging>
-   <name>Seam Reports Module Parent POM</name>
+	<packaging>pom</packaging>
+	<name>Seam Reports Module Parent POM</name>
 
-   <prerequisites>
-      <maven>3.0</maven>
-   </prerequisites>
+	<prerequisites>
+		<maven>3.0</maven>
+	</prerequisites>
 
-   <description>
+	<description>
 		The Parent for Seam Reports Modules
 	</description>
 
-   <url>http://www.seamframework.org</url>
+	<url>http://www.seamframework.org</url>
 
-   <modules>
-      <module>api</module>
-      <module>impl</module>
-   </modules>
+	<modules>
+		<module>api</module>
+		<module>impl</module>
+	</modules>
 
-   <properties>
-      <seam.version>3.0.0.Final</seam.version>
-      <seam.i18n.version>3.0.0.Final</seam.i18n.version>
-   </properties>
+	<properties>
+		<seam.version>3.0.0.Final</seam.version>
+		<seam.i18n.version>3.0.0.Final</seam.i18n.version>
+	</properties>
 
-   <dependencyManagement>
-      <dependencies>
-         <dependency>
-            <groupId>org.jboss.seam</groupId>
-            <artifactId>seam-bom</artifactId>
-            <version>${seam.version}</version>
-            <scope>import</scope>
-            <type>pom</type>
-         </dependency>
-      </dependencies>
-   </dependencyManagement>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.seam</groupId>
+				<artifactId>seam-bom</artifactId>
+				<version>${seam.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-   <profiles>
-      <profile>
-         <id>distribution</id>
-         <activation>
-            <property>
-               <name>release</name>
-            </property>
-         </activation>
-         <modules>
-            <module>dist</module>
-            <module>docs/reference</module>
-         </modules>
-      </profile>
-      <profile>
-         <id>arquillian-glassfish-embedded-30</id>
-         <dependencies>
-            <dependency>
-               <groupId>org.jboss.arquillian.container</groupId>
-               <artifactId>arquillian-glassfish-embedded-30</artifactId>
-            </dependency>
-         </dependencies>
-      </profile>
-   </profiles>
+	<!-- Dependencies common to the api and implementation(s) -->
+	<dependencies>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
-   <developers>
-      <developer>
-         <name>George Gastaldi</name>
-         <email>gegastaldi@gmail.com</email>
-         <url>http://gastaldi.wordpress.com</url>
-         <timezone>UTC-3</timezone>
-         <roles>
-            <role>Project Lead</role>
-         </roles>
-      </developer>
-   </developers>
+	<profiles>
+		<profile>
+			<id>distribution</id>
+			<activation>
+				<property>
+					<name>release</name>
+				</property>
+			</activation>
+			<modules>
+				<module>dist</module>
+				<module>docs/reference</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>arquillian-glassfish-embedded-30</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.jboss.arquillian.container</groupId>
+					<artifactId>arquillian-glassfish-embedded-30</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
-   <scm>
-      <connection>scm:git:git://github.com/seam/reports.git </connection>
-      <developerConnection>scm:git:git@github.com:seam/reports.git </developerConnection>
-      <url>http://github.com/seam/reports</url>
-   </scm>
+	<developers>
+		<developer>
+			<name>George Gastaldi</name>
+			<email>gegastaldi@gmail.com</email>
+			<url>http://gastaldi.wordpress.com</url>
+			<timezone>UTC-3</timezone>
+			<roles>
+				<role>Project Lead</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/seam/reports.git </connection>
+		<developerConnection>scm:git:git@github.com:seam/reports.git </developerConnection>
+		<url>http://github.com/seam/reports</url>
+	</scm>
 </project>
 

@@ -23,6 +23,12 @@ public class JasperSeamReport implements SeamReport {
     }
 
     @Override
+    public SeamReportPrint fill(SeamReportDataSource dataSource) throws SeamReportException {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
     public SeamReportPrint fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException {
         // TODO Auto-generated method stub
         return null;

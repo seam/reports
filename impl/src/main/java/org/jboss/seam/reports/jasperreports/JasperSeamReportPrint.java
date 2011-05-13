@@ -22,7 +22,7 @@ public class JasperSeamReportPrint implements SeamReportPrint {
     }
 
     @Override
-    public void outputTo(SeamReportOutputType type, OutputStream output) throws SeamReportException {
+    public void render(SeamReportOutputType type, OutputStream output) throws SeamReportException {
         // TODO
     }
 

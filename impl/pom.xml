@@ -17,8 +17,8 @@
 
 	<dependencies>
 		<dependency>
-			<artifactId>seam-reports-api</artifactId>
 			<groupId>org.jboss.seam.reports</groupId>
+			<artifactId>seam-reports-api</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>

@@ -6,5 +6,5 @@ public interface SeamReportPrint {
 
     boolean isOutputTypeSupported(SeamReportOutputType type);
 
-    void outputTo(SeamReportOutputType type, OutputStream output) throws SeamReportException;
+    void render(SeamReportOutputType type, OutputStream output) throws SeamReportException;
 }

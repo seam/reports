@@ -10,7 +10,9 @@ import net.sf.jasperreports.engine.JasperReport;
 import org.jboss.seam.reports.SeamReport;
 import org.jboss.seam.reports.SeamReportCompiler;
 import org.jboss.seam.reports.SeamReportException;
+import org.jboss.seam.reports.annotations.JasperReports;
 
+@JasperReports
 public class JasperSeamReportCompiler implements SeamReportCompiler {
 
     @Override

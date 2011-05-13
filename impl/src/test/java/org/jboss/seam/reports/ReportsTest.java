@@ -1,13 +1,12 @@
 package org.jboss.seam.reports;
 
-import static org.junit.Assert.*;
-
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.inject.Inject;
 
+import org.jboss.seam.reports.annotations.JasperReports;
 import org.junit.Test;
 
 public class ReportsTest {

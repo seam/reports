@@ -32,7 +32,9 @@
 
 	<properties>
 		<seam.version>3.0.0.Final</seam.version>
-		<seam.i18n.version>3.0.0.Final</seam.i18n.version>
+		<jasperreports.version>4.0.1</jasperreports.version>
+		<velocity.version>1.7</velocity.version>
+		<xhtmlrenderer.version>R8</xhtmlrenderer.version>
 	</properties>
 
 	<dependencyManagement>
@@ -43,6 +45,22 @@
 				<version>${seam.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.jasperreports</groupId>
+				<artifactId>jasperreports</artifactId>
+				<version>${jasperreports.version}</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>${velocity.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.xhtmlrenderer</groupId>
+				<artifactId>core-renderer</artifactId>
+				<version>${xhtmlrenderer.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

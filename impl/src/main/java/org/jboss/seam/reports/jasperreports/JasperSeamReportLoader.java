@@ -46,4 +46,34 @@ public class JasperSeamReportLoader implements SeamReportLoader {
             throw new SeamReportException(e);
         }
     }
+
+    @Override
+    public SeamReport compile(String name) throws SeamReportException {
+        try {
+            JasperReport compiledReport = JasperCompileManager.compileReport(name);
+            return new JasperSeamReport(compiledReport);
+        } catch (JRException e) {
+            throw new SeamReportException(e);
+        }
+    }
+
+    @Override
+    public SeamReport loadReport(String name) throws SeamReportException {
+        try {
+            JasperReport report = (JasperReport)JRLoader.loadObject(name);
+            return new JasperSeamReport(report);
+        } catch (JRException e) {
+            throw new SeamReportException(e);
+        }
+    }
+
+    @Override
+    public SeamReportInstance loadReportInstance(String name) throws SeamReportException {
+        try {
+            JasperPrint print = (JasperPrint)JRLoader.loadObject(name);
+            return new JasperSeamReportInstance(print);
+        } catch (JRException e) {
+            throw new SeamReportException(e);
+        }
+    }
 }

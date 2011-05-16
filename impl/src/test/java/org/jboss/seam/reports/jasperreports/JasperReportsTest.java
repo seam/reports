@@ -1,4 +1,4 @@
-package org.jboss.seam.reports;
+package org.jboss.seam.reports.jasperreports;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -12,6 +12,11 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.reports.SeamReport;
+import org.jboss.seam.reports.SeamReportDataSource;
+import org.jboss.seam.reports.SeamReportInstance;
+import org.jboss.seam.reports.SeamReportLoader;
+import org.jboss.seam.reports.SeamReportOutputType;
 import org.jboss.seam.reports.annotations.JasperReports;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -21,7 +26,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class ReportsTest {
+public class JasperReportsTest {
+    
     @Inject
     @JasperReports
     SeamReportLoader loader;

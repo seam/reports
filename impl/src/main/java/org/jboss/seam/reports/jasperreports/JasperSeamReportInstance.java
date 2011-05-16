@@ -6,11 +6,11 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
-import org.jboss.seam.reports.SeamReportException;
-import org.jboss.seam.reports.SeamReportInstance;
+import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.ReportInstance;
 import org.jboss.seam.reports.SeamReportOutputType;
 
-public class JasperSeamReportInstance implements SeamReportInstance {
+public class JasperSeamReportInstance implements ReportInstance {
 
     private JasperPrint jasperPrint;
 
@@ -23,11 +23,11 @@ public class JasperSeamReportInstance implements SeamReportInstance {
     }
 
     @Override
-    public void render(SeamReportOutputType type, OutputStream output) throws SeamReportException {
+    public void render(SeamReportOutputType type, OutputStream output) throws ReportException {
         try {
             JasperExportManager.exportReportToPdfStream(getJasperPrint(), output);
         } catch (JRException e) {
-            throw new SeamReportException(e);
+            throw new ReportException(e);
         }
     }
 

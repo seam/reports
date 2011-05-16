@@ -12,10 +12,10 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.reports.SeamReport;
-import org.jboss.seam.reports.SeamReportDataSource;
-import org.jboss.seam.reports.SeamReportInstance;
-import org.jboss.seam.reports.SeamReportLoader;
+import org.jboss.seam.reports.Report;
+import org.jboss.seam.reports.ReportDataSource;
+import org.jboss.seam.reports.ReportInstance;
+import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.SeamReportOutputType;
 import org.jboss.seam.reports.annotations.JasperReports;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -30,7 +30,7 @@ public class JasperReportsTest {
     
     @Inject
     @JasperReports
-    SeamReportLoader loader;
+    ReportLoader loader;
 
     @Deployment
     public static JavaArchive createArchive() {
@@ -48,9 +48,9 @@ public class JasperReportsTest {
     public void testCompilation() throws Exception {
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("jasper_template.xml"); // Report
                                                                                                                     // source
-        SeamReport report = loader.compile(is);
+        Report report = loader.compile(is);
         Map<String,Object> params = new HashMap<String, Object>();
-        SeamReportInstance reportInstance = report.fill(getDataSource(), params);
+        ReportInstance reportInstance = report.fill(getDataSource(), params);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
         // Render output as the desired content
@@ -60,7 +60,7 @@ public class JasperReportsTest {
 
     }
 
-    private SeamReportDataSource getDataSource() {
+    private ReportDataSource getDataSource() {
         return null;
     }
 

@@ -8,12 +8,12 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
-import org.jboss.seam.reports.SeamReport;
-import org.jboss.seam.reports.SeamReportDataSource;
-import org.jboss.seam.reports.SeamReportException;
-import org.jboss.seam.reports.SeamReportInstance;
+import org.jboss.seam.reports.Report;
+import org.jboss.seam.reports.ReportDataSource;
+import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.ReportInstance;
 
-public class JasperSeamReport implements SeamReport {
+public class JasperSeamReport implements Report {
 
     private JasperReport compiledReport;
 
@@ -27,7 +27,7 @@ public class JasperSeamReport implements SeamReport {
     }
 
     @Override
-    public SeamReportInstance fill(SeamReportDataSource dataSource, Map<String, Object> parameters) throws SeamReportException {
+    public ReportInstance fill(ReportDataSource dataSource, Map<String, Object> parameters) throws ReportException {
         try {
             JRDataSource ds = null;
             if (dataSource instanceof JasperSeamReportDataSource) {
@@ -36,7 +36,7 @@ public class JasperSeamReport implements SeamReport {
             JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters,ds);
             return new JasperSeamReportInstance(filledReport);
         } catch (JRException e) {
-            throw new SeamReportException(e);
+            throw new ReportException(e);
         }
     }
 

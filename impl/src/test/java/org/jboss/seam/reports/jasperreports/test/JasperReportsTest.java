@@ -1,5 +1,6 @@
 package org.jboss.seam.reports.jasperreports.test;
 
+
 import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
@@ -24,6 +25,7 @@ import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.annotations.JasperReports;
 import org.jboss.seam.reports.annotations.PDF;
 import org.jboss.seam.reports.jasperreports.JasperSeamReportDataSource;
+import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -35,7 +37,15 @@ import de.oio.jpdfunit.DocumentTester;
 
 @RunWith(Arquillian.class)
 public class JasperReportsTest {
-
+    
+    @Inject
+    @Resource("XlsDataSourceReport.jrxml")
+    InputStream sourceReport;
+    
+    @Inject
+    @Resource("XlsDataSource.data.xls")
+    InputStream dataSource;
+    
     @Inject
     @JasperReports
     ReportLoader loader;
@@ -52,8 +62,11 @@ public class JasperReportsTest {
 
     @Deployment
     public static JavaArchive createArchive() {
-        return ShrinkWrap.create(JavaArchive.class).addPackage("org.jboss.seam.reports")
-                .addPackage("org.jboss.seam.reports.annotation").addPackage("org.jboss.seam.reports.jasperreports")
+        return ShrinkWrap.create(JavaArchive.class)
+                .addPackages(true,"org.jboss.seam.solder")
+                .addPackage("org.jboss.seam.reports")
+                .addPackage("org.jboss.seam.reports.annotation")
+                .addPackage("org.jboss.seam.reports.jasperreports")
                 .addPackage("org.jboss.seam.reports.jasperreports.renderer")
                 .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
@@ -65,9 +78,8 @@ public class JasperReportsTest {
 
     @Test
     public void testReportLifecycle() throws Exception {
-        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("XlsDataSourceReport.jrxml"); // Report
         // source
-        Report report = loader.compile(is);
+        Report report = loader.compile(sourceReport);
 
         Map<String, Object> params = new HashMap<String, Object>();
         // Preparing parameters
@@ -91,10 +103,8 @@ public class JasperReportsTest {
         JRXlsDataSource ds;
         String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
         int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
-        ds = new JRXlsDataSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("XlsDataSource.data.xls"));
+        ds = new JRXlsDataSource(dataSource);
         ds.setColumnNames(columnNames, columnIndexes);
-
         return new JasperSeamReportDataSource(ds);
     }
-
 }

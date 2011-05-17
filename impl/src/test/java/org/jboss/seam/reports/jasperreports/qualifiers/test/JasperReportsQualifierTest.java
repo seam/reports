@@ -2,10 +2,7 @@ package org.jboss.seam.reports.jasperreports.qualifiers.test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -37,6 +34,10 @@ public class JasperReportsQualifierTest {
 
     @Inject
     @SalesReport
+    Map<String, Object> reportParams;
+
+    @Inject
+    @SalesReport
     @Resource("XlsDataSource.data.xls")
     ReportDataSource dataSource;
 
@@ -56,20 +57,17 @@ public class JasperReportsQualifierTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 
+    /**
+     * Lifecycle is Compile, populate, render
+     * 
+     * @throws Exception
+     */
     @Test
     public void testReportLifecycle() throws Exception {
-        Map<String, Object> params = new HashMap<String, Object>();
-        // Preparing parameters
-        params.put("ReportTitle", "Address Report");
-        params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
-        Set<String> states = new HashSet<String>();
-        states.add("Active");
-        states.add("Trial");
-        params.put("IncludedStates", states);
-
-        ReportInstance reportInstance = salesReport.fill(dataSource, params);
+        ReportInstance reportInstance = salesReport.fill(dataSource, reportParams);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
+       
         // Render output as the desired content
         pdfRenderer.render(reportInstance, os);
         DocumentTester tester = new DocumentTester(new ByteArrayInputStream(os.toByteArray()));

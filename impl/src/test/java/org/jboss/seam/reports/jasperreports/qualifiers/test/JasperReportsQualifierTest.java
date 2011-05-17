@@ -2,15 +2,12 @@ package org.jboss.seam.reports.jasperreports.qualifiers.test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.inject.Inject;
-
-import net.sf.jasperreports.engine.data.JRXlsDataSource;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -20,7 +17,6 @@ import org.jboss.seam.reports.ReportInstance;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.annotations.frameworks.JasperReports;
 import org.jboss.seam.reports.annotations.output.PDF;
-import org.jboss.seam.reports.jasperreports.JasperSeamReportDataSource;
 import org.jboss.seam.reports.jasperreports.JasperSeamReportLoader;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -40,8 +36,9 @@ public class JasperReportsQualifierTest {
     Report salesReport;
 
     @Inject
+    @SalesReport
     @Resource("XlsDataSource.data.xls")
-    InputStream dataSource;
+    ReportDataSource dataSource;
 
     @Inject
     @JasperReports
@@ -70,7 +67,7 @@ public class JasperReportsQualifierTest {
         states.add("Trial");
         params.put("IncludedStates", states);
 
-        ReportInstance reportInstance = salesReport.fill(getDataSource(), params);
+        ReportInstance reportInstance = salesReport.fill(dataSource, params);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
         // Render output as the desired content
@@ -81,14 +78,5 @@ public class JasperReportsQualifierTest {
         } finally {
             tester.close();
         }
-    }
-
-    private ReportDataSource getDataSource() throws Exception {
-        JRXlsDataSource ds;
-        String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
-        int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
-        ds = new JRXlsDataSource(dataSource);
-        ds.setColumnNames(columnNames, columnIndexes);
-        return new JasperSeamReportDataSource(ds);
     }
 }

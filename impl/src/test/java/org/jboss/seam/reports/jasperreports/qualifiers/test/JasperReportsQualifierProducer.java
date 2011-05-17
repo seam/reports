@@ -1,6 +1,9 @@
 package org.jboss.seam.reports.jasperreports.qualifiers.test;
 
 import java.lang.annotation.Annotation;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.enterprise.inject.Instance;
@@ -48,6 +51,22 @@ public class JasperReportsQualifierProducer {
         return new JasperSeamReportDataSource(ds);
     }
 
+    @Produces
+    @SalesReport
+    Map<String, Object> producesParams() {
+        Map<String, Object> params = new HashMap<String, Object>();
+        // Preparing parameters
+        params.put("ReportTitle", "Address Report");
+        params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
+        Set<String> states = new HashSet<String>();
+        states.add("Active");
+        states.add("Trial");
+        params.put("IncludedStates", states);
+        return params;
+    }
+    
+    
+    
     /**
      * Retrieves the {@link Resource} annotation
      * 

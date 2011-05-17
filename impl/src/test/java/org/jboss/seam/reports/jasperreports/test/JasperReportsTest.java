@@ -4,7 +4,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,7 +12,6 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRXlsDataSource;
 
 import org.jboss.arquillian.api.Deployment;
@@ -47,10 +45,10 @@ public class JasperReportsTest {
     @PDF
     ReportRenderer pdfRenderer;
 
-//    @Inject
-//    @JasperReports
-//    @XLS
-//    ReportRenderer xlsRenderer;
+    // @Inject
+    // @JasperReports
+    // @XLS
+    // ReportRenderer xlsRenderer;
 
     @Deployment
     public static JavaArchive createArchive() {
@@ -89,17 +87,12 @@ public class JasperReportsTest {
         tester.assertPageCountEquals(2);
     }
 
-    private static ReportDataSource getDataSource() throws JRException {
+    private ReportDataSource getDataSource() throws Exception {
         JRXlsDataSource ds;
-        try {
-            String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
-            int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
-            ds = new JRXlsDataSource(Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("XlsDataSource.data.xls"));
-            ds.setColumnNames(columnNames, columnIndexes);
-        } catch (IOException e) {
-            throw new JRException(e);
-        }
+        String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
+        int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
+        ds = new JRXlsDataSource(Thread.currentThread().getContextClassLoader().getResourceAsStream("XlsDataSource.data.xls"));
+        ds.setColumnNames(columnNames, columnIndexes);
 
         return new JasperSeamReportDataSource(ds);
     }

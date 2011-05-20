@@ -17,7 +17,7 @@ import org.jboss.logging.Logger;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.ReportLoader;
-import org.jboss.seam.reports.annotations.frameworks.JasperReports;
+import org.jboss.seam.reports.jasperreports.JasperReports;
 import org.jboss.seam.reports.jasperreports.JasperSeamReportDataSource;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;

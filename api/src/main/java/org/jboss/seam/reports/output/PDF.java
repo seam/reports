@@ -1,4 +1,4 @@
-package org.jboss.seam.reports.annotations.output;
+package org.jboss.seam.reports.output;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
 import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.annotations.OutputBinding;
+import org.jboss.seam.reports.spi.annotations.OutputBinding;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;

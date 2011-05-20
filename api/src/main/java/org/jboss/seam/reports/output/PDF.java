@@ -10,19 +10,22 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.inject.Qualifier;
+import javax.enterprise.inject.Stereotype;
 
 import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.spi.ReportOutputBinding;
 
 /**
- * Used on {@link ReportRenderer} 
+ * Used on {@link ReportRenderer}
+ * 
  * @author george
- *
+ * 
  */
-@Qualifier
+@Stereotype
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
+@ReportOutputBinding("PDF")
 public @interface PDF {
 
 }

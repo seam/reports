@@ -10,12 +10,15 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.inject.Qualifier;
+import javax.enterprise.inject.Stereotype;
 
-@Qualifier
+import org.jboss.seam.reports.spi.ReportOutputBinding;
+
+@Stereotype
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
+@ReportOutputBinding("XLS")
 public @interface XLS {
 
 }

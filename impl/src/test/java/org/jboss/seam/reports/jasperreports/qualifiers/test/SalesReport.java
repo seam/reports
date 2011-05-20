@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
-import org.jboss.seam.reports.annotations.frameworks.JasperReports;
+import org.jboss.seam.reports.jasperreports.JasperReports;
 import org.jboss.seam.solder.resourceLoader.Resource;
 
 @Qualifier

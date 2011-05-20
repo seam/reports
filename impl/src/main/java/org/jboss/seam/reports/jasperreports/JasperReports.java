@@ -1,4 +1,4 @@
-package org.jboss.seam.reports.annotations.frameworks;
+package org.jboss.seam.reports.jasperreports;
 
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -12,10 +12,13 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
+import org.jboss.seam.reports.spi.annotations.ReportBinding;
+
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
+@ReportBinding
 public @interface JasperReports {
 
 }

@@ -12,7 +12,6 @@ import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportInstance;
-import org.jboss.seam.reports.annotations.frameworks.JasperReports;
 
 @JasperReports
 public class JasperSeamReportLoader implements ReportLoader {

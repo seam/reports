@@ -106,6 +106,22 @@
 			</modules>
 		</profile>
 		<profile>
+			<id>jpdfunit-repository</id>
+			<activation>
+				<property>
+					<name>jpdfunit-repository</name>
+					<value>!false</value>
+				</property>
+			</activation>
+			<repositories>
+				<repository>
+					<id>jpdfunit</id>
+					<name>JPdfUnit Public Repo</name>
+					<url>http://jpdfunit.sourceforge.net/repo</url>
+				</repository>
+			</repositories>
+		</profile>		
+		<profile>
 			<id>jboss-public-repository</id>
 			<activation>
 				<property>

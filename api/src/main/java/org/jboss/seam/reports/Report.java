@@ -13,7 +13,7 @@ import java.util.Map;
  * @author George Gastaldi
  * 
  */
-public interface Report {
+public interface Report<T extends ReportDataSource, I extends ReportInstance> {
 
-    ReportInstance fill(ReportDataSource dataSource, Map<String, Object> parameters) throws ReportException;
+    I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
 }

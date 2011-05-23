@@ -9,11 +9,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.ReportException;
-import org.jboss.seam.reports.ReportInstance;
 
-public class JasperSeamReport implements Report<ReportDataSource, ReportInstance> {
+public class JasperSeamReport implements Report<JasperSeamReportDataSource, JasperSeamReportInstance> {
 
     private JasperReport compiledReport;
 
@@ -27,12 +25,10 @@ public class JasperSeamReport implements Report<ReportDataSource, ReportInstance
     }
 
     @Override
-    public ReportInstance fill(ReportDataSource dataSource, Map<String, Object> parameters) throws ReportException {
+    public JasperSeamReportInstance fill(JasperSeamReportDataSource dataSource, Map<String, Object> parameters)
+            throws ReportException {
         try {
-            JRDataSource ds = null;
-            if (dataSource instanceof JasperSeamReportDataSource) {
-                ds = ((JasperSeamReportDataSource)dataSource).getDataSource();
-            }
+            JRDataSource ds = dataSource.getDataSource();
             JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters,ds);
             return new JasperSeamReportInstance(filledReport);
         } catch (JRException e) {

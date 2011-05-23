@@ -11,11 +11,11 @@ import java.io.InputStream;
  * 
  */
 public interface ReportLoader {
-    Report compile(InputStream input) throws ReportException;
-    Report compile(String name) throws ReportException;
+    Report<?,?> compile(InputStream input) throws ReportException;
+    Report<?,?> compile(String name) throws ReportException;
 
-    Report loadReport(InputStream input) throws ReportException;
-    Report loadReport(String name) throws ReportException;
+    Report<?,?> loadReport(InputStream input) throws ReportException;
+    Report<?,?> loadReport(String name) throws ReportException;
 
     ReportInstance loadReportInstance(InputStream input) throws ReportException;
     ReportInstance loadReportInstance(String name) throws ReportException;

@@ -2,6 +2,12 @@ package org.jboss.seam.reports;
 
 import java.io.OutputStream;
 
-public interface ReportRenderer {
-    void render(ReportInstance report, OutputStream output) throws ReportException;
+/**
+ * Renders a report on the supplied {@link OutputStream}
+ * 
+ * @author george
+ * 
+ */
+public interface ReportRenderer<I extends ReportInstance> {
+    void render(I report, OutputStream output) throws ReportException;
 }

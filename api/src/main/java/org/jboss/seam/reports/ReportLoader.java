@@ -11,12 +11,17 @@ import java.io.InputStream;
  * 
  */
 public interface ReportLoader {
-    Report<?,?> compile(InputStream input) throws ReportException;
-    Report<?,?> compile(String name) throws ReportException;
 
-    Report<?,?> loadReport(InputStream input) throws ReportException;
-    Report<?,?> loadReport(String name) throws ReportException;
+    // TODO: Should these compile methods be moved as it doesn´t make sense to some reporting implementations ?
+    Report<? extends ReportDataSource, ? extends ReportInstance> compile(InputStream input) throws ReportException;
+
+    Report<? extends ReportDataSource, ? extends ReportInstance> compile(String name) throws ReportException;
+
+    Report<? extends ReportDataSource, ? extends ReportInstance> loadReport(InputStream input) throws ReportException;
+
+    Report<? extends ReportDataSource, ? extends ReportInstance> loadReport(String name) throws ReportException;
 
     ReportInstance loadReportInstance(InputStream input) throws ReportException;
+
     ReportInstance loadReportInstance(String name) throws ReportException;
 }

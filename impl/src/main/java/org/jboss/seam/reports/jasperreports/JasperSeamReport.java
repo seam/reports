@@ -13,7 +13,7 @@ import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportInstance;
 
-public class JasperSeamReport implements Report {
+public class JasperSeamReport implements Report<ReportDataSource, ReportInstance> {
 
     private JasperReport compiledReport;
 

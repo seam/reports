@@ -7,7 +7,7 @@
    <artifactId>seam-reports-reference-guide</artifactId>
    <version>3.0.0-SNAPSHOT</version>
    <packaging>jdocbook</packaging>
-   <name>Seam reports Module Reference Guide</name>
+   <name>Seam Reports Module Reference Guide</name>
 
    <parent>
       <groupId>org.jboss.seam.reports</groupId>

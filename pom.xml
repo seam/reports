@@ -179,6 +179,12 @@
 		<developerConnection>scm:git:git@github.com:seam/reports.git </developerConnection>
 		<url>http://github.com/seam/reports</url>
 	</scm>
+	
+	<issueManagement>
+		<system>JIRA</system>
+		<url>https://issues.jboss.org/browse/SEAMREPORTS</url>
+	</issueManagement>
+	
 	<build>
 		<plugins>
 			<plugin>

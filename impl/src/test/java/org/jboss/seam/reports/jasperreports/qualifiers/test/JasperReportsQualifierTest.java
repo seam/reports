@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -26,7 +26,7 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDataSource;
-import org.jboss.seam.reports.ReportInstance;
+import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.jasperreports.JasperReports;
 import org.jboss.seam.reports.jasperreports.JasperSeamReportLoader;
@@ -46,7 +46,7 @@ public class JasperReportsQualifierTest {
 
     @Inject
     @SalesReport
-    Report salesReport;
+    ReportDefinition salesReport;
 
     @Inject
     @SalesReport
@@ -80,7 +80,7 @@ public class JasperReportsQualifierTest {
      */
     @Test
     public void testReportLifecycle() throws Exception {
-        ReportInstance reportInstance = salesReport.fill(dataSource, reportParams);
+        Report reportInstance = salesReport.fill(dataSource, reportParams);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
        

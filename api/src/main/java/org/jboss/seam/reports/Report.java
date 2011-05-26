@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -16,20 +16,26 @@
  */
 package org.jboss.seam.reports;
 
-import java.util.Map;
+import java.io.Serializable;
 
 /**
- * A compiled report object. May be interpreted as a template object.
+ * A report with values filled. This object may be rendered on a {@link ReportRenderer}
  * 
- * This object is normally created using a {@link ReportLoader}.
- * 
- * Produces {@link ReportInstance} objects by filling them with a {@link ReportDataSource} object and some optional
- * parameters
- * 
- * @author George Gastaldi
+ * @author george
  * 
  */
-public interface Report<T extends ReportDataSource, I extends ReportInstance> {
+public interface Report extends Serializable {
+    /**
+     * Return the definition (if available) that this report was based
+     * 
+     * @return the {@link ReportDefinition} used to create this {@link Report}
+     */
+    public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition();
 
-    I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
+    /**
+     * Return the underlying provider object for the {@link Report}, if available
+     * 
+     * @return The result of this method is implementation specific
+     */
+    public Object getDelegate();
 }

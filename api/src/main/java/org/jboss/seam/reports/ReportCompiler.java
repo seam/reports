@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -16,12 +16,17 @@
  */
 package org.jboss.seam.reports;
 
+import java.io.InputStream;
+
 /**
- * A report with values filled. This object may be rendered on a {@link ReportRenderer}
+ * Allows reports to be compiled. Some implementations might not need this.
  * 
  * @author george
  * 
  */
-public interface ReportInstance {
+public interface ReportCompiler {
+    ReportDefinition<? extends ReportDataSource, ? extends Report> compile(InputStream input) throws ReportException;
+
+    ReportDefinition<? extends ReportDataSource, ? extends Report> compile(String name) throws ReportException;
 
 }

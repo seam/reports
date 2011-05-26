@@ -14,38 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.jasperreports.renderer;
+package org.jboss.seam.reports.jasperreports;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperReport;
 
+import org.jboss.seam.reports.ReportCompiler;
 import org.jboss.seam.reports.ReportException;
-import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.jasperreports.JasperSeamReport;
 
-public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReport> {
-
+@JasperReports
+public class JasperSeamReportCompiler implements ReportCompiler {
+    
     @Override
-    public void render(JasperSeamReport reportInstance, OutputStream output) throws IOException {
-        JRExporter exporter = getExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getDelegate());
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, output);
+    public JasperSeamReportDefinition compile(InputStream input) throws ReportException {
         try {
-            exporter.exportReport();
+            JasperReport compiledReport = JasperCompileManager.compileReport(input);
+            return new JasperSeamReportDefinition(compiledReport);
         } catch (JRException e) {
             throw new ReportException(e);
         }
     }
 
-    /**
-     * Returns the exporter
-     * 
-     * @return
-     */
-    protected abstract JRExporter getExporter();
+    @Override
+    public JasperSeamReportDefinition compile(String name) throws ReportException {
+        try {
+            JasperReport compiledReport = JasperCompileManager.compileReport(name);
+            return new JasperSeamReportDefinition(compiledReport);
+        } catch (JRException e) {
+            throw new ReportException(e);
+        }
+    }
 
 }

@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -65,7 +65,7 @@ public class DynamicJasperReportRenderer extends AbstractJasperReportRenderer {
     @SuppressWarnings("unchecked")
     protected Class<JRExporter> getExporterClass() {
         Class<JRExporter> clazz;
-        ReportOutputBinding an = getAnnotation(injectionPoint.getAnnotated(), ReportOutputBinding.class, beanManager);
+        ReportOutputBinding an = getReportOutputBinding();
         String value = an.value();
         String outputType = firstLetterCaps(value);
         String className = RENDERER_PREFIX + outputType + RENDERER_SUFFIX;
@@ -77,7 +77,12 @@ public class DynamicJasperReportRenderer extends AbstractJasperReportRenderer {
         return clazz;
     }
 
-    private static String firstLetterCaps(String data) {
+    protected ReportOutputBinding getReportOutputBinding() {
+        ReportOutputBinding an = getAnnotation(injectionPoint.getAnnotated(), ReportOutputBinding.class, beanManager);
+        return an;
+    }
+
+    protected static String firstLetterCaps(String data) {
         String firstLetter = data.substring(0, 1).toUpperCase();
         String restLetters = data.substring(1).toLowerCase();
         return firstLetter + restLetters;

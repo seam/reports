@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -14,21 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.jasperreports;
+package org.jboss.seam.reports;
 
-import net.sf.jasperreports.engine.JasperPrint;
+import java.util.Map;
 
-import org.jboss.seam.reports.ReportInstance;
+/**
+ * A compiled report object. May be interpreted as a template object.
+ * 
+ * This object is normally created using a {@link ReportLoader}.
+ * 
+ * Produces {@link Report} objects by filling them with a {@link ReportDataSource} object and some optional
+ * parameters
+ * 
+ * @author George Gastaldi
+ * 
+ */
+public interface ReportDefinition<T extends ReportDataSource, I extends Report> {
 
-public class JasperSeamReportInstance implements ReportInstance {
-
-    private JasperPrint jasperPrint;
-
-    public JasperSeamReportInstance(JasperPrint jasperPrint) {
-        this.jasperPrint = jasperPrint;
-    }
-
-    public JasperPrint getJasperPrint() {
-        return jasperPrint;
-    }
+    I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
 }

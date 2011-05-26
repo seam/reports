@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.reports;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -24,6 +25,13 @@ import java.io.OutputStream;
  * @author george
  * 
  */
-public interface ReportRenderer<I extends ReportInstance> {
-    void render(I report, OutputStream output) throws ReportException;
+public interface ReportRenderer<I extends Report> {
+
+    /**
+     * 
+     * @param report
+     * @param output
+     * @throws IOException
+     */
+    void render(I report, OutputStream output) throws IOException;
 }

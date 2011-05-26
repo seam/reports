@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -33,9 +33,10 @@ import net.sf.jasperreports.engine.data.JRXlsDataSource;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.reports.Report;
+import org.jboss.seam.reports.ReportCompiler;
+import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportDataSource;
-import org.jboss.seam.reports.ReportInstance;
+import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.jasperreports.JasperReports;
@@ -64,7 +65,7 @@ public class JasperReportsTest {
     
     @Inject
     @JasperReports
-    ReportLoader loader;
+    ReportCompiler compiler;
 
     @Inject
     @JasperReports
@@ -81,14 +82,14 @@ public class JasperReportsTest {
     }
 
     @Test
-    public void testLoaderNotNull() throws Exception {
-        assertNotNull(loader);
+    public void testCompilerNotNull() throws Exception {
+        assertNotNull(compiler);
     }
 
     @Test
     public void testReportLifecycle() throws Exception {
         // source
-        Report report = loader.compile(sourceReport);
+        ReportDefinition report = compiler.compile(sourceReport);
 
         Map<String, Object> params = new HashMap<String, Object>();
         // Preparing parameters
@@ -99,7 +100,7 @@ public class JasperReportsTest {
         states.add("Trial");
         params.put("IncludedStates", states);
 
-        ReportInstance reportInstance = report.fill(getDataSource(), params);
+        Report reportInstance = report.fill(getDataSource(), params);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
         // Render output as the desired content

@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -24,6 +24,6 @@ import java.io.OutputStream;
  * @author george
  * 
  */
-public interface ReportRenderer<I extends ReportInstance> {
+public interface ReportRenderer<I extends Report> {
     void render(I report, OutputStream output) throws ReportException;
 }

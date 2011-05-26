@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -16,40 +16,19 @@
  */
 package org.jboss.seam.reports.jasperreports;
 
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportException;
 
-public class JasperSeamReport implements Report<JasperSeamReportDataSource, JasperSeamReportInstance> {
+public class JasperSeamReport implements Report {
 
-    private JasperReport compiledReport;
+    private JasperPrint jasperPrint;
 
-    public JasperSeamReport(JasperReport compiledReport) {
-        super();
-        this.compiledReport = compiledReport;
+    public JasperSeamReport(JasperPrint jasperPrint) {
+        this.jasperPrint = jasperPrint;
     }
 
-    public JasperReport getCompiledReport() {
-        return compiledReport;
+    public JasperPrint getJasperPrint() {
+        return jasperPrint;
     }
-
-    @Override
-    public JasperSeamReportInstance fill(JasperSeamReportDataSource dataSource, Map<String, Object> parameters)
-            throws ReportException {
-        try {
-            JRDataSource ds = dataSource.getDataSource();
-            JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters,ds);
-            return new JasperSeamReportInstance(filledReport);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
-
 }

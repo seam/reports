@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -24,12 +24,12 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.jasperreports.JasperSeamReportInstance;
+import org.jboss.seam.reports.jasperreports.JasperSeamReport;
 
-public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReportInstance> {
+public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReport> {
 
     @Override
-    public void render(JasperSeamReportInstance reportInstance, OutputStream output) throws ReportException {
+    public void render(JasperSeamReport reportInstance, OutputStream output) throws ReportException {
         JRExporter exporter = getExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getJasperPrint());
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, output);

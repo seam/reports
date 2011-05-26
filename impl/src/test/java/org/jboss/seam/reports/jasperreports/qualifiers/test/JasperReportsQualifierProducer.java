@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -22,7 +22,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
@@ -30,9 +29,9 @@ import javax.inject.Inject;
 import net.sf.jasperreports.engine.data.JRXlsDataSource;
 
 import org.jboss.logging.Logger;
-import org.jboss.seam.reports.Report;
+import org.jboss.seam.reports.ReportCompiler;
 import org.jboss.seam.reports.ReportDataSource;
-import org.jboss.seam.reports.ReportLoader;
+import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.jasperreports.JasperReports;
 import org.jboss.seam.reports.jasperreports.JasperSeamReportDataSource;
 import org.jboss.seam.solder.resourceLoader.Resource;
@@ -45,12 +44,12 @@ public class JasperReportsQualifierProducer {
 
     @Produces
     @SalesReport
-    Report produceSalesReport(@JasperReports Instance<ReportLoader> loader, ResourceLoaderManager resourceLoader,
+    ReportDefinition produceSalesReport(@JasperReports ReportCompiler compiler, ResourceLoaderManager resourceLoader,
             InjectionPoint ip) {
         logger.info("Producing Sales report");
         Resource resource = getResource(ip);
-        Report report = null;
-        report = loader.get().compile(resourceLoader.getResourceAsStream(resource.value()));
+        ReportDefinition report = null;
+        report = compiler.compile(resourceLoader.getResourceAsStream(resource.value()));
         return report;
     }
 

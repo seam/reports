@@ -1,6 +1,6 @@
 /**
  * JBoss, Home of Professional Open Source
- * Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+ * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
  * distribution for a full listing of individual contributors.
  *
@@ -28,16 +28,11 @@ import java.io.InputStream;
  */
 public interface ReportLoader {
 
-    // TODO: Should these compile methods be moved as it doesn´t make sense to some reporting implementations ?
-    Report<? extends ReportDataSource, ? extends ReportInstance> compile(InputStream input) throws ReportException;
+    ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(InputStream input) throws ReportException;
 
-    Report<? extends ReportDataSource, ? extends ReportInstance> compile(String name) throws ReportException;
+    ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(String name) throws ReportException;
 
-    Report<? extends ReportDataSource, ? extends ReportInstance> loadReport(InputStream input) throws ReportException;
+    Report loadReport(InputStream input) throws ReportException;
 
-    Report<? extends ReportDataSource, ? extends ReportInstance> loadReport(String name) throws ReportException;
-
-    ReportInstance loadReportInstance(InputStream input) throws ReportException;
-
-    ReportInstance loadReportInstance(String name) throws ReportException;
+    Report loadReport(String name) throws ReportException;
 }

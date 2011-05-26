@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.reports.jasperreports.renderer;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import net.sf.jasperreports.engine.JRException;
@@ -29,7 +30,7 @@ import org.jboss.seam.reports.jasperreports.JasperSeamReport;
 public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReport> {
 
     @Override
-    public void render(JasperSeamReport reportInstance, OutputStream output) throws ReportException {
+    public void render(JasperSeamReport reportInstance, OutputStream output) throws IOException {
         JRExporter exporter = getExporter();
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getDelegate());
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, output);

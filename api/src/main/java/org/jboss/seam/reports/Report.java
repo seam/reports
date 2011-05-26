@@ -16,13 +16,15 @@
  */
 package org.jboss.seam.reports;
 
+import java.io.Serializable;
+
 /**
  * A report with values filled. This object may be rendered on a {@link ReportRenderer}
  * 
  * @author george
  * 
  */
-public interface Report {
+public interface Report extends Serializable {
     /**
      * Return the definition (if available) that this report was based
      * 

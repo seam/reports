@@ -34,7 +34,7 @@ import org.jboss.seam.reports.spi.ReportOutputBinding;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-@ReportOutputBinding("XLS")
+@ReportOutputBinding(value="XLS",mimeType="application/vnd.ms-excel")
 public @interface XLS {
 
 }

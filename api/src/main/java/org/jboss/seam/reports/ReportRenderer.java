@@ -16,6 +16,7 @@
  */
 package org.jboss.seam.reports;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -25,5 +26,12 @@ import java.io.OutputStream;
  * 
  */
 public interface ReportRenderer<I extends Report> {
-    void render(I report, OutputStream output) throws ReportException;
+
+    /**
+     * 
+     * @param report
+     * @param output
+     * @throws IOException
+     */
+    void render(I report, OutputStream output) throws IOException;
 }

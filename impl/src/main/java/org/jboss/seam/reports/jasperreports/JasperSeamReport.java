@@ -22,6 +22,8 @@ import org.jboss.seam.reports.Report;
 
 public class JasperSeamReport implements Report {
 
+    private static final long serialVersionUID = 1L;
+
     private JasperPrint jasperPrint;
     private JasperSeamReportDefinition reportDefinition;
     

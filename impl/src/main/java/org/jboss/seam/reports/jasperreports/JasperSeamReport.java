@@ -23,12 +23,24 @@ import org.jboss.seam.reports.Report;
 public class JasperSeamReport implements Report {
 
     private JasperPrint jasperPrint;
-
+    private JasperSeamReportDefinition reportDefinition;
+    
     public JasperSeamReport(JasperPrint jasperPrint) {
         this.jasperPrint = jasperPrint;
     }
 
-    public JasperPrint getJasperPrint() {
+    public JasperSeamReport(JasperPrint jasperPrint, JasperSeamReportDefinition reportDefinition) {
+        this.jasperPrint = jasperPrint;
+        this.reportDefinition = reportDefinition;
+    }
+
+    @Override
+    public JasperSeamReportDefinition getReportDefinition() {
+        return reportDefinition;
+    }
+    
+    @Override
+    public JasperPrint getDelegate() {
         return jasperPrint;
     }
 }

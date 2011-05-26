@@ -28,7 +28,7 @@ public class JasperSeamReportDataSource implements ReportDataSource {
         this.dataSource = dataSource;
     }
 
-    public JRDataSource getDataSource() {
+    public JRDataSource getDelegate() {
         return dataSource;
     }
 }

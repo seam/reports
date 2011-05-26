@@ -31,7 +31,7 @@ public abstract class AbstractJasperReportRenderer implements ReportRenderer<Jas
     @Override
     public void render(JasperSeamReport reportInstance, OutputStream output) throws ReportException {
         JRExporter exporter = getExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getJasperPrint());
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getDelegate());
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, output);
         try {
             exporter.exportReport();

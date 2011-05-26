@@ -23,5 +23,17 @@ package org.jboss.seam.reports;
  * 
  */
 public interface Report {
+    /**
+     * Return the definition (if available) that this report was based
+     * 
+     * @return the {@link ReportDefinition} used to create this {@link Report}
+     */
+    public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition();
 
+    /**
+     * Return the underlying provider object for the {@link Report}, if available
+     * 
+     * @return The result of this method is implementation specific
+     */
+    public Object getDelegate();
 }

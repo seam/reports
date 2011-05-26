@@ -24,9 +24,9 @@ import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.seam.reports.ReportDefinition;
-import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.Report;
+import org.jboss.seam.reports.ReportDataSource;
+import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.jasperreports.JasperReports;
 import org.jboss.seam.reports.jasperreports.JasperSeamReportLoader;

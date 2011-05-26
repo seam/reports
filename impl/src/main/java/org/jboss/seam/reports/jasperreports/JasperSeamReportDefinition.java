@@ -44,7 +44,7 @@ public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamRe
     public JasperSeamReport fill(JasperSeamReportDataSource dataSource, Map<String, Object> parameters)
             throws ReportException {
         try {
-            JRDataSource ds = dataSource.getDataSource();
+            JRDataSource ds = dataSource.getDelegate();
             JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters,ds);
             return new JasperSeamReport(filledReport);
         } catch (JRException e) {

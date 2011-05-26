@@ -24,4 +24,10 @@ package org.jboss.seam.reports;
  */
 public interface ReportDataSource {
 
+    /**
+     * The result of this method is implementation specific
+     * 
+     * @return
+     */
+    public Object getDelegate();
 }

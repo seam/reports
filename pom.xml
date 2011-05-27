@@ -32,12 +32,7 @@
 
 	<properties>
 		<seam.version>3.0.0.Final</seam.version>
-		<jasperreports.version>4.0.1</jasperreports.version>
 		<jpdfunit.version>1.1</jpdfunit.version>
-		<jxl.version>2.6.12</jxl.version>
-		<poi.version>3.8-beta2</poi.version>
-		<velocity.version>1.7</velocity.version>
-		<xhtmlrenderer.version>R8</xhtmlrenderer.version>
 	</properties>
 
 	<dependencyManagement>
@@ -50,35 +45,9 @@
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<groupId>net.sf.jasperreports</groupId>
-				<artifactId>jasperreports</artifactId>
-				<version>${jasperreports.version}</version>
-				<optional>true</optional>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.velocity</groupId>
-				<artifactId>velocity</artifactId>
-				<version>${velocity.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.poi</groupId>
-				<artifactId>poi</artifactId>
-				<version>${poi.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sourceforge.jexcelapi</groupId>
-				<artifactId>jxl</artifactId>
-				<version>${jxl.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>net.sf.jpdfunit</groupId>
 				<artifactId>jpdfunit</artifactId>
 				<version>${jpdfunit.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.xhtmlrenderer</groupId>
-				<artifactId>core-renderer</artifactId>
-				<version>${xhtmlrenderer.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -1,14 +1,14 @@
 
-                              Seam Faces Module
+                              Seam Reports Module
                                3.0.0 SNAPSHOT
 
  What is it?
  ===========
 
- The Seam 3 Faces Module is focused on enhancements for the JavaServer Faces
- (JSF) web framework, extended integration between JSF and CDI, and integration
- between JSF and other Seam 3 modules.
+ The Seam 3 Reports Module is a portable extension for Java EE that provides APIs 
+ for compiling, populating and rendering documents (Excel, PDF, etc).
 
+  
  Contents of distribution
  ========================
 
@@ -28,10 +28,10 @@
  This distribution, as a whole, is licensed under the terms of the Apache
  License, Version 2.0 (see apl.txt).
 
- Seam Faces URLs
+ Seam Reports URLs
  ===============
 
- Seam 3 Faces Module:  http://www.sfwk.org/Seam3/FacesModule
+ Seam 3 Reports Module:  http://www.sfwk.org/Seam3/ReportsModule
  Seam 3 Home Page:     http://www.sfwk.org/Seam3
  Downloads:            http://www.sfwk.org/Seam3/DistributionDownloads
  Forums:               http://www.sfwk.org/Community/Seam3Users
@@ -41,10 +41,4 @@
  Release Notes
  =============
 
-    *  View actions
-    * javax.faces.bean.*Scoped aliases
-    * @FlashScoped and @ViewScoped
-    * CDI / Faces Phase & System Event bridge
-    * JSF API producers (FacesContext, ExternalContext, NavigationHandler, etc...)
-    * Simplified EL name to conversation: #{conversation.transient}
 

@@ -8,13 +8,14 @@
 		<version>3.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-
-	<artifactId>seam-reports</artifactId>
-	<version>3.0.0-SNAPSHOT</version>
-
-	<packaging>jar</packaging>
-	<name>Seam Reports Module Core Implementation</name>
-
+	<artifactId>seam-reports-impl</artifactId>
+	<packaging>pom</packaging>
+	<name>Seam Reports Implementations</name>
+	<modules>
+		<module>jasperreports</module>
+		<module>pentaho</module>
+	</modules>
+	
 	<properties>
 		<arquillian.version>1.0.0.Alpha5</arquillian.version>
 		<el-api.version>2.2</el-api.version>
@@ -83,30 +84,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<!-- <dependency> <groupId>org.apache.poi</groupId> <artifactId>poi</artifactId> 
-			<optional>true</optional> </dependency> -->
-		<dependency>
 			<groupId>net.sf.jpdfunit</groupId>
 			<artifactId>jpdfunit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>net.sourceforge.jexcelapi</groupId>
-			<artifactId>jxl</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 	</dependencies>
 
 	<profiles>

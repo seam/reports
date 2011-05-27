@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -14,25 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports;
+package org.jboss.seam.reports.pentaho;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.inject.Qualifier;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-/**
- * Renders a report on an specific output
- * 
- * @author george
- * 
- */
-public interface ReportRenderer<I extends Report> {
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-    /**
-     * Renders a report on the supplied {@link OutputStream}
-     * 
-     * @param report
-     * @param output
-     * @throws IOException
-     */
-    void render(I report, OutputStream output) throws IOException;
+@Qualifier
+@Target({TYPE, METHOD, PARAMETER, FIELD})
+@Retention(RUNTIME)
+@Documented
+public @interface PentahoReporting {
 }

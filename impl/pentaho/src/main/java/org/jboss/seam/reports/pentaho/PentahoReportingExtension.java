@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -14,25 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports;
+package org.jboss.seam.reports.pentaho;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
+
+import javax.enterprise.event.Observes;
+import javax.enterprise.inject.spi.AfterBeanDiscovery;
+import javax.enterprise.inject.spi.Extension;
 
 /**
- * Renders a report on an specific output
- * 
- * @author george
- * 
+ * Created by IntelliJ IDEA.
+ * User: jordan
+ * Date: 5/21/11
+ * Time: 10:29 PM
+ * To change this template use File | Settings | File Templates.
  */
-public interface ReportRenderer<I extends Report> {
+public class PentahoReportingExtension implements Extension {
 
-    /**
-     * Renders a report on the supplied {@link OutputStream}
-     * 
-     * @param report
-     * @param output
-     * @throws IOException
-     */
-    void render(I report, OutputStream output) throws IOException;
+    public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd) {
+        ClassicEngineBoot.getInstance().start();
+    }
 }

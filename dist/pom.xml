@@ -23,14 +23,7 @@
       <dependency>
          <groupId>org.jboss.seam.reports</groupId>
          <artifactId>seam-reports-api</artifactId>
-	     <version>3.0.0-SNAPSHOT</version>
-         <optional>true</optional>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.seam.reports</groupId>
-         <artifactId>seam-reports</artifactId>
-      	 <version>3.0.0-SNAPSHOT</version>
+         <version>${project.version}</version>
          <optional>true</optional>
       </dependency>
 
@@ -50,6 +43,12 @@
          <optional>true</optional>
       </dependency>
 
+      <dependency>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports</artifactId>
+         <version>${project.version}</version>
+         <optional>true</optional>
+      </dependency>
 
       <dependency>
          <groupId>org.jboss.seam.reports</groupId>

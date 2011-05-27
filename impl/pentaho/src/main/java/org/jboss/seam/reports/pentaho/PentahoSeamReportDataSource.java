@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -14,25 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports;
+package org.jboss.seam.reports.pentaho;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import org.jboss.seam.reports.ReportDataSource;
+import org.pentaho.reporting.engine.classic.core.DataFactory;
 
 /**
- * Renders a report on an specific output
+ * Pentaho Reporting Engine Data Source
  * 
- * @author george
- * 
+ * @author Jordan Ganoff
  */
-public interface ReportRenderer<I extends Report> {
-
+public class PentahoSeamReportDataSource implements ReportDataSource {
     /**
-     * Renders a report on the supplied {@link OutputStream}
-     * 
-     * @param report
-     * @param output
-     * @throws IOException
+     * Pentaho Reporting Engine Data Factory is the data source for a report
      */
-    void render(I report, OutputStream output) throws IOException;
+    private DataFactory dataFactory;
+
+    public PentahoSeamReportDataSource(final DataFactory factory) {
+        if (factory == null) {
+            throw new NullPointerException();
+        }
+        this.dataFactory = factory;
+    }
+
+    @Override
+    public DataFactory getDelegate() {
+        return dataFactory;
+    }
 }

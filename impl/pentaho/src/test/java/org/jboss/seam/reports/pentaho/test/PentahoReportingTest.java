@@ -16,25 +16,16 @@
  */
 package org.jboss.seam.reports.pentaho.test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.inject.Inject;
-
+import de.oio.jpdfunit.DocumentTester;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.pentaho.PentahoReporting;
+import org.jboss.seam.reports.pentaho.PentahoReportingExtension;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -43,7 +34,14 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import de.oio.jpdfunit.DocumentTester;
+import javax.enterprise.inject.spi.Extension;
+import javax.inject.Inject;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static org.junit.Assert.*;
 
 /**
  * Test Pentaho Reporting functionality
@@ -59,6 +57,7 @@ public class PentahoReportingTest {
                 .addPackages(true, "org.jboss.seam.solder")
                 .addPackages(true, "org.jboss.seam.reports.annotation")
                 .addPackages(true, "org.jboss.seam.reports.pentaho")
+                .addAsServiceProvider(Extension.class, PentahoReportingExtension.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 
@@ -86,13 +85,13 @@ public class PentahoReportingTest {
         Report report = loader.loadReport(sourceReport);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         pdfRenderer.render(report, baos);
-        //FIXME: The code below fails, as the baos is empty
-//        DocumentTester tester = new DocumentTester(new ByteArrayInputStream(baos.toByteArray()));
-//        try {
-//            tester.assertPageCountEquals(1);
-//        } finally {
-//            tester.close();
-//        }
+        assertTrue("Report is empty", baos.size() > 0);
+        DocumentTester tester = new DocumentTester(new ByteArrayInputStream(baos.toByteArray()));
+        try {
+            tester.assertPageCountEquals(1);
+        } finally {
+            tester.close();
+        }
     }
 
     @Test

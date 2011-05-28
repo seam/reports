@@ -13,11 +13,6 @@
 	<packaging>jar</packaging>
 	<name>Seam Reports Implementation (Pentaho Reporting)</name>
 
-	<properties>
-        <pentaho-reporting.version>3.8.0-GA</pentaho-reporting.version>
-        <pentaho-reporting-libraries.version>1.2.1</pentaho-reporting-libraries.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>net.sf.jpdfunit</groupId>
@@ -28,61 +23,67 @@
         <dependency>
             <groupId>pentaho-reporting-engine</groupId>
             <artifactId>pentaho-reporting-engine-classic-core</artifactId>
-            <version>${pentaho-reporting.version}</version>
+            <version>3.8.0-GA</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libloader</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libserializer</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libbase</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libformula</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.3</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libfonts</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.3</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libxml</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libdocbundle</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>librepository</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>pentaho-library</groupId>
             <artifactId>libformat</artifactId>
-            <version>${pentaho-reporting-libraries.version}</version>
+            <version>1.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>2.1.7</version>
         </dependency>
 	</dependencies>
 

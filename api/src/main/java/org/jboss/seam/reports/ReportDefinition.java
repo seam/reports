@@ -19,17 +19,22 @@ package org.jboss.seam.reports;
 import java.util.Map;
 
 /**
- * A compiled report object. May be interpreted as a template object.
+ * A report template object.
  * 
  * This object is normally created using a {@link ReportLoader}.
- * 
- * Produces {@link Report} objects by filling them with a {@link ReportDataSource} object and some optional
- * parameters
  * 
  * @author George Gastaldi
  * 
  */
 public interface ReportDefinition<T extends ReportDataSource, I extends Report> {
 
+    /**
+     * Produces {@link Report} objects by filling them with a {@link ReportDataSource} object and some optional parameters
+     * 
+     * @param dataSource
+     * @param parameters
+     * @return
+     * @throws ReportException
+     */
     I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
 }

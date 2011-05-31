@@ -45,25 +45,48 @@
 
       <dependency>
          <groupId>org.jboss.seam.reports</groupId>
-         <artifactId>seam-reports</artifactId>
+         <artifactId>seam-reports-jasperreports</artifactId>
          <version>${project.version}</version>
          <optional>true</optional>
       </dependency>
 
       <dependency>
          <groupId>org.jboss.seam.reports</groupId>
-         <artifactId>seam-reports</artifactId>
+         <artifactId>seam-reports-jasperreports</artifactId>
          <version>${project.version}</version>
          <classifier>sources</classifier>
       </dependency>
 
       <dependency>
          <groupId>org.jboss.seam.reports</groupId>
-         <artifactId>seam-reports</artifactId>
+         <artifactId>seam-reports-jasperreports</artifactId>
          <version>${project.version}</version>
          <classifier>javadoc</classifier>
          <optional>true</optional>
       </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports-pentaho</artifactId>
+         <version>${project.version}</version>
+         <optional>true</optional>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports-pentaho</artifactId>
+         <version>${project.version}</version>
+         <classifier>sources</classifier>
+      </dependency>
+
+      <dependency>
+         <groupId>org.jboss.seam.reports</groupId>
+         <artifactId>seam-reports-pentaho</artifactId>
+         <version>${project.version}</version>
+         <classifier>javadoc</classifier>
+         <optional>true</optional>
+      </dependency>
+
 
       <dependency>
          <groupId>org.jboss.seam.reports</groupId>

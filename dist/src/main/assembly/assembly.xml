@@ -1,7 +1,7 @@
 <!--
 
     JBoss, Home of Professional Open Source
-    Copyright 2009, Red Hat, Inc. and/or its affiliates, and individual
+    Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
     distribution for a full listing of individual contributors.
 
@@ -16,61 +16,60 @@
     limitations under the License.
 
 -->
-<assembly
-   xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
 
-   <formats>
-      <format>zip</format>
-   </formats>
-   
-   <baseDirectory>${project.build.finalName}-${project.version}</baseDirectory>
+    <formats>
+        <format>zip</format>
+    </formats>
 
-   <!-- Add distribution files -->
-   <fileSets>
-      <fileSet>
-         <directory>src/main/assembly</directory>
-         <outputDirectory>.</outputDirectory>
-         <includes>
-            <include>readme.txt</include>
-            <include>lgpl.txt</include>
-         </includes>
-      </fileSet>
-   </fileSets>
+    <baseDirectory>${project.build.finalName}-${project.version}</baseDirectory>
 
-   <dependencySets>
-      <!-- Add necessary binaries -->
-      <dependencySet>
-         <outputDirectory>artifacts</outputDirectory>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.reports:seam-reports-api</include>
-            <include>org.jboss.seam.reports:seam-reports-jasperreports</include>
-            <include>org.jboss.seam.reports:seam-reports-pentaho</include>
-         </includes>
-         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
-      </dependencySet>
-      <!-- Add necessary dependencies -->
-      <dependencySet>
-         <outputDirectory>lib</outputDirectory>
-         <useProjectArtifact>false</useProjectArtifact>
-         <useTransitiveDependencies>true</useTransitiveDependencies>
-         <excludes>
-            <exclude>org.jboss.seam.reports:*</exclude>
-         </excludes>
-         <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
-      </dependencySet>
-      <!-- Pull in javadoc for api -->
-      <dependencySet>
-         <outputDirectory>doc/apidocs</outputDirectory>
-         <unpack>true</unpack>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.reports:seam-reports-api:jar:javadoc</include>
-         </includes>
-      </dependencySet>
-      <!-- Pull in the example projects 
+    <!-- Add distribution files -->
+    <fileSets>
+        <fileSet>
+            <directory>src/main/assembly</directory>
+            <outputDirectory>.</outputDirectory>
+            <includes>
+                <include>readme.txt</include>
+                <include>lgpl.txt</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <!-- Add necessary binaries -->
+        <dependencySet>
+            <outputDirectory>artifacts/${artifact.artifactId}</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.reports:seam-reports-api</include>
+                <include>org.jboss.seam.reports:seam-reports-jasperreports</include>
+                <include>org.jboss.seam.reports:seam-reports-pentaho</include>
+            </includes>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+        <!-- Add necessary dependencies -->
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <excludes>
+                <exclude>org.jboss.seam.reports:*</exclude>
+            </excludes>
+            <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+        <!-- Pull in javadoc for api -->
+        <dependencySet>
+            <outputDirectory>doc/apidocs</outputDirectory>
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.reports:seam-reports-api:jar:javadoc</include>
+            </includes>
+        </dependencySet>
+        <!-- Pull in the example projects 
       <dependencySet>
          <outputDirectory>examples</outputDirectory>
          <unpack>true</unpack>
@@ -80,19 +79,19 @@
          </includes>
       </dependencySet>
       -->
-      <!-- Pull in docbook artifacts -->
-      <dependencySet>
-         <outputDirectory>doc/reference</outputDirectory>
-         <unpack>true</unpack>
-         <useProjectArtifact>false</useProjectArtifact>
-         <includes>
-            <include>org.jboss.seam.reports:seam-reports-reference-guide</include>
-         </includes>
-         <unpackOptions>
-            <excludes>
-               <exclude>META-INF/</exclude>
-            </excludes>
-         </unpackOptions>
-      </dependencySet>
-   </dependencySets>
+        <!-- Pull in docbook artifacts -->
+        <dependencySet>
+            <outputDirectory>doc/reference</outputDirectory>
+            <unpack>true</unpack>
+            <useProjectArtifact>false</useProjectArtifact>
+            <includes>
+                <include>org.jboss.seam.reports:seam-reports-reference-guide</include>
+            </includes>
+            <unpackOptions>
+                <excludes>
+                    <exclude>META-INF/</exclude>
+                </excludes>
+            </unpackOptions>
+        </dependencySet>
+    </dependencySets>
 </assembly>

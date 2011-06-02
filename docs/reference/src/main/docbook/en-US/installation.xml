@@ -18,19 +18,63 @@
 
 -->
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-<chapter id="faces.installation">
-	<title>Installation</title>
-	<para> Most features of Seam Reports are installed automatically by including the
-		seam-reports.jar and seam-reports-api.jar in the web application library folder. If you are
-		using <ulink url="http://maven.apache.org/">Maven</ulink> as your build tool, you can add
-		the following dependency to your pom.xml file: </para>
-	<programlisting role="XML"><![CDATA[<dependency>
+<chapter id="reports.installation">
+    <title>Installation</title>
+    <para> Most features of Seam Reports are installed automatically by including the
+        seam-reports-api.jar and the respective provider implementation (along with its
+        dependencies) in the web application library folder. If you are using <ulink
+            url="http://maven.apache.org/">Maven</ulink> as your build tool, you can add the
+        following dependency to your pom.xml file: </para>
+    <programlisting role="XML"><![CDATA[<dependency>
 	<groupId>org.jboss.seam.reports</groupId>
-	<artifactId>seam-reports</artifactId>
+	<artifactId>seam-reports-api</artifactId>
 	<version>${seam-reports-version}</version>
-</dependency>]]></programlisting>
-	<tip>
-		<para>Replace ${seam-reports-version} with the most recent or appropriate version of Seam
-			Reports.</para>
-	</tip>
+</dependency>
+
+<!-- If you are using Jasper Reports, add the following dependency --> 
+<dependency>
+	<groupId>org.jboss.seam.reports</groupId>
+	<artifactId>seam-reports-jasperreports</artifactId>
+	<version>${seam-reports-version}</version>
+</dependency>
+
+<!-- If you are using Pentaho, add the following dependency --> 
+<dependency>
+	<groupId>org.jboss.seam.reports</groupId>
+	<artifactId>seam-reports-pentaho</artifactId>
+	<version>${seam-reports-version}</version>
+</dependency>
+]]></programlisting>
+    <tip>
+        <para>Replace ${seam-reports-version} with the most recent or appropriate version of Seam
+            Reports.</para>
+    </tip>
+    <section id="using.forge">
+        <title>Installation using Seam Forge</title>
+        <para>If you are using Seam Forge, you may use the seam-reports plugin to help with the
+            setup.</para>
+        <section>
+            <title>Plugin Installation</title>
+            <para>If not already installed yet on Forge, you may install the plugin by running the
+                following command inside Forge:</para>
+            <programlisting>forge git-plugin git://github.com/forge/plugin-seam-reports.git</programlisting>
+        </section>
+        <section>
+            <title>Plugin Configuration</title>
+            <itemizedlist>
+                <listitem>
+                    <para>To add only the api:</para>
+                    <programlisting>seam-reports setup</programlisting>
+                </listitem>
+                <listitem>
+                    <para>To configure Seam Reports to work with JasperReports:</para>
+                    <programlisting>seam-reports setup --provider JASPERREPORTS</programlisting>
+                </listitem>
+                <listitem>
+                    <para>To configure Seam Reports to work with Pentaho Reporting Engine:</para>
+                    <programlisting>seam-reports setup --provider PENTAHO</programlisting>
+                </listitem>
+            </itemizedlist>
+        </section>
+    </section>
 </chapter>

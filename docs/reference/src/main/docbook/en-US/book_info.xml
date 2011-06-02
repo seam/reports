@@ -21,6 +21,9 @@
 <bookinfo>
    <title>Seam Reports Module</title>
    <subtitle>Reference Guide</subtitle>
-   <releaseinfo>3.0.0-SNAPSHOT</releaseinfo>
+   <productnumber>1.0.0</productnumber>
+   <edition>1.0</edition>
+   <pubsnumber>1</pubsnumber>
+   
    <xi:include href="author_group.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 </bookinfo>

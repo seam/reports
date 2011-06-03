@@ -16,14 +16,12 @@
  */
 package org.jboss.seam.reports.pentaho;
 
-import org.jboss.logging.Logger;
-import org.jboss.seam.reports.ReportException;
-import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
-
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
-import javax.inject.Inject;
+
+import org.jboss.seam.reports.ReportException;
+import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
 
 /**
  * Pentaho Reporting bootstrap to initialize the Reporting Engine at application startup

@@ -17,33 +17,37 @@
 package org.jboss.seam.reports.pentaho;
 
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportLoader;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 import org.pentaho.reporting.engine.classic.core.modules.parser.base.ReportGenerator;
+import org.pentaho.reporting.libraries.resourceloader.Resource;
 import org.pentaho.reporting.libraries.resourceloader.ResourceManager;
 import org.xml.sax.InputSource;
 
 /**
  * Pentaho Reporting Engine Report Loader
- *
+ * 
  * @author Jordan Ganoff
  */
+@SuppressWarnings("deprecation")
 @PentahoReporting
 public class PentahoSeamReportLoader implements ReportLoader {
     private ResourceManager rmgr = new ResourceManager();
 
     @Override
     public PentahoSeamReportDefinition loadReportDefinition(InputStream input) throws ReportException {
-        return new PentahoSeamReportDefinition(new PentahoSeamReport(loadMasterReport(input)));
+        return new PentahoSeamReportDefinition(loadMasterReport(input));
     }
 
     @Override
     public PentahoSeamReportDefinition loadReportDefinition(String name) throws ReportException {
-        return new PentahoSeamReportDefinition(new PentahoSeamReport(loadMasterReport(name)));
+        return new PentahoSeamReportDefinition(loadMasterReport(name));
     }
-    
+
     @Override
     public PentahoSeamReport loadReport(InputStream input) throws ReportException {
         return new PentahoSeamReport(loadMasterReport(input));
@@ -56,7 +60,7 @@ public class PentahoSeamReportLoader implements ReportLoader {
 
     /**
      * Parse a report from the provided input stream
-     *
+     * 
      * @param input Input stream containing Pentaho Reporting report
      * @return Pentaho Reporting report
      * @throws ReportException if the input stream is null or contains a malformed report
@@ -73,16 +77,22 @@ public class PentahoSeamReportLoader implements ReportLoader {
         }
     }
 
+    /**
+     * Loads a {@link MasterReport} by name
+     * 
+     * @param name
+     * @return
+     * @throws ReportException
+     */
     private MasterReport loadMasterReport(String name) throws ReportException {
-        throw new UnsupportedOperationException();
-//        try {
-//            rmgr.registerDefaults();
-//            Resource resource = rmgr.createDirectly(new URL(name), MasterReport.class);
-//            return new PentahoSeamReport(new PentahoSeamReportInstance((MasterReport) resource.getResource()));
-//        } catch (MalformedURLException ex) {
-//            throw new ReportException("Invalid report path: " + name, ex);
-//        } catch (Exception ex) {
-//            throw new ReportException("Error loading report with name '" + name + "'", ex);
-//        }
+        try {
+            rmgr.registerDefaults();
+            Resource resource = rmgr.createDirectly(new URL(name), MasterReport.class);
+            return (MasterReport) resource.getResource();
+        } catch (MalformedURLException ex) {
+            throw new ReportException("Invalid report path: " + name, ex);
+        } catch (Exception ex) {
+            throw new ReportException("Error loading report with name '" + name + "'", ex);
+        }
     }
 }

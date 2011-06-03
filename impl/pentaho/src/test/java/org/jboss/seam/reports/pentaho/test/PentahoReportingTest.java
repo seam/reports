@@ -16,14 +16,27 @@
  */
 package org.jboss.seam.reports.pentaho.test;
 
-import de.oio.jpdfunit.DocumentTester;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
+import javax.enterprise.inject.spi.Extension;
+import javax.inject.Inject;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.output.CSV;
 import org.jboss.seam.reports.output.PDF;
+import org.jboss.seam.reports.output.XML;
 import org.jboss.seam.reports.pentaho.PentahoReporting;
 import org.jboss.seam.reports.pentaho.PentahoReportingExtension;
 import org.jboss.seam.solder.resourceLoader.Resource;
@@ -34,18 +47,11 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.enterprise.inject.spi.Extension;
-import javax.inject.Inject;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static org.junit.Assert.*;
+import de.oio.jpdfunit.DocumentTester;
 
 /**
  * Test Pentaho Reporting functionality
- *
+ * 
  * @author Jordan Ganoff
  */
 @RunWith(Arquillian.class)
@@ -53,10 +59,8 @@ public class PentahoReportingTest {
 
     @Deployment
     public static JavaArchive createArchive() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackages(true, "org.jboss.seam.solder")
-                .addPackages(true, "org.jboss.seam.reports.annotation")
-                .addPackages(true, "org.jboss.seam.reports.pentaho")
+        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "org.jboss.seam.solder")
+                .addPackages(true, "org.jboss.seam.reports.annotation").addPackages(true, "org.jboss.seam.reports.pentaho")
                 .addAsServiceProvider(Extension.class, PentahoReportingExtension.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
@@ -73,6 +77,16 @@ public class PentahoReportingTest {
     @PentahoReporting
     @PDF
     private ReportRenderer<Report> pdfRenderer;
+
+    @Inject
+    @PentahoReporting
+    @XML
+    private ReportRenderer<Report> xmlRenderer;
+
+    @Inject
+    @PentahoReporting
+    @CSV
+    private ReportRenderer<Report> csvRenderer;
 
     @Test
     public void loadReport_inputStream() {
@@ -95,14 +109,24 @@ public class PentahoReportingTest {
     }
 
     @Test
-    public void loadReport_name() {
-        try {
-            Report report = loader.loadReport("pentaho-simple.prpt");
-            fail("Not expecting loadReport(String) to work properly");
-        } catch (UnsupportedOperationException ex) {
-        } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Unexpected error: " + t.getMessage());
-        }
+    public void renderReportAsXML() throws ReportException, IOException {
+        Report report = loader.loadReport(sourceReport);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        xmlRenderer.render(report, baos);
+        assertTrue("Report is empty", baos.size() > 0);
+    }
+
+    @Test
+    public void renderReportAsCSV() throws ReportException, IOException {
+        Report report = loader.loadReport(sourceReport);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        csvRenderer.render(report, baos);
+        assertTrue("Report is empty", baos.size() > 0);
+    }
+
+    @Test
+    public void loadReport_name(@Resource("pentaho-simple.prpt") URL sourceReport) {
+        Report report = loader.loadReport(sourceReport.toExternalForm());
+        assertNotNull(report);
     }
 }

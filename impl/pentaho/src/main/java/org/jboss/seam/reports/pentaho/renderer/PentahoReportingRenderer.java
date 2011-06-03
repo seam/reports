@@ -18,6 +18,7 @@ package org.jboss.seam.reports.pentaho.renderer;
 
 import static org.jboss.seam.solder.reflection.AnnotationInspector.getAnnotation;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.enterprise.inject.spi.BeanManager;
@@ -32,11 +33,13 @@ import org.jboss.seam.reports.spi.ReportOutputBinding;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 import org.pentaho.reporting.engine.classic.core.ReportProcessingException;
 import org.pentaho.reporting.engine.classic.core.modules.output.pageable.pdf.PdfReportUtil;
+import org.pentaho.reporting.engine.classic.core.modules.output.table.csv.CSVReportUtil;
 import org.pentaho.reporting.engine.classic.core.modules.output.table.xls.ExcelReportUtil;
+import org.pentaho.reporting.engine.classic.core.modules.output.table.xml.XmlTableReportUtil;
 
 /**
  * Pentaho Reporting Engine Report Renderer
- *
+ * 
  * @author Jordan Ganoff
  */
 @PentahoReporting
@@ -51,16 +54,22 @@ public class PentahoReportingRenderer implements ReportRenderer<PentahoSeamRepor
     public void render(PentahoSeamReport report, OutputStream output) throws ReportException {
         ReportOutputBinding an = getAnnotation(ip.getAnnotated(), ReportOutputBinding.class, bm);
         MasterReport mr = report.getDelegate();
-        if ("PDF".equals(an.value())) {
-            PdfReportUtil.createPDF(mr, output);
-        } else if("XLS".equals(an.value())) {
-            try {
+        try {
+            if ("PDF".equals(an.value())) {
+                PdfReportUtil.createPDF(mr, output);
+            } else if ("XLS".equals(an.value())) {
                 ExcelReportUtil.createXLS(mr, output);
-            } catch (ReportProcessingException ex) {
-                throw new ReportException("Error rendering report", ex);
+            } else if ("CSV".equals(an.value())) {
+                CSVReportUtil.createCSV(mr, output, "UTF-8");
+            } else if ("XML".equals(an.value())) {
+                XmlTableReportUtil.createStreamXML(mr, output);
+            } else {
+                throw new ReportException("Unknown output format: " + an);
             }
-        } else {
-            throw new ReportException("Unknown output format: " + an);
+        } catch (ReportProcessingException ex) {
+            throw new ReportException("Error rendering report", ex);
+        } catch (IOException io) {
+            throw new ReportException("Error rendering report", io);
         }
     }
 }

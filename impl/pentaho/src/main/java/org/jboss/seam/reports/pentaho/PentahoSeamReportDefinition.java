@@ -18,10 +18,9 @@ package org.jboss.seam.reports.pentaho;
 
 import java.util.Map;
 
-import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportException;
-import org.pentaho.reporting.engine.classic.core.DataFactory;
+import org.pentaho.reporting.engine.classic.core.MasterReport;
 
 /**
  * Pentaho Reporting Engine Seam Component
@@ -29,9 +28,9 @@ import org.pentaho.reporting.engine.classic.core.DataFactory;
  * @author Jordan Ganoff
  */
 public class PentahoSeamReportDefinition implements ReportDefinition<PentahoSeamReportDataSource, PentahoSeamReport> {
-    private PentahoSeamReport report;
+    private MasterReport report;
 
-    public PentahoSeamReportDefinition(PentahoSeamReport report) {
+    public PentahoSeamReportDefinition(MasterReport report) {
         if (report == null) {
             throw new NullPointerException();
         }
@@ -40,12 +39,19 @@ public class PentahoSeamReportDefinition implements ReportDefinition<PentahoSeam
 
     @Override
     public PentahoSeamReport fill(PentahoSeamReportDataSource dataSource, Map<String, Object> parameters) throws ReportException {
+        MasterReport masterReport;
         if (dataSource != null) {
-            final DataFactory dataFactory = dataSource.getDelegate();
-            // TODO Clone report
-            report.getDelegate().setDataFactory(dataSource.getDelegate());
+            try {
+                masterReport = (MasterReport) report.clone();
+            } catch (CloneNotSupportedException ignored) {
+                // Should not happen
+                throw new IllegalStateException("Error while cloning MasterReport",ignored);
+            }
+            masterReport.setDataFactory(dataSource.getDelegate());
+            // TODO Process parameters
+        } else {
+            masterReport = report;
         }
-        // TODO Process parameters
-        return report;
+        return new PentahoSeamReport(masterReport);
     }
 }

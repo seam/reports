@@ -30,18 +30,19 @@ import org.xml.sax.InputSource;
  *
  * @author Jordan Ganoff
  */
+@SuppressWarnings("deprecation")
 @PentahoReporting
 public class PentahoSeamReportLoader implements ReportLoader {
     private ResourceManager rmgr = new ResourceManager();
 
     @Override
     public PentahoSeamReportDefinition loadReportDefinition(InputStream input) throws ReportException {
-        return new PentahoSeamReportDefinition(new PentahoSeamReport(loadMasterReport(input)));
+        return new PentahoSeamReportDefinition(loadMasterReport(input));
     }
 
     @Override
     public PentahoSeamReportDefinition loadReportDefinition(String name) throws ReportException {
-        return new PentahoSeamReportDefinition(new PentahoSeamReport(loadMasterReport(name)));
+        return new PentahoSeamReportDefinition(loadMasterReport(name));
     }
     
     @Override

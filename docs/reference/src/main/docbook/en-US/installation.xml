@@ -34,7 +34,7 @@
 <!-- If you are using Jasper Reports, add the following dependency --> 
 <dependency>
 	<groupId>org.jboss.seam.reports</groupId>
-	<artifactId>seam-reports-jasperreports</artifactId>
+	<artifactId>seam-reports-jasper</artifactId>
 	<version>${seam-reports-version}</version>
 </dependency>
 
@@ -68,7 +68,7 @@
                 </listitem>
                 <listitem>
                     <para>To configure Seam Reports to work with JasperReports:</para>
-                    <programlisting>seam-reports setup --provider JASPERREPORTS</programlisting>
+                    <programlisting>seam-reports setup --provider JASPER</programlisting>
                 </listitem>
                 <listitem>
                     <para>To configure Seam Reports to work with Pentaho Reporting Engine:</para>

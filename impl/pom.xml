@@ -12,7 +12,7 @@
 	<packaging>pom</packaging>
 	<name>Seam Reports Implementations</name>
 	<modules>
-		<module>jasperreports</module>
+		<module>jasper</module>
 		<module>pentaho</module>
 	</modules>
 	
@@ -26,7 +26,6 @@
 			<groupId>org.jboss.seam.reports</groupId>
 			<artifactId>seam-reports-api</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam.solder</groupId>

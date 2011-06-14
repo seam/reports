@@ -24,7 +24,10 @@
 
  	<oo:OfficeManagerProducer>
  		<s:modifies/>
- 		<oo:officeHome>/usr/lib/libreoffice/</oo:officeHome>
+ 	    <oo:officeHome>/usr/lib/libreoffice/</oo:officeHome>
+ 	    <!--
+ 		<oo:officeHome>C:\Program Files (x86)\OpenOffice.org 3</oo:officeHome>
+ 		-->
  		<oo:portNumbers>
  			<s:value>8100</s:value>
 <!--  			<s:value>8101</s:value> -->

@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
@@ -47,107 +48,98 @@ import de.oio.jpdfunit.document.util.TextSearchType;
 
 @RunWith(Arquillian.class)
 public class OOReportsTest {
-	
-	@Inject @Resource("varTemplate.odf") InputStream input;
-	
-	@Inject @Resource("facsimile.png") URL backgroundImage;
-	
-	@Inject @OOReports ReportLoader reportLoader;
-	
-	@Inject @OOReports ReportRenderer renderer;
-	
-	@Inject @OOReports @PDF ReportRenderer pdfRenderer;
-	
-	@Deployment
-	public static JavaArchive createArchive() {
-		return ShrinkWrap.create(JavaArchive.class)
-		.addPackages(true,"org.jboss.seam.solder")
-		.addPackages(true,"org.jboss.seam.config")
-		.addPackages(true,"org.jboss.seam.reports")
-		.addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-		.addAsManifestResource("seam-beans.xml", ArchivePaths.create("seam-beans.xml"));
-	}
-	
-	@Test
-	public void fill() throws Exception {
-		Report report = reportLoader.loadReport(input);
-		Map<String, Object> parameters = new HashMap<String, Object>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put("name", "Alberto Gori");
-			}
-		};
-		report.getReportDefinition().fill(null, parameters);
-		FileOutputStream fos = new FileOutputStream("target/output.odf");
-		renderer.render(report, fos);
-		fos.close();
-		
-		TextDocument tester = TextDocument.loadDocument("target/output.odf");
-		assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
-		assertFalse(tester.getStylesDom().toString().contains("facsimile.png"));
-	}
-	
-	@Test
-	public void addBackgroundImage() throws Exception {
-		OOSeamReport report = (OOSeamReport) reportLoader.loadReport(input);
-		Map<String, Object> parameters = new HashMap<String, Object>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put("name", "Alberto Gori");
-			}
-		};
-		report.getReportDefinition().fill(null, parameters);
-		report.getDelegate().addBackgroundImage(backgroundImage.toURI(), "Pictures/facsimile.png", "image/png");
-		FileOutputStream fos = new FileOutputStream("target/outputWithBackgroundImage.odf");
-		renderer.render(report, fos);
-		fos.close();
-		
-		TextDocument tester = TextDocument.loadDocument("target/outputWithBackgroundImage.odf");
-		assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
-		assertTrue(tester.getStylesDom().toString().contains("facsimile.png"));
-	}
-	
-	@Test
-	public void renderToPDF() throws Exception {
-		OOSeamReport report = (OOSeamReport) reportLoader.loadReport(input);
-		Map<String, Object> parameters = new HashMap<String, Object>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put("name", "Alberto Gori");
-			}
-		};
-		report.getReportDefinition().fill(null, parameters);
-		report.getDelegate().addBackgroundImage(backgroundImage.toURI(), "Pictures/facsimile.png", "image/png");
-		FileOutputStream fos = new FileOutputStream("target/outputWithBackgroundImage.pdf");
-		pdfRenderer.render(report, fos);
-		fos.close();
-		
-		DocumentTester tester = new DocumentTester("target/outputWithBackgroundImage.pdf");
-		tester.assertContentContainsText("Hello Alberto Gori", TextSearchType.CONTAINS);
-	}
-	
-	@Test
-	public void renderToPDF_moreTimes() throws Exception {
-		
-		for (int i = 0; i < 10; ++i) {
-			InputStream templateStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("varTemplate.odf");
-			OOSeamReport report = (OOSeamReport) reportLoader.loadReport(templateStream);
-			Map<String, Object> parameters = new HashMap<String, Object>() {
-				private static final long serialVersionUID = 1L;
-				{
-					put("name", "Alberto Gori");
-				}
-			};
-			report.getReportDefinition().fill(null, parameters);
-			report.getDelegate().addBackgroundImage(backgroundImage.toURI(), "Pictures/facsimile.png", "image/png");
-			FileOutputStream fos = new FileOutputStream("target/outputWithBackgroundImage" + i + ".pdf");
-			pdfRenderer.render(report, fos);
-			fos.close();
-			templateStream.close();
 
-		}
-	}
-	
-	
+    @Inject
+    @Resource("varTemplate.odf")
+    InputStream input;
+
+    @Inject
+    @Resource("facsimile.png")
+    URL backgroundImage;
+
+    @Inject
+    @OOReports
+    ReportLoader reportLoader;
+
+    @Inject
+    @OOReports
+    ReportRenderer renderer;
+
+    @Inject
+    @OOReports
+    @PDF
+    ReportRenderer pdfRenderer;
+
+    @Deployment
+    public static JavaArchive createArchive() {
+        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "org.jboss.seam.solder")
+                .addPackages(true, "org.jboss.seam.config").addPackages(true, "org.jboss.seam.reports")
+                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+                .addAsManifestResource("seam-beans.xml", ArchivePaths.create("seam-beans.xml"));
+    }
+
+    @Test
+    public void fill() throws Exception {
+        Report report = reportLoader.loadReport(input);
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("name", "Alberto Gori");
+        report.getReportDefinition().fill(null, parameters);
+        FileOutputStream fos = new FileOutputStream("target/output.odf");
+        renderer.render(report, fos);
+        fos.close();
+
+        TextDocument tester = TextDocument.loadDocument("target/output.odf");
+        assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
+        assertFalse(tester.getStylesDom().toString().contains("facsimile.png"));
+    }
+
+    @Test
+    public void addBackgroundImage() throws Exception {
+        OOSeamReport report = (OOSeamReport) reportLoader.loadReport(input);
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("name", "Alberto Gori");
+        report.getReportDefinition().fill(null, parameters);
+        report.getDelegate().addBackgroundImage(backgroundImage.toURI(), "Pictures/facsimile.png", "image/png");
+        FileOutputStream fos = new FileOutputStream("target/outputWithBackgroundImage.odf");
+        renderer.render(report, fos);
+        fos.close();
+
+        TextDocument tester = TextDocument.loadDocument("target/outputWithBackgroundImage.odf");
+        assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
+        assertTrue(tester.getStylesDom().toString().contains("facsimile.png"));
+    }
+
+    @Test
+    public void renderToPDF() throws Exception {
+        OOSeamReport report = (OOSeamReport) reportLoader.loadReport(input);
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("name", "Alberto Gori");
+        report.getReportDefinition().fill(null, parameters);
+        report.getDelegate().addBackgroundImage(backgroundImage.toURI(), "Pictures/facsimile.png", "image/png");
+        FileOutputStream fos = new FileOutputStream("target/outputWithBackgroundImage.pdf");
+        pdfRenderer.render(report, fos);
+        fos.close();
+
+        DocumentTester tester = new DocumentTester("target/outputWithBackgroundImage.pdf");
+        tester.assertContentContainsText("Hello Alberto Gori", TextSearchType.CONTAINS);
+    }
+
+    @Test
+    public void renderToPDF_moreTimes(@Resource("varTemplate.odf") Instance<InputStream> varTemplate) throws Exception {
+
+        for (int i = 0; i < 10; ++i) {
+            InputStream templateStream = varTemplate.get();
+            OOSeamReport report = (OOSeamReport) reportLoader.loadReport(templateStream);
+            Map<String, Object> parameters = new HashMap<String, Object>();
+            parameters.put("name", "Alberto Gori");
+            report.getReportDefinition().fill(null, parameters);
+            report.getDelegate().addBackgroundImage(backgroundImage.toURI(), "Pictures/facsimile.png", "image/png");
+            FileOutputStream fos = new FileOutputStream("target/outputWithBackgroundImage" + i + ".pdf");
+            pdfRenderer.render(report, fos);
+            fos.close();
+            templateStream.close();
+
+        }
+    }
 
 }

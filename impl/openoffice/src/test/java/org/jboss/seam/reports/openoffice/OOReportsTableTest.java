@@ -49,102 +49,100 @@ import org.odftoolkit.simple.TextDocument;
 
 @RunWith(Arquillian.class)
 public class OOReportsTableTest {
-	
-	@Inject @Resource("tableTemplate.odf") InputStream input;
-	
-	@Inject @Resource("facsimile.png") URL backgroundImage;
-	
-	@Inject @OOReports ReportLoader reportLoader;
-	
-	@Inject @OOReports ReportRenderer renderer;
-	
-	@Inject @OOReports @PDF ReportRenderer pdfRenderer;
-	
-	@Deployment
-	public static JavaArchive createArchive() {
-		return ShrinkWrap.create(JavaArchive.class)
-		.addPackages(true,"org.jboss.seam.solder")
-		.addPackages(true,"org.jboss.seam.config")
-		.addPackages(true,"org.jboss.seam.reports")
-		.addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-		.addAsManifestResource("seam-beans.xml", ArchivePaths.create("seam-beans.xml"));
-	}
-	
-	private List<User> createUserList() {
-		List<User> result = new ArrayList<User>();
-		result.add(new User("Alberto", "Gori"));
-		result.add(new User("James", "Lee"));
-		result.add(new User("Jane", "Pitt"));
-		return result;
-	}
-	
-	Report processTemplate() {
-		Report report = reportLoader.loadReport(input);
-		
-		Map<String, Object> parameters = new HashMap<String, Object>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put("name", "Alberto Gori");
-				put("users", createUserList());
-			}
-		};
-		
-		OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
-		OOSeamReportDataSource ds = new OOSeamReportDataSource();
-		ds.add(new OODefaultTableRowIterator("table1", "users"));
-	
-		ReportDefinition reportDefinition = report.getReportDefinition();
-		reportDefinition.fill(ds, parameters);
-		return report;
-	}
-	
-	@Test
-	public void fill() throws Exception {
-		Report report = processTemplate();
-		FileOutputStream fos = new FileOutputStream("target/output.odf");
-		renderer.render(report, fos);
-		fos.close();
-		
-		TextDocument tester = TextDocument.loadDocument("target/output.odf");
-		assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
-	}
-	
-	@Test
-	public void hide() throws Exception {
-		
-		Map<String, Object> parameters = new HashMap<String, Object>() {
-			private static final long serialVersionUID = 1L;
-			{
-				put("name", "Alberto Gori");
-				put("users", createUserList());
-			}
-		};
-		
-		Report report = reportLoader.loadReport(input);
-		OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
-		
-		OOSeamReportDataSource ds = new OOSeamReportDataSource();
-		ds.add(new OODefaultTableRowIterator("table1", "users").hide());
-		ReportDefinition reportDefinition = report.getReportDefinition();
-		reportDefinition.fill(ds, parameters);
-		
-		FileOutputStream fos = new FileOutputStream("target/hidden-output.odf");
-		renderer.render(report, fos);
-		fos.close();
-		
-		TextDocument tester = TextDocument.loadDocument("target/output.odf");
-		assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
-	}
-	
-	
-	@Test
-	public void fillRenderPdf() throws Exception {
-		Report report = processTemplate();
-		FileOutputStream fos = new FileOutputStream("target/output.pdf");
-		pdfRenderer.render(report, fos);
-		fos.close();
-	}
-	
 
+    @Inject
+    @Resource("tableTemplate.odf")
+    InputStream input;
+
+    @Inject
+    @Resource("facsimile.png")
+    URL backgroundImage;
+
+    @Inject
+    @OOReports
+    ReportLoader reportLoader;
+
+    @Inject
+    @OOReports
+    ReportRenderer renderer;
+
+    @Inject
+    @OOReports
+    @PDF
+    ReportRenderer pdfRenderer;
+
+    @Deployment
+    public static JavaArchive createArchive() {
+        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "org.jboss.seam.solder")
+                .addPackages(true, "org.jboss.seam.config").addPackages(true, "org.jboss.seam.reports")
+                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
+                .addAsManifestResource("seam-beans.xml", ArchivePaths.create("seam-beans.xml"));
+    }
+
+    private List<User> createUserList() {
+        List<User> result = new ArrayList<User>();
+        result.add(new User("Alberto", "Gori"));
+        result.add(new User("James", "Lee"));
+        result.add(new User("Jane", "Pitt"));
+        return result;
+    }
+
+    Report processTemplate() {
+        Report report = reportLoader.loadReport(input);
+
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("name", "Alberto Gori");
+        parameters.put("users", createUserList());
+
+        OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
+        OOSeamReportDataSource ds = new OOSeamReportDataSource();
+        ds.add(new OODefaultTableRowIterator("table1", "users"));
+
+        ReportDefinition reportDefinition = report.getReportDefinition();
+        reportDefinition.fill(ds, parameters);
+        return report;
+    }
+
+    @Test
+    public void fill() throws Exception {
+        Report report = processTemplate();
+        FileOutputStream fos = new FileOutputStream("target/output.odf");
+        renderer.render(report, fos);
+        fos.close();
+
+        TextDocument tester = TextDocument.loadDocument("target/output.odf");
+        assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
+    }
+
+    @Test
+    public void hide() throws Exception {
+
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("name", "Alberto Gori");
+        parameters.put("users", createUserList());
+
+        Report report = reportLoader.loadReport(input);
+        OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
+
+        OOSeamReportDataSource ds = new OOSeamReportDataSource();
+        ds.add(new OODefaultTableRowIterator("table1", "users").hide());
+        ReportDefinition reportDefinition = report.getReportDefinition();
+        reportDefinition.fill(ds, parameters);
+
+        FileOutputStream fos = new FileOutputStream("target/hidden-output.odf");
+        renderer.render(report, fos);
+        fos.close();
+
+        TextDocument tester = TextDocument.loadDocument("target/output.odf");
+        assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
+    }
+
+    @Test
+    public void fillRenderPdf() throws Exception {
+        Report report = processTemplate();
+        FileOutputStream fos = new FileOutputStream("target/output.pdf");
+        pdfRenderer.render(report, fos);
+        fos.close();
+    }
 
 }

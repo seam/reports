@@ -13,6 +13,7 @@
 	<modules>
 		<module>jasper</module>
 		<module>pentaho</module>
+		<module>openoffice</module>
 	</modules>
 	
 	<properties>

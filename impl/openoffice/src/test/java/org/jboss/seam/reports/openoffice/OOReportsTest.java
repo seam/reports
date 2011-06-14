@@ -39,6 +39,7 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.odftoolkit.simple.TextDocument;
@@ -110,6 +111,7 @@ public class OOReportsTest {
     }
 
     @Test
+    @Ignore("Ignored until OpenOffice is installed on Hudson")
     public void renderToPDF() throws Exception {
         OOSeamReport report = (OOSeamReport) reportLoader.loadReport(input);
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -125,6 +127,7 @@ public class OOReportsTest {
     }
 
     @Test
+    @Ignore("Ignored until OpenOffice is installed on Hudson")
     public void renderToPDF_moreTimes(@Resource("varTemplate.odf") Instance<InputStream> varTemplate) throws Exception {
 
         for (int i = 0; i < 10; ++i) {

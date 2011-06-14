@@ -43,6 +43,7 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.odftoolkit.simple.TextDocument;
@@ -138,6 +139,7 @@ public class OOReportsTableTest {
     }
 
     @Test
+    @Ignore("Ignored until OpenOffice is installed on Hudson")
     public void fillRenderPdf() throws Exception {
         Report report = processTemplate();
         FileOutputStream fos = new FileOutputStream("target/output.pdf");

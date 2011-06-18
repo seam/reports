@@ -28,7 +28,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportLoader;
@@ -42,12 +42,10 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.odftoolkit.simple.TextDocument;
+import org.testng.annotations.Test;
 
-@RunWith(Arquillian.class)
-public class OOReportsParagraphTest {
+public class OOReportsParagraphTest extends Arquillian {
 
     @Inject
     @Resource("paragraphIteratorTemplate.odf")

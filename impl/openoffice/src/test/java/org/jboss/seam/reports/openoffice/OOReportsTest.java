@@ -16,9 +16,6 @@
  */
 package org.jboss.seam.reports.openoffice;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
@@ -29,7 +26,7 @@ import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.testng.Arquillian;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
@@ -39,16 +36,14 @@ import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.odftoolkit.simple.TextDocument;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import de.oio.jpdfunit.DocumentTester;
 import de.oio.jpdfunit.document.util.TextSearchType;
 
-@RunWith(Arquillian.class)
-public class OOReportsTest {
+public class OOReportsTest extends Arquillian {
 
     @Inject
     @Resource("varTemplate.odf")
@@ -90,8 +85,8 @@ public class OOReportsTest {
         fos.close();
 
         TextDocument tester = TextDocument.loadDocument("target/output.odf");
-        assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
-        assertFalse(tester.getStylesDom().toString().contains("facsimile.png"));
+        Assert.assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
+        Assert.assertFalse(tester.getStylesDom().toString().contains("facsimile.png"));
     }
 
     @Test
@@ -106,12 +101,11 @@ public class OOReportsTest {
         fos.close();
 
         TextDocument tester = TextDocument.loadDocument("target/outputWithBackgroundImage.odf");
-        assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
-        assertTrue(tester.getStylesDom().toString().contains("facsimile.png"));
+        Assert.assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
+        Assert.assertTrue(tester.getStylesDom().toString().contains("facsimile.png"));
     }
 
-    @Test
-    @Ignore("Ignored until OpenOffice is installed on Hudson")
+    @Test(groups="openoffice")
     public void renderToPDF() throws Exception {
         OOSeamReport report = (OOSeamReport) reportLoader.loadReport(input);
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -126,23 +120,5 @@ public class OOReportsTest {
         tester.assertContentContainsText("Hello Alberto Gori", TextSearchType.CONTAINS);
     }
 
-    @Test
-    @Ignore("Ignored until OpenOffice is installed on Hudson")
-    public void renderToPDF_moreTimes(@Resource("varTemplate.odf") Instance<InputStream> varTemplate) throws Exception {
-
-        for (int i = 0; i < 10; ++i) {
-            InputStream templateStream = varTemplate.get();
-            OOSeamReport report = (OOSeamReport) reportLoader.loadReport(templateStream);
-            Map<String, Object> parameters = new HashMap<String, Object>();
-            parameters.put("name", "Alberto Gori");
-            report.getReportDefinition().fill(null, parameters);
-            report.getDelegate().addBackgroundImage(backgroundImage.toURI(), "Pictures/facsimile.png", "image/png");
-            FileOutputStream fos = new FileOutputStream("target/outputWithBackgroundImage" + i + ".pdf");
-            pdfRenderer.render(report, fos);
-            fos.close();
-            templateStream.close();
-
-        }
-    }
 
 }

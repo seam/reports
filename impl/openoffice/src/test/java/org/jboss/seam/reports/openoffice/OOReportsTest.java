@@ -22,7 +22,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.api.Deployment;

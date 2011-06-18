@@ -14,7 +14,25 @@
 	<name>Seam Reports Implementation (OpenOffice Reporting)</name>
 
 	<build>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+						<nonFilteredFileExtension>odf</nonFilteredFileExtension>
+						<nonFilteredFileExtension>odt</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -86,16 +104,17 @@
 			<url>http://maven.xwiki.org/externals/</url>
 		</repository>
 	</repositories>
-	
+
 	<profiles>
 		<profile>
 			<id>openoffice</id>
 			<properties>
 				<testng.excludedGroups></testng.excludedGroups>
+				<officeHome>/usr/lib/libreoffice/</officeHome>
 			</properties>
 		</profile>
 	</profiles>
-	
+
 	<properties>
 		<testng.excludedGroups>openoffice</testng.excludedGroups>
 	</properties>

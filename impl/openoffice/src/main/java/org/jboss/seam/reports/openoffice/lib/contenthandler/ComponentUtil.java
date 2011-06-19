@@ -19,7 +19,6 @@ package org.jboss.seam.reports.openoffice.lib.contenthandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.beanutils.PropertyUtils;
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
 import org.odftoolkit.simple.common.field.VariableField;
@@ -44,6 +43,19 @@ public class ComponentUtil {
         }
         return result;
     }
+    
+    static public List<Element> getElementsByTagName(Element element, String childName) {
+        List<Element> result = new ArrayList<Element>();
+        NodeList list = element.getElementsByTagName(childName);
+        for (int i = 0; i < list.getLength(); ++i) {
+            Node n = list.item(i);
+            if (n instanceof Element && n.getNodeName().equals(childName)) {
+                result.add((Element) n);
+            }
+        }
+        return result;
+    }
+    
 
     static public void notNull(Object component, String componentId) {
         if (null == component) {
@@ -92,17 +104,15 @@ public class ComponentUtil {
 
     static public VariableField resolveIterativeVar(OdfToolkitFacade documentHandler, String prefix, Element userVar,
             int index, Object item) {
+        
         String name = userVar.getAttribute("text:name");
-        String expression = name.equals(prefix) ? name : name.substring(prefix.length() + 1);
-        try {
-            Object value = expression.equals("") ? item : PropertyUtils.getProperty(item, expression);
-            VariableField varField = documentHandler.createSimpleVar(userVar.getAttribute("text:name") + "->" + index, value);
-            userVar.setAttribute("text:name", varField.getVariableName());
-            return varField;
-        } catch (Exception e) {
-            throw new ReportException(e);
-        }
+        ExpressionHelper helper = new ExpressionHelper(name);
+        Object value = helper.compile().getValue(item);
+        VariableField varField = documentHandler.createSimpleVar(userVar.getAttribute("text:name") + "->" + index, value);
+        userVar.setAttribute("text:name", varField.getVariableName());
+        return varField;
     }
+    
 
     public static void changeIds(Element element, int iterationIndex) {
         String id = element.getAttribute("xml:id");

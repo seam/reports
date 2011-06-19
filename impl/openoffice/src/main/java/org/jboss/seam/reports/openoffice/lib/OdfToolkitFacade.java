@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil;
+import org.jboss.seam.reports.openoffice.lib.contenthandler.ExpressionHelper;
 import org.jboss.seam.reports.openoffice.lib.contenthandler.OOContentHandler;
 import org.odftoolkit.odfdom.dom.OdfStylesDom;
 import org.odftoolkit.simple.TextDocument;
@@ -77,19 +79,29 @@ public class OdfToolkitFacade {
     public VariableField fillVar(String name, Object value) {
         VariableField var = document.getVariableFieldByName(name);
         if (null == var) {
-            return null;
+            return null; 
         }
         var.updateField((String) value, null);
         return var;
     }
 
+    protected void fillExpressions(Map<String, Object> vars) {
+        for (Element el : ComponentUtil.getElementsByTagName(this.varContainer.getVariableContainerElement(), "text:user-field-decl")) {
+            String name = el.getAttribute("text:name");
+            ExpressionHelper helper = new ExpressionHelper(name);
+            Object value = helper.compile().getValueFromContext(vars);
+            fillVar(name, value);
+        }
+        
+    }
+
+
+
     public void fillData(Map<String, Object> vars) {
         if (null == vars) {
             return;
         }
-        for (Map.Entry<String, Object> e : vars.entrySet()) {
-            fillVar(e.getKey(), e.getValue());
-        }
+        fillExpressions(vars);
     }
 
     public void fillData(List<OOContentHandler> components, Map<String, Object> vars) {

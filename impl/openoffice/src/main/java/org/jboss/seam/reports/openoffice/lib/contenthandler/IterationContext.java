@@ -16,34 +16,20 @@
  */
 package org.jboss.seam.reports.openoffice.lib.contenthandler;
 
-import java.util.List;
-
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+import org.odftoolkit.simple.table.Table;
 import org.w3c.dom.Element;
 
-public class OODefaultListIterator<T> extends OODefaultComponentIterator<T> {
+public interface IterationContext {
+    
+    int getIndex();
+    
+    OdfToolkitFacade getFacade();
+    
+    Element getElementById(String id);
+    
+    Table getTable(String name);
 
-    private Element rootElement;
-
-    public OODefaultListIterator(String id, List<T> value) {
-        super(id, value);
-    }
-
-    @Override
-    public Element getRootElement() {
-        if (null == rootElement) {
-            List<Element> userFields = ComponentUtil.getUserFieldGetElements(getFacade().getContentElement(), getId());
-            if (userFields.isEmpty()) {
-                throw new ReportException(getId() + " component not found");
-            }
-            rootElement = ComponentUtil.anchestor(userFields.get(0), "text:list");
-        }
-        return rootElement;
-    }
-
-    @Override
-    protected String getTemplateNodeName() {
-        return "text:list-item";
-    }
+    void add(OOContentHandler contentHandler);
 
 }

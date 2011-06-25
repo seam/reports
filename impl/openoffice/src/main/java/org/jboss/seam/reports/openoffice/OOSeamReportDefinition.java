@@ -24,8 +24,6 @@ import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
 
 public class OOSeamReportDefinition implements ReportDefinition<OOSeamReportDataSource, OOSeamReport> {
 
-    private static final long serialVersionUID = 1L;
-
     private OdfToolkitFacade odfFacade;
 
     public OOSeamReportDefinition(OdfToolkitFacade odfFacade) {

@@ -21,16 +21,16 @@ import java.util.List;
 import org.jboss.seam.reports.ReportException;
 import org.w3c.dom.Element;
 
-public class OODefaultParagraphIterator extends OODefaultComponentIterator {
+public class OODefaultParagraphIterator<T> extends OODefaultComponentIterator<T> {
 
     private Element rootElement;
 
-    public OODefaultParagraphIterator(String id, String listVarName) {
-        super(id, listVarName);
+    public OODefaultParagraphIterator(String id, List<T> value) {
+        super(id, value);
     }
 
     @Override
-    protected Element getRootElement() {
+    public Element getRootElement() {
         if (null == rootElement) {
             List<Element> userFields = ComponentUtil.getUserFieldGetElements(getFacade().getContentElement(), getId());
             if (userFields.isEmpty()) {

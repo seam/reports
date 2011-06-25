@@ -17,6 +17,9 @@
 package org.jboss.seam.reports.openoffice.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -26,6 +29,8 @@ public class User implements Serializable {
     private String lastName;
 
     private Address address;
+    
+    private List<String> items = new ArrayList<String>();
 
     public User(String firstName, String lastName) {
         super();
@@ -55,6 +60,24 @@ public class User implements Serializable {
 
     public Address getAddress() {
         return address;
+    }
+
+    public void setItems(List<String> items) {
+        this.items = items;
+    }
+
+    public List<String> getItems() {
+        return items;
+    }
+    
+    public User addItem(String item) {
+        getItems().add(item);
+        return this;
+    }
+
+    public User addItems(String...items) {
+        this.items.addAll(Arrays.asList(items));
+        return this;
     }
 
 }

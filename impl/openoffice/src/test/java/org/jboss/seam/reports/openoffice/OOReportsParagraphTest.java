@@ -86,11 +86,10 @@ public class OOReportsParagraphTest extends Arquillian {
 
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("name", "Alberto Gori");
-        parameters.put("users", createUserList());
-
+ 
         OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
         OOSeamReportDataSource ds = new OOSeamReportDataSource();
-        ds.add(new OODefaultParagraphIterator("users", "users"));
+        ds.add(new OODefaultParagraphIterator<User>("usersPara", createUserList()));
 
         ReportDefinition reportDefinition = report.getReportDefinition();
         reportDefinition.fill(ds, parameters);
@@ -109,7 +108,6 @@ public class OOReportsParagraphTest extends Arquillian {
             private static final long serialVersionUID = 1L;
             {
                 put("name", "Alberto Gori");
-                put("users", createUserList());
             }
         };
 
@@ -117,7 +115,7 @@ public class OOReportsParagraphTest extends Arquillian {
         OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
 
         OOSeamReportDataSource ds = new OOSeamReportDataSource();
-        ds.add(new OODefaultParagraphIterator("users", "users").hide());
+        ds.add(new OODefaultParagraphIterator<User>("usersPara", createUserList()).hide());
         ReportDefinition reportDefinition = report.getReportDefinition();
         reportDefinition.fill(ds, parameters);
 

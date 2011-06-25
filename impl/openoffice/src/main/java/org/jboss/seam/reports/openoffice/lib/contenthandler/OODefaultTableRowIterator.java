@@ -16,21 +16,23 @@
  */
 package org.jboss.seam.reports.openoffice.lib.contenthandler;
 
+import java.util.List;
+
 import org.odftoolkit.odfdom.dom.element.table.TableTableElement;
 import org.odftoolkit.simple.table.Table;
 import org.w3c.dom.Element;
 
-public class OODefaultTableRowIterator extends OODefaultComponentIterator {
+public class OODefaultTableRowIterator<T> extends OODefaultComponentIterator<T> {
 
     private Table table;
     private TableTableElement rootElement;
 
-    public OODefaultTableRowIterator(String id, String listVarName) {
-        super(id, listVarName);
+    public OODefaultTableRowIterator(String id, List<T> value) {
+        super(id, value);
     }
 
     @Override
-    protected Element getRootElement() {
+    public Element getRootElement() {
         if (null == rootElement) {
             table = getFacade().getDocument().getTableByName(getId());
             rootElement = table.getOdfElement();

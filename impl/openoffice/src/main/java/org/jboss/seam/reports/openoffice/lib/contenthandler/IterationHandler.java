@@ -16,35 +16,8 @@
  */
 package org.jboss.seam.reports.openoffice.lib.contenthandler;
 
-import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+public interface IterationHandler<T> {
 
-abstract public class OOContentHandlerBase implements OOContentHandler {
-    
-    private OdfToolkitFacade facade;
-    
-    private String id;
-    
-    public OOContentHandlerBase(String id) {
-        this.id = id;
-    }
-    
-    @Override
-    public String getId() {
-        return id;
-    }
-    
-    @Override
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Override
-    public void setFacade(OdfToolkitFacade facade) {
-        this.facade = facade;   
-    }
-    
-    public OdfToolkitFacade getFacade() {
-        return facade;
-    }
+    void afterIteration(IterationContext context, T item);
 
 }

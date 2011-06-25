@@ -17,7 +17,6 @@
 package org.jboss.seam.reports.openoffice.lib.contenthandler;
 
 import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.anchestor;
-import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.changeIds;
 import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.getChildElements;
 import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.getUserFieldGetElements;
 import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.resolveIterativeVar;
@@ -25,35 +24,34 @@ import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil
 import java.util.List;
 import java.util.Map;
 
+import org.jboss.seam.reports.ReportException;
 import org.w3c.dom.Element;
 
-abstract public class OODefaultComponentIterator extends OOContentHandlerBase {
+abstract public class OODefaultComponentIterator<T> extends OOContentHandlerBase {
 
-    private String id;
-    private String listVarName;
+    private List<T> value;
     private boolean hidden;
-
-    public OODefaultComponentIterator(String id, String listVarName) {
-        this.id = id;
-        this.listVarName = listVarName;
+    private IterationHandler<T> iterationHandler = new DefaultIterationHandler<T>();
+    
+    public OODefaultComponentIterator(String id, List<T> value) {
+        super(id);
+        this.value = value;
     }
-
-    abstract protected Element getRootElement();
 
     abstract protected String getTemplateNodeName();
 
     @Override
-    public OODefaultComponentIterator hide() {
+    public OODefaultComponentIterator<T> hide() {
         hidden = true;
         return this;
     }
 
-    protected String getId() {
-        return id;
-    }
-
     protected Element getTemplateElement() {
-        Element itemVar = getUserFieldGetElements(getRootElement(), getId()).get(0);
+        List<Element> userFieldElements = getUserFieldGetElements(getRootElement(), getId());
+        if (userFieldElements.isEmpty()) {
+            throw new ReportException("user elements not found");
+        }
+        Element itemVar = userFieldElements.get(0);
         return anchestor(itemVar, getTemplateNodeName());
     }
 
@@ -63,23 +61,29 @@ abstract public class OODefaultComponentIterator extends OOContentHandlerBase {
 
         for (int i = 0; i < size - 1; ++i) {
             Element cloned = (Element) templateElement.cloneNode(true);
-            changeIds(cloned, i);
+            new IdentifierHelper(i).updateIdentifiers(cloned);
             getRootElement().insertBefore(cloned, templateElement);
         }
+        new IdentifierHelper(size - 1).updateIdentifiers(templateElement);
 
     }
 
-    protected void resolveElements(List<?> list) {
+    protected void resolveElements(List<T> list) {
         int index = 0;
         for (Element itemElement : getChildElements(getRootElement())) {
 
-            List<Element> userVars = getUserFieldGetElements(itemElement, id);
+            List<Element> userVars = getUserFieldGetElements(itemElement, getId());
 
             if (!userVars.isEmpty()) {
-                Object item = list.get(index++);
+                T item = list.get(index);
                 for (Element userVar : userVars) {
-                    resolveIterativeVar(getFacade(), id, userVar, index, item);
+                    resolveIterativeVar(getFacade(), getId(), userVar, index, item);
                 }
+                IterationContextImpl itContext = new IterationContextImpl(index, getFacade());
+                iterationHandler.afterIteration(itContext, item);
+                                
+                getFacade().fillData(itContext.getHandlers(), null);
+                index++;
             }
 
         }
@@ -97,10 +101,16 @@ abstract public class OODefaultComponentIterator extends OOContentHandlerBase {
             return;
         }
 
-        List<?> list = (List<?>) vars.get(this.listVarName);
+        appendElements(this.value.size());
+        resolveElements(this.value);
+    }
 
-        appendElements(list.size());
-        resolveElements(list);
+    public void setIterationHandler(IterationHandler<T> iterationHandler) {
+        this.iterationHandler = iterationHandler;
+    }
+
+    public IterationHandler<T> getIterationHandler() {
+        return iterationHandler;
     }
 
 }

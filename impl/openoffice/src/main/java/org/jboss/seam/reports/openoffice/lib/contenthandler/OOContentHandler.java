@@ -19,6 +19,7 @@ package org.jboss.seam.reports.openoffice.lib.contenthandler;
 import java.util.Map;
 
 import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+import org.w3c.dom.Element;
 
 public interface OOContentHandler {
     
@@ -27,5 +28,11 @@ public interface OOContentHandler {
     OOContentHandler hide();
 
     void render(Map<String, Object> vars);
+    
+    void setId(String id);
+    
+    String getId();
+
+    Element getRootElement();
 
 }

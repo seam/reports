@@ -35,6 +35,8 @@ import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+import org.jboss.seam.reports.openoffice.lib.contenthandler.IterationContext;
+import org.jboss.seam.reports.openoffice.lib.contenthandler.IterationHandler;
 import org.jboss.seam.reports.openoffice.lib.contenthandler.OODefaultTableRowIterator;
 import org.jboss.seam.reports.openoffice.model.User;
 import org.jboss.seam.reports.output.PDF;
@@ -44,6 +46,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.odftoolkit.simple.TextDocument;
+import org.odftoolkit.simple.table.Table;
 import org.testng.annotations.Test;
 
 public class OOReportsTableTest extends Arquillian {
@@ -51,6 +54,10 @@ public class OOReportsTableTest extends Arquillian {
     @Inject
     @Resource("tableTemplate.odf")
     InputStream input;
+    
+    @Inject
+    @Resource("nestedTableTemplate.odt")
+    InputStream nestedTemplateInput;
 
     @Inject
     @Resource("facsimile.png")
@@ -79,9 +86,9 @@ public class OOReportsTableTest extends Arquillian {
 
     private List<User> createUserList() {
         List<User> result = new ArrayList<User>();
-        result.add(new User("Alberto", "Gori"));
-        result.add(new User("James", "Lee"));
-        result.add(new User("Jane", "Pitt"));
+        result.add(new User("Alberto", "Gori").addItems("AA", "BB", "CC"));
+        result.add(new User("James", "Lee").addItems("DD, FF, GG"));
+        result.add(new User("Jane", "Pitt").addItems("GG", "II"));
         return result;
     }
 
@@ -90,11 +97,10 @@ public class OOReportsTableTest extends Arquillian {
 
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("name", "Alberto Gori");
-        parameters.put("users", createUserList());
 
         OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
         OOSeamReportDataSource ds = new OOSeamReportDataSource();
-        ds.add(new OODefaultTableRowIterator("table1", "users"));
+        ds.add(new OODefaultTableRowIterator<User>("table1", createUserList()));
 
         ReportDefinition reportDefinition = report.getReportDefinition();
         reportDefinition.fill(ds, parameters);
@@ -117,13 +123,12 @@ public class OOReportsTableTest extends Arquillian {
 
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("name", "Alberto Gori");
-        parameters.put("users", createUserList());
 
         Report report = reportLoader.loadReport(input);
         OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
 
         OOSeamReportDataSource ds = new OOSeamReportDataSource();
-        ds.add(new OODefaultTableRowIterator("table1", "users").hide());
+        ds.add(new OODefaultTableRowIterator<User>("table1", createUserList()).hide());
         ReportDefinition reportDefinition = report.getReportDefinition();
         reportDefinition.fill(ds, parameters);
 
@@ -134,6 +139,42 @@ public class OOReportsTableTest extends Arquillian {
         TextDocument tester = TextDocument.loadDocument("target/output.odf");
         assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
     }
+    
+    @Test
+    public void fillNestedTables() throws Exception {
+
+        Report report = reportLoader.loadReport(nestedTemplateInput);
+
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("name", "Alberto Gori");
+
+        OOSeamReportDataSource ds = new OOSeamReportDataSource();
+        OODefaultTableRowIterator<User> tableHandler = new OODefaultTableRowIterator<User>("table1", createUserList());
+        tableHandler.setIterationHandler(new IterationHandler<User>() {
+            
+            @Override 
+            public void afterIteration(IterationContext context, User value) {
+                Table table = context.getTable("table11");
+                OODefaultTableRowIterator<String> tableHandler = new OODefaultTableRowIterator<String>(table.getTableName(), value.getItems());
+                context.add(tableHandler);
+            }
+            
+        });
+        ds.add(tableHandler);
+
+        ReportDefinition reportDefinition = report.getReportDefinition();
+        reportDefinition.fill(ds, parameters);
+        
+        final String filename = "target/nestedTableTemplate_fill.odt";
+        FileOutputStream fos = new FileOutputStream(filename);
+        renderer.render(report, fos);
+        fos.close();
+
+        TextDocument tester = TextDocument.loadDocument(filename);
+        assertTrue(tester.getContentRoot().toString().contains("Alberto Gori"));
+        assert tester.getTableList().size() == 4;
+    }
+
 
     @Test(groups="openoffice")
     public void fillRenderPdf() throws Exception {

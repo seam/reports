@@ -113,15 +113,7 @@ public class ComponentUtil {
         return varField;
     }
     
-
-    public static void changeIds(Element element, int iterationIndex) {
-        String id = element.getAttribute("xml:id");
-        if (!isEmpty(id)) {
-            element.setAttribute("xml:id", id + "_" + iterationIndex);
-        }
-        for (Element child : getChildElements(element)) {
-            changeIds(child, iterationIndex);
-        }
-    }
+   
+ 
 
 }

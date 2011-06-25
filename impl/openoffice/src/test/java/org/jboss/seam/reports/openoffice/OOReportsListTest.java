@@ -86,11 +86,10 @@ public class OOReportsListTest extends Arquillian {
 
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("name", "Alberto Gori");
-        parameters.put("users", createUserList());
 
         OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
         OOSeamReportDataSource ds = new OOSeamReportDataSource();
-        ds.add(new OODefaultListIterator("list", "users"));
+        ds.add(new OODefaultListIterator<User>("list", createUserList()));
 
         ReportDefinition reportDefinition = report.getReportDefinition();
         reportDefinition.fill(ds, parameters);
@@ -107,13 +106,12 @@ public class OOReportsListTest extends Arquillian {
 
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("name", "Alberto Gori");
-        parameters.put("users", createUserList());
 
         Report report = reportLoader.loadReport(input);
         OdfToolkitFacade document = (OdfToolkitFacade) report.getDelegate();
 
         OOSeamReportDataSource ds = new OOSeamReportDataSource();
-        ds.add(new OODefaultListIterator("list", "users").hide());
+        ds.add(new OODefaultListIterator<User>("list", createUserList()).hide());
         ReportDefinition reportDefinition = report.getReportDefinition();
         reportDefinition.fill(ds, parameters);
 

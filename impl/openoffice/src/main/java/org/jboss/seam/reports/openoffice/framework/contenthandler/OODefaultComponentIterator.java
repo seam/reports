@@ -14,24 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib.contenthandler;
+package org.jboss.seam.reports.openoffice.framework.contenthandler;
 
-import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.anchestor;
-import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.getChildElements;
-import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.getUserFieldGetElements;
-import static org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil.resolveIterativeVar;
+import static org.jboss.seam.reports.openoffice.framework.contenthandler.util.ComponentUtil.anchestor;
+import static org.jboss.seam.reports.openoffice.framework.contenthandler.util.ComponentUtil.getChildElements;
+import static org.jboss.seam.reports.openoffice.framework.contenthandler.util.ComponentUtil.getUserFieldGetElements;
+import static org.jboss.seam.reports.openoffice.framework.contenthandler.util.ComponentUtil.resolveIterativeVar;
 
 import java.util.List;
 import java.util.Map;
 
 import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.context.IterationContextImpl;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.util.IdentifierHelper;
 import org.w3c.dom.Element;
 
 abstract public class OODefaultComponentIterator<T> extends OOContentHandlerBase {
 
     private List<T> value;
     private boolean hidden;
-    private IterationHandler<T> iterationHandler = new DefaultIterationHandler<T>();
+    private IterationHandler<T> iterationHandler = new OODefaultIterationHandler<T>();
     
     public OODefaultComponentIterator(String id, List<T> value) {
         super(id);

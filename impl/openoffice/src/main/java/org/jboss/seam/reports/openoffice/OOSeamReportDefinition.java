@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportException;
-import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+import org.jboss.seam.reports.openoffice.framework.OdfToolkitFacade;
 
 public class OOSeamReportDefinition implements ReportDefinition<OOSeamReportDataSource, OOSeamReport> {
 

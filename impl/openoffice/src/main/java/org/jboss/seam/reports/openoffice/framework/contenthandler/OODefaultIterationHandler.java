@@ -14,26 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib;
+package org.jboss.seam.reports.openoffice.framework.contenthandler;
 
-public class BackgroundImageOptions {
+import org.jboss.seam.reports.openoffice.framework.contenthandler.context.IterationContext;
 
-    private String pageLayoutName = "Mpm1";
+public class OODefaultIterationHandler<T> implements IterationHandler<T> {
 
-    public BackgroundImageOptions() {
-
-    }
-
-    public BackgroundImageOptions(String pageLayoutName) {
-        this.pageLayoutName = pageLayoutName;
-    }
-
-    public void setPageLayoutName(String pageLayoutName) {
-        this.pageLayoutName = pageLayoutName;
-    }
-
-    public String getPageLayoutName() {
-        return pageLayoutName;
+    @Override
+    public void afterIteration(IterationContext context, T item) {
+        
     }
 
 }

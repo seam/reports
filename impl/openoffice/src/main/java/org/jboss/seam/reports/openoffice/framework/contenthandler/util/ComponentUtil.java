@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib.contenthandler;
+package org.jboss.seam.reports.openoffice.framework.contenthandler.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.seam.reports.ReportException;
-import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+import org.jboss.seam.reports.openoffice.framework.OdfToolkitFacade;
 import org.odftoolkit.simple.common.field.VariableField;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

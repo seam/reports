@@ -14,13 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib.contenthandler;
+package org.jboss.seam.reports.openoffice.framework.contenthandler;
 
-public class DefaultIterationHandler<T> implements IterationHandler<T> {
+import java.util.Map;
 
-    @Override
-    public void afterIteration(IterationContext context, T item) {
-        
-    }
+import org.jboss.seam.reports.openoffice.framework.OdfToolkitFacade;
+import org.w3c.dom.Element;
+
+public interface OOContentHandler {
+    
+    void setFacade(OdfToolkitFacade facade);
+
+    OOContentHandler hide();
+
+    void render(Map<String, Object> vars);
+    
+    void setId(String id);
+    
+    String getId();
+
+    Element getRootElement();
 
 }

@@ -14,11 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib.contenthandler;
+package org.jboss.seam.reports.openoffice.framework.contenthandler;
 
 import java.util.List;
 
 import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.util.ComponentUtil;
 import org.w3c.dom.Element;
 
 public class OODefaultParagraphIterator<T> extends OODefaultComponentIterator<T> {

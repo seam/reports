@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.seam.reports.ReportDataSource;
-import org.jboss.seam.reports.openoffice.lib.contenthandler.OOContentHandler;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.OOContentHandler;
 
 @OOReports
 public class OOSeamReportDataSource implements ReportDataSource {

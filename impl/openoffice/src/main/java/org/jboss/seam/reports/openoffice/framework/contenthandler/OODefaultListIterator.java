@@ -14,35 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib.contenthandler;
+package org.jboss.seam.reports.openoffice.framework.contenthandler;
 
 import java.util.List;
 
-import org.odftoolkit.odfdom.dom.element.table.TableTableElement;
-import org.odftoolkit.simple.table.Table;
+import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.util.ComponentUtil;
 import org.w3c.dom.Element;
 
-public class OODefaultTableRowIterator<T> extends OODefaultComponentIterator<T> {
+public class OODefaultListIterator<T> extends OODefaultComponentIterator<T> {
 
-    private Table table;
-    private TableTableElement rootElement;
+    private Element rootElement;
 
-    public OODefaultTableRowIterator(String id, List<T> value) {
+    public OODefaultListIterator(String id, List<T> value) {
         super(id, value);
     }
 
     @Override
     public Element getRootElement() {
         if (null == rootElement) {
-            table = getFacade().getDocument().getTableByName(getId());
-            rootElement = table.getOdfElement();
+            List<Element> userFields = ComponentUtil.getUserFieldGetElements(getFacade().getContentElement(), getId());
+            if (userFields.isEmpty()) {
+                throw new ReportException(getId() + " component not found");
+            }
+            rootElement = ComponentUtil.anchestor(userFields.get(0), "text:list");
         }
         return rootElement;
     }
 
     @Override
     protected String getTemplateNodeName() {
-        return "table:table-row";
+        return "text:list-item";
     }
 
 }

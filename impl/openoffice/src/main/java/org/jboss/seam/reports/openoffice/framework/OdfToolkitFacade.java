@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib;
+package org.jboss.seam.reports.openoffice.framework;
 
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -23,9 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.jboss.seam.reports.ReportException;
-import org.jboss.seam.reports.openoffice.lib.contenthandler.ComponentUtil;
-import org.jboss.seam.reports.openoffice.lib.contenthandler.ExpressionHelper;
-import org.jboss.seam.reports.openoffice.lib.contenthandler.OOContentHandler;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.OOContentHandler;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.util.ComponentUtil;
+import org.jboss.seam.reports.openoffice.framework.contenthandler.util.ExpressionHelper;
 import org.odftoolkit.odfdom.dom.OdfStylesDom;
 import org.odftoolkit.simple.TextDocument;
 import org.odftoolkit.simple.common.field.Fields;

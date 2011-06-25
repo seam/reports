@@ -17,7 +17,7 @@
 package org.jboss.seam.reports.openoffice;
 
 import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+import org.jboss.seam.reports.openoffice.framework.OdfToolkitFacade;
 
 public class OOSeamReport implements Report {
 

@@ -21,7 +21,7 @@ import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 
 import org.artofsolving.jodconverter.office.OfficeManager;
-import org.jboss.seam.reports.openoffice.lib.JODConverterFacade;
+import org.jboss.seam.reports.openoffice.framework.JODConverterFacade;
 
 public class JODConverterFacadeProducer {
 

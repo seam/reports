@@ -31,7 +31,7 @@ import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.openoffice.OOReports;
 import org.jboss.seam.reports.openoffice.OOSeamReport;
-import org.jboss.seam.reports.openoffice.lib.JODConverterFacade;
+import org.jboss.seam.reports.openoffice.framework.JODConverterFacade;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
 
 @OOReports

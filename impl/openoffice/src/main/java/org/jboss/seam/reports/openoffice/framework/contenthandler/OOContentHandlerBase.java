@@ -14,22 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib.contenthandler;
+package org.jboss.seam.reports.openoffice.framework.contenthandler;
 
-import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
-import org.odftoolkit.simple.table.Table;
-import org.w3c.dom.Element;
+import org.jboss.seam.reports.openoffice.framework.OdfToolkitFacade;
 
-public interface IterationContext {
+abstract public class OOContentHandlerBase implements OOContentHandler {
     
-    int getIndex();
+    private OdfToolkitFacade facade;
     
-    OdfToolkitFacade getFacade();
+    private String id;
     
-    Element getElementById(String id);
+    public OOContentHandlerBase(String id) {
+        this.id = id;
+    }
     
-    Table getTable(String name);
+    @Override
+    public String getId() {
+        return id;
+    }
+    
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    void add(OOContentHandler contentHandler);
+    @Override
+    public void setFacade(OdfToolkitFacade facade) {
+        this.facade = facade;   
+    }
+    
+    public OdfToolkitFacade getFacade() {
+        return facade;
+    }
 
 }

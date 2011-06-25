@@ -22,7 +22,7 @@ import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportLoader;
-import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
+import org.jboss.seam.reports.openoffice.framework.OdfToolkitFacade;
 
 @OOReports
 public class OOSeamReportLoader implements ReportLoader {

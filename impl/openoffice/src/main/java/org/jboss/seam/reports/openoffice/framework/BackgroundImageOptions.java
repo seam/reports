@@ -14,25 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.openoffice.lib.contenthandler;
+package org.jboss.seam.reports.openoffice.framework;
 
-import java.util.Map;
+public class BackgroundImageOptions {
 
-import org.jboss.seam.reports.openoffice.lib.OdfToolkitFacade;
-import org.w3c.dom.Element;
+    private String pageLayoutName = "Mpm1";
 
-public interface OOContentHandler {
-    
-    void setFacade(OdfToolkitFacade facade);
+    public BackgroundImageOptions() {
 
-    OOContentHandler hide();
+    }
 
-    void render(Map<String, Object> vars);
-    
-    void setId(String id);
-    
-    String getId();
+    public BackgroundImageOptions(String pageLayoutName) {
+        this.pageLayoutName = pageLayoutName;
+    }
 
-    Element getRootElement();
+    public void setPageLayoutName(String pageLayoutName) {
+        this.pageLayoutName = pageLayoutName;
+    }
+
+    public String getPageLayoutName() {
+        return pageLayoutName;
+    }
 
 }

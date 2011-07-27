@@ -10,10 +10,10 @@
 	<artifactId>seam-reports-impl</artifactId>
 	<packaging>pom</packaging>
 	<name>Seam Reports Implementations</name>
+	
 	<modules>
 		<module>jasper</module>
 		<module>pentaho</module>
-		<module>openoffice</module>
 	</modules>
 	
 	<properties>

@@ -4,3 +4,4 @@ target
 .settings
 *.sw?
 test-output
+bin

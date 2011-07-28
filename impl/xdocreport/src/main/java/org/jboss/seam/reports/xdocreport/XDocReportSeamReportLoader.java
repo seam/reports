@@ -16,9 +16,13 @@
  */
 package org.jboss.seam.reports.xdocreport;
 
+import static org.jboss.seam.solder.reflection.AnnotationInspector.getAnnotation;
+
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
 import org.jboss.seam.reports.ReportLoader;
@@ -34,8 +38,17 @@ import fr.opensagres.xdocreport.template.TemplateEngineKind;
 public class XDocReportSeamReportLoader implements ReportLoader
 {
 
-   @Inject
    private ResourceLoaderManager resourceLoaderManager;
+   private TemplateEngineKind engineKind;
+
+   @Inject
+   public XDocReportSeamReportLoader(InjectionPoint injectionPoint, BeanManager beanManager,
+            ResourceLoaderManager resourceLoaderManager)
+   {
+      this.resourceLoaderManager = resourceLoaderManager;
+      Via via = getAnnotation(injectionPoint.getAnnotated(), Via.class, beanManager);
+      engineKind = (via == null) ? TemplateEngineKind.Velocity : TemplateEngineKind.valueOf(via.value());
+   }
 
    @Override
    public XDocReportSeamReport loadReport(InputStream input) throws ReportException
@@ -43,8 +56,7 @@ public class XDocReportSeamReportLoader implements ReportLoader
       IXDocReport report;
       try
       {
-         // TODO: Check how to do it with freemarker
-         report = XDocReportRegistry.getRegistry().loadReport(input, TemplateEngineKind.Velocity);
+         report = XDocReportRegistry.getRegistry().loadReport(input, engineKind);
       }
       catch (IOException e)
       {
@@ -77,4 +89,3 @@ public class XDocReportSeamReportLoader implements ReportLoader
       return loadReport(resourceAsStream);
    }
 }
-

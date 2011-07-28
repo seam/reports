@@ -32,7 +32,7 @@ import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.exceptions.UnsupportedReportOutputException;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
-import org.jboss.seam.reports.xdocreport.ConvertVia;
+import org.jboss.seam.reports.xdocreport.Via;
 import org.jboss.seam.reports.xdocreport.XDocReport;
 import org.jboss.seam.reports.xdocreport.XDocReportSeamReport;
 import org.slf4j.Logger;
@@ -77,7 +77,7 @@ public class XDocReportRenderer implements ReportRenderer<XDocReportSeamReport>
       if (reportOutputBinding != null)
       {
          Options options = Options.getFrom(delegate.getKind()).to(reportOutputBinding.value());
-         ConvertVia via = getConvertVia();
+         Via via = getConvertVia();
          if (via != null)
          {
             options.via(via.value());
@@ -109,9 +109,9 @@ public class XDocReportRenderer implements ReportRenderer<XDocReportSeamReport>
       return getAnnotation(injectionPoint.getAnnotated(), ReportOutputBinding.class, beanManager);
    }
 
-   protected ConvertVia getConvertVia()
+   protected Via getConvertVia()
    {
-      return getAnnotation(injectionPoint.getAnnotated(), ConvertVia.class, beanManager);
+      return getAnnotation(injectionPoint.getAnnotated(), Via.class, beanManager);
    }
 
 }

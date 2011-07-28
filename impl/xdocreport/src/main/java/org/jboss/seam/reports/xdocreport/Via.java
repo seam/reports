@@ -31,7 +31,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ TYPE, METHOD, FIELD })
 @Retention(RUNTIME)
 @Documented
-public @interface ConvertVia
+public @interface Via
 {
    String value();
 }

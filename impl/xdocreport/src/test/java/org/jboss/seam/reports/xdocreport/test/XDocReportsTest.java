@@ -21,6 +21,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -67,13 +69,40 @@ public class XDocReportsTest
    }
 
    @Test
-   public void testSimpleReport() throws Exception
+   public void testDocx() throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
       XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
       IContext dataSource = reportDefinition.getDelegate().createContext();
       dataSource.put("project", "Seam Reports");
       Report report = reportDefinition.fill(dataSource, null);
+      reportRenderer.render(report, output);
+      // Extracting the result
+      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+      assertTrue(text.contains("Seam Reports Rocks"));
+   }
+   
+
+   @Test
+   public void testDocxWithMap() throws Exception
+   {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
+      Report report = reportDefinition.fill(dataSource, null);
+      reportRenderer.render(report, output);
+      // Extracting the result
+      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+      assertTrue(text.contains("Seam Reports Rocks"));
+   }
+
+   @Test
+   public void testDocxWithMapAsParameter() throws Exception
+   {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      Map<String, Object> parameters = Collections.singletonMap("project", (Object)"Seam Reports");
+      Report report = reportDefinition.fill(null, parameters);
       reportRenderer.render(report, output);
       // Extracting the result
       String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));

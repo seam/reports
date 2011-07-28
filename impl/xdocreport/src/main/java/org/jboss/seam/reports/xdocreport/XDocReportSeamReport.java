@@ -17,12 +17,15 @@
 package org.jboss.seam.reports.xdocreport;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDefinition;
+import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
 import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.spi.ReportUtils;
 
+import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.template.IContext;
 
@@ -39,12 +42,44 @@ public class XDocReportSeamReport implements ReportDefinition<XDocReportSeamRepo
       this.xdocReport = report;
    }
 
+   @SuppressWarnings("unchecked")
    @Override
    public XDocReportSeamReport fill(Object dataSource, Map<String, Object> parameters)
             throws ReportException
    {
-      this.context = ReportUtils.castDataSource(dataSource, IContext.class);
+      if (dataSource == null)
+      {
+         if (parameters == null)
+         {
+            throw new IllegalReportDataSourceException("No Datasource provided");
+         }
+         fillReportFromMap(parameters);
+      }
+      else if (dataSource instanceof Map)
+      {
+         fillReportFromMap((Map<String, Object>) dataSource);
+      }
+      else
+      {
+         this.context = ReportUtils.castDataSource(dataSource, IContext.class);
+      }
       return this;
+   }
+
+   protected void fillReportFromMap(Map<String, Object> params) throws ReportException
+   {
+      try
+      {
+         this.context = xdocReport.createContext();
+      }
+      catch (XDocReportException e)
+      {
+         throw new ReportException(e);
+      }
+      for (Entry<String, Object> entry : params.entrySet())
+      {
+         this.context.put(entry.getKey(), entry.getValue());
+      }
    }
 
    @Override

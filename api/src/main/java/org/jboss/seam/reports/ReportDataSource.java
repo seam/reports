@@ -22,12 +22,13 @@ package org.jboss.seam.reports;
  * @author George Gastaldi
  * 
  */
-public interface ReportDataSource {
+public interface ReportDataSource
+{
 
-    /**
-     * The result of this method is implementation specific
-     * 
-     * @return
-     */
-    public Object getDelegate();
+   /**
+    * The result of this method is implementation specific
+    * 
+    * @return
+    */
+   public Object getDelegate();
 }

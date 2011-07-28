@@ -23,29 +23,34 @@ import org.pentaho.reporting.engine.classic.core.MasterReport;
 
 /**
  * Pentaho Reporting Engine Report
- *
+ * 
  * @author Jordan Ganoff
  */
-public class PentahoSeamReport implements Report {
-    
-    private static final long serialVersionUID = 1L;
-    
-    private MasterReport report;
+public class PentahoSeamReport implements Report
+{
 
-    public PentahoSeamReport(final MasterReport report) {
-        if (report == null) {
-            throw new NullPointerException();
-        }
-        this.report = report;
-    }
+   private static final long serialVersionUID = 1L;
 
-    @Override
-    public MasterReport getDelegate() {
-        return report;
-    }
+   private MasterReport report;
 
-    @Override
-    public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition() {
-        return null;
-    }
+   public PentahoSeamReport(final MasterReport report)
+   {
+      if (report == null)
+      {
+         throw new NullPointerException();
+      }
+      this.report = report;
+   }
+
+   @Override
+   public MasterReport getDelegate()
+   {
+      return report;
+   }
+
+   @Override
+   public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition()
+   {
+      return null;
+   }
 }

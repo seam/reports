@@ -26,15 +26,17 @@ import java.util.Map;
  * @author George Gastaldi
  * 
  */
-public interface ReportDefinition<T extends ReportDataSource, I extends Report> {
+public interface ReportDefinition<T extends ReportDataSource, I extends Report>
+{
 
-    /**
-     * Produces {@link Report} objects by filling them with a {@link ReportDataSource} object and some optional parameters
-     * 
-     * @param dataSource
-     * @param parameters
-     * @return
-     * @throws ReportException
-     */
-    I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
+   /**
+    * Produces {@link Report} objects by filling them with a {@link ReportDataSource} object and some optional
+    * parameters
+    * 
+    * @param dataSource
+    * @param parameters
+    * @return
+    * @throws ReportException
+    */
+   I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
 }

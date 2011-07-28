@@ -38,74 +38,82 @@ import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 
 @SuppressWarnings("rawtypes")
-public class JasperReportsQualifierProducer {
+public class JasperReportsQualifierProducer
+{
 
-    @Inject
-    Logger logger;
+   @Inject
+   Logger logger;
 
-    @Produces
-    @SalesReport
-    ReportDefinition produceSalesReport(@Jasper ReportCompiler compiler, ResourceLoaderManager resourceLoader,
-            InjectionPoint ip) {
-        logger.info("Producing Sales report");
-        Resource resource = getResource(ip);
-        return compiler.compile(resourceLoader.getResourceAsStream(resource.value()));
-    }
+   @Produces
+   @SalesReport
+   ReportDefinition produceSalesReport(@Jasper ReportCompiler compiler, ResourceLoaderManager resourceLoader,
+            InjectionPoint ip)
+   {
+      logger.info("Producing Sales report");
+      Resource resource = getResource(ip);
+      return compiler.compile(resourceLoader.getResourceAsStream(resource.value()));
+   }
 
-    @Produces
-    @SalesReport
-    @Resource("")
-    ReportDataSource getDataSource(InjectionPoint ip, ResourceLoaderManager loaderManager) throws Exception {
-        JRXlsDataSource ds;
-        String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
-        int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
-        Resource resource = getResource(ip);
-        ds = new JRXlsDataSource(loaderManager.getResourceAsStream(resource.value()));
-        ds.setColumnNames(columnNames, columnIndexes);
-        return new JasperSeamReportDataSource(ds);
-    }
+   @Produces
+   @SalesReport
+   @Resource("")
+   ReportDataSource getDataSource(InjectionPoint ip, ResourceLoaderManager loaderManager) throws Exception
+   {
+      JRXlsDataSource ds;
+      String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
+      int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
+      Resource resource = getResource(ip);
+      ds = new JRXlsDataSource(loaderManager.getResourceAsStream(resource.value()));
+      ds.setColumnNames(columnNames, columnIndexes);
+      return new JasperSeamReportDataSource(ds);
+   }
 
-    @Produces
-    @SalesReport
-    Map<String, Object> producesParams() {
-        Map<String, Object> params = new HashMap<String, Object>();
-        // Preparing parameters
-        params.put("ReportTitle", "Address Report");
-        params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
-        Set<String> states = new HashSet<String>();
-        states.add("Active");
-        states.add("Trial");
-        params.put("IncludedStates", states);
-        return params;
-    }
-    
-    
-    
-    /**
-     * Retrieves the {@link Resource} annotation
-     * 
-     * @param ip
-     * @return
-     */
-    private Resource getResource(InjectionPoint ip) {
-        Resource resource = null;
-        Set<Annotation> qualifiers = ip.getQualifiers();
-        for (Annotation an : qualifiers) {
+   @Produces
+   @SalesReport
+   Map<String, Object> producesParams()
+   {
+      Map<String, Object> params = new HashMap<String, Object>();
+      // Preparing parameters
+      params.put("ReportTitle", "Address Report");
+      params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
+      Set<String> states = new HashSet<String>();
+      states.add("Active");
+      states.add("Trial");
+      params.put("IncludedStates", states);
+      return params;
+   }
+
+   /**
+    * Retrieves the {@link Resource} annotation
+    * 
+    * @param ip
+    * @return
+    */
+   private Resource getResource(InjectionPoint ip)
+   {
+      Resource resource = null;
+      Set<Annotation> qualifiers = ip.getQualifiers();
+      for (Annotation an : qualifiers)
+      {
+         Class<? extends Annotation> annotationType = an.annotationType();
+         if (annotationType == Resource.class)
+         {
+            resource = Resource.class.cast(an);
+            break;
+         }
+      }
+      if (resource == null)
+      {
+         for (Annotation an : qualifiers)
+         {
             Class<? extends Annotation> annotationType = an.annotationType();
-            if (annotationType == Resource.class) {
-                resource = Resource.class.cast(an);
-                break;
+            if (annotationType.isAnnotationPresent(Resource.class))
+            {
+               resource = annotationType.getAnnotation(Resource.class);
+               break;
             }
-        }
-        if (resource == null) {
-            for (Annotation an : qualifiers) {
-                Class<? extends Annotation> annotationType = an.annotationType();
-                if (annotationType.isAnnotationPresent(Resource.class)) {
-                    resource = annotationType.getAnnotation(Resource.class);
-                    break;
-                }
-            }
-        }
-        return resource;
-    }
+         }
+      }
+      return resource;
+   }
 }

@@ -28,44 +28,61 @@ import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportLoader;
 
 @Jasper
-public class JasperSeamReportLoader implements ReportLoader {
-    @Override
-    public JasperSeamReportDefinition loadReportDefinition(InputStream input) throws ReportException {
-        try {
-            JasperReport report = (JasperReport)JRLoader.loadObject(input);
-            return new JasperSeamReportDefinition(report);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+public class JasperSeamReportLoader implements ReportLoader
+{
+   @Override
+   public JasperSeamReportDefinition loadReportDefinition(InputStream input) throws ReportException
+   {
+      try
+      {
+         JasperReport report = (JasperReport) JRLoader.loadObject(input);
+         return new JasperSeamReportDefinition(report);
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
 
-    @Override
-    public Report loadReport(InputStream input) throws ReportException {
-        try {
-            JasperPrint print = (JasperPrint)JRLoader.loadObject(input);
-            return new JasperSeamReport(print);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+   @Override
+   public Report loadReport(InputStream input) throws ReportException
+   {
+      try
+      {
+         JasperPrint print = (JasperPrint) JRLoader.loadObject(input);
+         return new JasperSeamReport(print);
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
 
-    @Override
-    public JasperSeamReportDefinition loadReportDefinition(String name) throws ReportException {
-        try {
-            JasperReport report = (JasperReport)JRLoader.loadObject(name);
-            return new JasperSeamReportDefinition(report);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+   @Override
+   public JasperSeamReportDefinition loadReportDefinition(String name) throws ReportException
+   {
+      try
+      {
+         JasperReport report = (JasperReport) JRLoader.loadObject(name);
+         return new JasperSeamReportDefinition(report);
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
 
-    @Override
-    public Report loadReport(String name) throws ReportException {
-        try {
-            JasperPrint print = (JasperPrint)JRLoader.loadObject(name);
-            return new JasperSeamReport(print);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+   @Override
+   public Report loadReport(String name) throws ReportException
+   {
+      try
+      {
+         JasperPrint print = (JasperPrint) JRLoader.loadObject(name);
+         return new JasperSeamReport(print);
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
 }

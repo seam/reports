@@ -35,64 +35,79 @@ import org.xml.sax.InputSource;
  */
 @SuppressWarnings("deprecation")
 @PentahoReporting
-public class PentahoSeamReportLoader implements ReportLoader {
-    private ResourceManager rmgr = new ResourceManager();
+public class PentahoSeamReportLoader implements ReportLoader
+{
+   private ResourceManager rmgr = new ResourceManager();
 
-    @Override
-    public PentahoSeamReportDefinition loadReportDefinition(InputStream input) throws ReportException {
-        return new PentahoSeamReportDefinition(loadMasterReport(input));
-    }
+   @Override
+   public PentahoSeamReportDefinition loadReportDefinition(InputStream input) throws ReportException
+   {
+      return new PentahoSeamReportDefinition(loadMasterReport(input));
+   }
 
-    @Override
-    public PentahoSeamReportDefinition loadReportDefinition(String name) throws ReportException {
-        return new PentahoSeamReportDefinition(loadMasterReport(name));
-    }
+   @Override
+   public PentahoSeamReportDefinition loadReportDefinition(String name) throws ReportException
+   {
+      return new PentahoSeamReportDefinition(loadMasterReport(name));
+   }
 
-    @Override
-    public PentahoSeamReport loadReport(InputStream input) throws ReportException {
-        return new PentahoSeamReport(loadMasterReport(input));
-    }
+   @Override
+   public PentahoSeamReport loadReport(InputStream input) throws ReportException
+   {
+      return new PentahoSeamReport(loadMasterReport(input));
+   }
 
-    @Override
-    public PentahoSeamReport loadReport(String name) throws ReportException {
-        return new PentahoSeamReport(loadMasterReport(name));
-    }
+   @Override
+   public PentahoSeamReport loadReport(String name) throws ReportException
+   {
+      return new PentahoSeamReport(loadMasterReport(name));
+   }
 
-    /**
-     * Parse a report from the provided input stream
-     * 
-     * @param input Input stream containing Pentaho Reporting report
-     * @return Pentaho Reporting report
-     * @throws ReportException if the input stream is null or contains a malformed report
-     */
-    private MasterReport loadMasterReport(InputStream input) throws ReportException {
-        try {
-            rmgr.registerDefaults();
-            // TODO Figure out a non-deprecated way to load a report from InputStream
-            final ReportGenerator generator = ReportGenerator.createInstance();
-            final InputSource repDefInputSource = new InputSource(input);
-            return generator.parseReport(repDefInputSource, null);
-        } catch (Exception ex) {
-            throw new ReportException("Unable to load report", ex);
-        }
-    }
+   /**
+    * Parse a report from the provided input stream
+    * 
+    * @param input Input stream containing Pentaho Reporting report
+    * @return Pentaho Reporting report
+    * @throws ReportException if the input stream is null or contains a malformed report
+    */
+   private MasterReport loadMasterReport(InputStream input) throws ReportException
+   {
+      try
+      {
+         rmgr.registerDefaults();
+         // TODO Figure out a non-deprecated way to load a report from InputStream
+         final ReportGenerator generator = ReportGenerator.createInstance();
+         final InputSource repDefInputSource = new InputSource(input);
+         return generator.parseReport(repDefInputSource, null);
+      }
+      catch (Exception ex)
+      {
+         throw new ReportException("Unable to load report", ex);
+      }
+   }
 
-    /**
-     * Loads a {@link MasterReport} by name
-     * 
-     * @param name
-     * @return
-     * @throws ReportException
-     */
-    private MasterReport loadMasterReport(String name) throws ReportException {
-        try {
-            rmgr.registerDefaults();
-            Resource resource = rmgr.createDirectly(new URL(name), MasterReport.class);
-            return (MasterReport) resource.getResource();
-        } catch (MalformedURLException ex) {
-            throw new ReportException("Invalid report path: " + name, ex);
-        } catch (Exception ex) {
-            throw new ReportException("Error loading report with name '" + name + "'", ex);
-        }
-    }
+   /**
+    * Loads a {@link MasterReport} by name
+    * 
+    * @param name
+    * @return
+    * @throws ReportException
+    */
+   private MasterReport loadMasterReport(String name) throws ReportException
+   {
+      try
+      {
+         rmgr.registerDefaults();
+         Resource resource = rmgr.createDirectly(new URL(name), MasterReport.class);
+         return (MasterReport) resource.getResource();
+      }
+      catch (MalformedURLException ex)
+      {
+         throw new ReportException("Invalid report path: " + name, ex);
+      }
+      catch (Exception ex)
+      {
+         throw new ReportException("Error loading report with name '" + name + "'", ex);
+      }
+   }
 }

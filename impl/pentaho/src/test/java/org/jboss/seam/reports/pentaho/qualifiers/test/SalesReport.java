@@ -37,6 +37,7 @@ import org.jboss.seam.solder.resourceLoader.Resource;
 @Documented
 @Resource("XlsDataSourceReport.jrxml")
 @PentahoReporting
-public @interface SalesReport {
+public @interface SalesReport
+{
 
 }

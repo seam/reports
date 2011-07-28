@@ -21,14 +21,17 @@ import net.sf.jasperreports.engine.JRDataSource;
 import org.jboss.seam.reports.ReportDataSource;
 
 @Jasper
-public class JasperSeamReportDataSource implements ReportDataSource {
-    private JRDataSource dataSource;
+public class JasperSeamReportDataSource implements ReportDataSource
+{
+   private JRDataSource dataSource;
 
-    public JasperSeamReportDataSource(JRDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+   public JasperSeamReportDataSource(JRDataSource dataSource)
+   {
+      this.dataSource = dataSource;
+   }
 
-    public JRDataSource getDelegate() {
-        return dataSource;
-    }
+   public JRDataSource getDelegate()
+   {
+      return dataSource;
+   }
 }

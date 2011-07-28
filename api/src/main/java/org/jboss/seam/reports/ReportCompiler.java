@@ -24,9 +24,10 @@ import java.io.InputStream;
  * @author george
  * 
  */
-public interface ReportCompiler {
-    ReportDefinition<? extends ReportDataSource, ? extends Report> compile(InputStream input) throws ReportException;
+public interface ReportCompiler
+{
+   ReportDefinition<? extends ReportDataSource, ? extends Report> compile(InputStream input) throws ReportException;
 
-    ReportDefinition<? extends ReportDataSource, ? extends Report> compile(String name) throws ReportException;
+   ReportDefinition<? extends ReportDataSource, ? extends Report> compile(String name) throws ReportException;
 
 }

@@ -25,14 +25,15 @@ import java.io.OutputStream;
  * @author george
  * 
  */
-public interface ReportRenderer<I extends Report> {
+public interface ReportRenderer<I extends Report>
+{
 
-    /**
-     * Renders a report on the supplied {@link OutputStream}
-     * 
-     * @param report
-     * @param output
-     * @throws IOException
-     */
-    void render(I report, OutputStream output) throws IOException;
+   /**
+    * Renders a report on the supplied {@link OutputStream}
+    * 
+    * @param report
+    * @param output
+    * @throws IOException
+    */
+   void render(I report, OutputStream output) throws IOException;
 }

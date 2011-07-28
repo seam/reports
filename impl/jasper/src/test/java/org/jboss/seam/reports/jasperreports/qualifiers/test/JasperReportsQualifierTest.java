@@ -42,55 +42,58 @@ import org.junit.runner.RunWith;
 import de.oio.jpdfunit.DocumentTester;
 
 @RunWith(Arquillian.class)
-public class JasperReportsQualifierTest {
+public class JasperReportsQualifierTest
+{
 
-    @Inject
-    @SalesReport
-    ReportDefinition<ReportDataSource,Report> salesReport;
+   @Inject
+   @SalesReport
+   ReportDefinition<ReportDataSource, Report> salesReport;
 
-    @Inject
-    @SalesReport
-    Map<String, Object> reportParams;
+   @Inject
+   @SalesReport
+   Map<String, Object> reportParams;
 
-    @Inject
-    @SalesReport
-    @Resource("XlsDataSource.data.xls")
-    ReportDataSource dataSource;
+   @Inject
+   @SalesReport
+   @Resource("XlsDataSource.data.xls")
+   ReportDataSource dataSource;
 
-    @Inject
-    @Jasper
-    @PDF
-    ReportRenderer<Report> pdfRenderer;
+   @Inject
+   @Jasper
+   @PDF
+   ReportRenderer<Report> pdfRenderer;
 
-    @Deployment
-    public static JavaArchive createArchive() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackages(true, "org.jboss.seam.solder")
-                .addPackages(true, "org.jboss.seam.reports")
-                .addPackages(true, "org.jboss.seam.reports.annotations")
-                .addPackages(true, "org.jboss.seam.reports.jasper")
-                .addClass(JasperSeamReportLoader.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
-    }
+   @Deployment
+   public static JavaArchive createArchive()
+   {
+      return ShrinkWrap.create(JavaArchive.class).addPackages(true, "org.jboss.seam.solder")
+               .addPackages(true, "org.jboss.seam.reports").addPackages(true, "org.jboss.seam.reports.annotations")
+               .addPackages(true, "org.jboss.seam.reports.jasper").addClass(JasperSeamReportLoader.class)
+               .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
+   }
 
-    /**
-     * Lifecycle is Compile, populate, render
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testReportLifecycle() throws Exception {
-        Report reportInstance = salesReport.fill(dataSource, reportParams);
+   /**
+    * Lifecycle is Compile, populate, render
+    * 
+    * @throws Exception
+    */
+   @Test
+   public void testReportLifecycle() throws Exception
+   {
+      Report reportInstance = salesReport.fill(dataSource, reportParams);
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
-       
-        // Render output as the desired content
-        pdfRenderer.render(reportInstance, os);
-        DocumentTester tester = new DocumentTester(new ByteArrayInputStream(os.toByteArray()));
-        try {
-            tester.assertPageCountEquals(2);
-        } finally {
-            tester.close();
-        }
-    }
+      ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
+
+      // Render output as the desired content
+      pdfRenderer.render(reportInstance, os);
+      DocumentTester tester = new DocumentTester(new ByteArrayInputStream(os.toByteArray()));
+      try
+      {
+         tester.assertPageCountEquals(2);
+      }
+      finally
+      {
+         tester.close();
+      }
+   }
 }

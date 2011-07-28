@@ -24,18 +24,19 @@ import java.io.Serializable;
  * @author george
  * 
  */
-public interface Report extends Serializable {
-    /**
-     * Return the definition (if available) that this report was based
-     * 
-     * @return the {@link ReportDefinition} used to create this {@link Report}
-     */
-    public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition();
+public interface Report extends Serializable
+{
+   /**
+    * Return the definition (if available) that this report was based
+    * 
+    * @return the {@link ReportDefinition} used to create this {@link Report}
+    */
+   public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition();
 
-    /**
-     * Return the underlying provider object for the {@link Report}, if available
-     * 
-     * @return The result of this method is implementation specific
-     */
-    public Object getDelegate();
+   /**
+    * Return the underlying provider object for the {@link Report}, if available
+    * 
+    * @return The result of this method is implementation specific
+    */
+   public Object getDelegate();
 }

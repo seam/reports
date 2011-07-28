@@ -26,13 +26,16 @@ import java.io.InputStream;
  * @author george
  * 
  */
-public interface ReportLoader {
+public interface ReportLoader
+{
 
-    ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(InputStream input) throws ReportException;
+   ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(InputStream input)
+            throws ReportException;
 
-    ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(String name) throws ReportException;
+   ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(String name)
+            throws ReportException;
 
-    Report loadReport(InputStream input) throws ReportException;
+   Report loadReport(InputStream input) throws ReportException;
 
-    Report loadReport(String name) throws ReportException;
+   Report loadReport(String name) throws ReportException;
 }

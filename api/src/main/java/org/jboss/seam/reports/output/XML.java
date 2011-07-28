@@ -41,7 +41,8 @@ import org.jboss.seam.reports.spi.ReportOutputBinding;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-@ReportOutputBinding(value="XML",mimeType="text/xml")
-public @interface XML {
+@ReportOutputBinding(value = "XML", mimeType = "text/xml")
+public @interface XML
+{
 
 }

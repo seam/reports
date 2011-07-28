@@ -24,21 +24,25 @@ import org.pentaho.reporting.engine.classic.core.DataFactory;
  * 
  * @author Jordan Ganoff
  */
-public class PentahoSeamReportDataSource implements ReportDataSource {
-    /**
-     * Pentaho Reporting Engine Data Factory is the data source for a report
-     */
-    private DataFactory dataFactory;
+public class PentahoSeamReportDataSource implements ReportDataSource
+{
+   /**
+    * Pentaho Reporting Engine Data Factory is the data source for a report
+    */
+   private DataFactory dataFactory;
 
-    public PentahoSeamReportDataSource(final DataFactory factory) {
-        if (factory == null) {
-            throw new NullPointerException();
-        }
-        this.dataFactory = factory;
-    }
+   public PentahoSeamReportDataSource(final DataFactory factory)
+   {
+      if (factory == null)
+      {
+         throw new NullPointerException();
+      }
+      this.dataFactory = factory;
+   }
 
-    @Override
-    public DataFactory getDelegate() {
-        return dataFactory;
-    }
+   @Override
+   public DataFactory getDelegate()
+   {
+      return dataFactory;
+   }
 }

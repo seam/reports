@@ -14,6 +14,7 @@
 	<modules>
 		<module>jasper</module>
 		<module>pentaho</module>
+		<module>xdocreport</module>
 	</modules>
 	
 	<properties>
@@ -53,14 +54,14 @@
 		<dependency>
 			<groupId>org.jboss.arquillian</groupId>
 			<artifactId>arquillian-junit</artifactId>
-			<version>${arquillian.version}</version>
+			<version>${arquillian.version}</version><!--$NO-MVN-MAN-VER$-->
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jboss.arquillian.container</groupId>
 			<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-			<version>${arquillian.version}</version>
+			<version>${arquillian.version}</version><!--$NO-MVN-MAN-VER$-->
 			<scope>test</scope>
 		</dependency>
 

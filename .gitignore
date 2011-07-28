@@ -5,3 +5,4 @@ target
 *.sw?
 test-output
 bin
+*.log

@@ -47,9 +47,6 @@ import fr.opensagres.xdocreport.template.IContext;
 @RunWith(Arquillian.class)
 public class XDocReportsTest
 {
-   @Inject
-   @Resource("DocxProjectWithVelocity.docx")
-   InputStream sourceReport;
 
    @Inject
    @XDocReport
@@ -69,7 +66,7 @@ public class XDocReportsTest
    }
 
    @Test
-   public void testDocx() throws Exception
+   public void testDocx(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport) throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
       XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
@@ -81,10 +78,9 @@ public class XDocReportsTest
       String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
       assertTrue(text.contains("Seam Reports Rocks"));
    }
-   
 
    @Test
-   public void testDocxWithMap() throws Exception
+   public void testDocxWithMap(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport) throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
       XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
@@ -97,11 +93,54 @@ public class XDocReportsTest
    }
 
    @Test
-   public void testDocxWithMapAsParameter() throws Exception
+   public void testDocxWithMapAsParameter(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport)
+            throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
       XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      Map<String, Object> parameters = Collections.singletonMap("project", (Object)"Seam Reports");
+      Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
+      Report report = reportDefinition.fill(null, parameters);
+      reportRenderer.render(report, output);
+      // Extracting the result
+      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+      assertTrue(text.contains("Seam Reports Rocks"));
+   }
+   
+   
+   @Test
+   public void testOdt(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception
+   {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      IContext dataSource = reportDefinition.getDelegate().createContext();
+      dataSource.put("project", "Seam Reports");
+      Report report = reportDefinition.fill(dataSource, null);
+      reportRenderer.render(report, output);
+      // Extracting the result
+      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+      assertTrue(text.contains("Seam Reports Rocks"));
+   }
+
+   @Test
+   public void testOdtxWithMap(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception
+   {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
+      Report report = reportDefinition.fill(dataSource, null);
+      reportRenderer.render(report, output);
+      // Extracting the result
+      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+      assertTrue(text.contains("Seam Reports Rocks"));
+   }
+
+   @Test
+   public void testOdtxWithMapAsParameter(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport)
+            throws Exception
+   {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
       Report report = reportDefinition.fill(null, parameters);
       reportRenderer.render(report, output);
       // Extracting the result

@@ -18,6 +18,8 @@ package org.jboss.seam.reports;
 
 import java.io.InputStream;
 
+import org.jboss.seam.reports.exceptions.ReportException;
+
 /**
  * Allows reports to be compiled. Some implementations might not need this.
  * 
@@ -26,8 +28,8 @@ import java.io.InputStream;
  */
 public interface ReportCompiler
 {
-   ReportDefinition<? extends ReportDataSource, ? extends Report> compile(InputStream input) throws ReportException;
+   ReportDefinition<? extends Report> compile(InputStream input) throws ReportException;
 
-   ReportDefinition<? extends ReportDataSource, ? extends Report> compile(String name) throws ReportException;
+   ReportDefinition<? extends Report> compile(String name) throws ReportException;
 
 }

@@ -20,7 +20,7 @@ import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.exceptions.ReportException;
 import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
 
 /**

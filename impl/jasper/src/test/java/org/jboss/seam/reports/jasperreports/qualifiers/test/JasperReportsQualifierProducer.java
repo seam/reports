@@ -26,14 +26,13 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRXlsDataSource;
 
 import org.jboss.logging.Logger;
 import org.jboss.seam.reports.ReportCompiler;
-import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.jasper.Jasper;
-import org.jboss.seam.reports.jasper.JasperSeamReportDataSource;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 
@@ -57,7 +56,7 @@ public class JasperReportsQualifierProducer
    @Produces
    @SalesReport
    @Resource("")
-   ReportDataSource getDataSource(InjectionPoint ip, ResourceLoaderManager loaderManager) throws Exception
+   JRDataSource getDataSource(InjectionPoint ip, ResourceLoaderManager loaderManager) throws Exception
    {
       JRXlsDataSource ds;
       String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
@@ -65,7 +64,7 @@ public class JasperReportsQualifierProducer
       Resource resource = getResource(ip);
       ds = new JRXlsDataSource(loaderManager.getResourceAsStream(resource.value()));
       ds.setColumnNames(columnNames, columnIndexes);
-      return new JasperSeamReportDataSource(ds);
+      return ds;
    }
 
    @Produces

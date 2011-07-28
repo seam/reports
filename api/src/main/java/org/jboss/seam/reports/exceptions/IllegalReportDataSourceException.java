@@ -14,24 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.jasper;
+package org.jboss.seam.reports.exceptions;
 
-import net.sf.jasperreports.engine.JRDataSource;
-
-import org.jboss.seam.reports.ReportDataSource;
-
-@Jasper
-public class JasperSeamReportDataSource implements ReportDataSource
+public class IllegalReportDataSourceException extends ReportException
 {
-   private JRDataSource dataSource;
+   private static final long serialVersionUID = 1L;
 
-   public JasperSeamReportDataSource(JRDataSource dataSource)
+   public IllegalReportDataSourceException()
    {
-      this.dataSource = dataSource;
+      super();
    }
 
-   public JRDataSource getDelegate()
+   public IllegalReportDataSourceException(String message, Throwable cause)
    {
-      return dataSource;
+      super(message, cause);
    }
+
+   public IllegalReportDataSourceException(String message)
+   {
+      super(message);
+   }
+
+   public IllegalReportDataSourceException(Throwable cause)
+   {
+      super(cause);
+   }
+
 }

@@ -22,10 +22,11 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import net.sf.jasperreports.engine.JRDataSource;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.jasper.Jasper;
@@ -47,7 +48,7 @@ public class JasperReportsQualifierTest
 
    @Inject
    @SalesReport
-   ReportDefinition<ReportDataSource, Report> salesReport;
+   ReportDefinition<Report> salesReport;
 
    @Inject
    @SalesReport
@@ -56,7 +57,7 @@ public class JasperReportsQualifierTest
    @Inject
    @SalesReport
    @Resource("XlsDataSource.data.xls")
-   ReportDataSource dataSource;
+   JRDataSource dataSource;
 
    @Inject
    @Jasper

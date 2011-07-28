@@ -18,6 +18,8 @@ package org.jboss.seam.reports;
 
 import java.io.InputStream;
 
+import org.jboss.seam.reports.exceptions.ReportException;
+
 /**
  * Loads a report from a {@link InputStream}
  * 
@@ -29,10 +31,10 @@ import java.io.InputStream;
 public interface ReportLoader
 {
 
-   ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(InputStream input)
+   ReportDefinition<? extends Report> loadReportDefinition(InputStream input)
             throws ReportException;
 
-   ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(String name)
+   ReportDefinition<? extends Report> loadReportDefinition(String name)
             throws ReportException;
 
    Report loadReport(InputStream input) throws ReportException;

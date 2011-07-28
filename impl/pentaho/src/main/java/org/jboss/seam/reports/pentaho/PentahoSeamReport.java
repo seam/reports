@@ -17,8 +17,6 @@
 package org.jboss.seam.reports.pentaho;
 
 import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportDataSource;
-import org.jboss.seam.reports.ReportDefinition;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 
 /**
@@ -49,7 +47,7 @@ public class PentahoSeamReport implements Report
    }
 
    @Override
-   public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition()
+   public PentahoSeamReportDefinition getReportDefinition()
    {
       return null;
    }

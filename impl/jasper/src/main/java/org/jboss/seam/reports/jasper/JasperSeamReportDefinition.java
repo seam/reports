@@ -25,9 +25,10 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.ReportDefinition;
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.exceptions.ReportException;
+import org.jboss.seam.reports.spi.ReportUtils;
 
-public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamReportDataSource, JasperSeamReport>
+public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamReport>
 {
 
    private JasperReport compiledReport;
@@ -44,12 +45,12 @@ public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamRe
    }
 
    @Override
-   public JasperSeamReport fill(JasperSeamReportDataSource dataSource, Map<String, Object> parameters)
+   public JasperSeamReport fill(Object dataSource, Map<String, Object> parameters)
             throws ReportException
    {
       try
       {
-         JRDataSource ds = dataSource.getDelegate();
+         JRDataSource ds = ReportUtils.castDataSource(dataSource, JRDataSource.class);
          JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters, ds);
          return new JasperSeamReport(filledReport);
       }

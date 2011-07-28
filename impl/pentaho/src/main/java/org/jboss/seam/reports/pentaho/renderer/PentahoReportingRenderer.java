@@ -25,8 +25,8 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.pentaho.PentahoReporting;
 import org.jboss.seam.reports.pentaho.PentahoSeamReport;
 import org.jboss.seam.reports.spi.ReportOutputBinding;

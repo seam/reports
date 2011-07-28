@@ -14,31 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports;
+package org.jboss.seam.reports.spi;
 
-public class ReportException extends RuntimeException
+import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
+
+public class ReportUtils
 {
-
-   private static final long serialVersionUID = 1L;
-
-   public ReportException()
+   private ReportUtils()
    {
-      super();
    }
 
-   public ReportException(String message, Throwable cause)
+   public static <T> T castDataSource(Object dataSource, Class<? extends T> clazz)
+            throws IllegalReportDataSourceException
    {
-      super(message, cause);
-   }
+      if (clazz.isInstance(dataSource))
+      {
+         return clazz.cast(dataSource);
+      }
+      else
+      {
+         throw new IllegalReportDataSourceException();
+      }
 
-   public ReportException(String message)
-   {
-      super(message);
    }
-
-   public ReportException(Throwable cause)
-   {
-      super(cause);
-   }
-
 }

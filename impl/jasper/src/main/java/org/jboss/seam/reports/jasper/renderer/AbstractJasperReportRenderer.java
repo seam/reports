@@ -23,8 +23,8 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 
-import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.jasper.JasperSeamReport;
 
 public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReport>

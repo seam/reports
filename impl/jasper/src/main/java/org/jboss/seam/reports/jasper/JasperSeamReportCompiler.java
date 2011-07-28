@@ -23,7 +23,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.ReportCompiler;
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.exceptions.ReportException;
 
 @Jasper
 public class JasperSeamReportCompiler implements ReportCompiler

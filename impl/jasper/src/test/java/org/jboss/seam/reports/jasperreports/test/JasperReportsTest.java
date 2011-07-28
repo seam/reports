@@ -31,17 +31,16 @@ import java.util.Set;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRXlsDataSource;
 
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportCompiler;
-import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.jasper.Jasper;
-import org.jboss.seam.reports.jasper.JasperSeamReportDataSource;
 import org.jboss.seam.reports.output.CSV;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.output.XML;
@@ -70,7 +69,7 @@ public class JasperReportsTest
 
    @Inject
    @Jasper
-   ReportDataSource jasperDataSource;
+   JRDataSource jasperDataSource;
 
    @Inject
    @Jasper
@@ -185,14 +184,14 @@ public class JasperReportsTest
    {
       @Produces
       @Jasper
-      ReportDataSource getDataSource(@Resource("XlsDataSource.data.xls") InputStream dataSource) throws Exception
+      JRDataSource getDataSource(@Resource("XlsDataSource.data.xls") InputStream dataSource) throws Exception
       {
          JRXlsDataSource ds;
          String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
          int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
          ds = new JRXlsDataSource(dataSource);
          ds.setColumnNames(columnNames, columnIndexes);
-         return new JasperSeamReportDataSource(ds);
+         return ds;
       }
    }
 }

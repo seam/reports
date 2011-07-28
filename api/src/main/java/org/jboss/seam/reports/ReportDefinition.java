@@ -18,6 +18,8 @@ package org.jboss.seam.reports;
 
 import java.util.Map;
 
+import org.jboss.seam.reports.exceptions.ReportException;
+
 /**
  * A report template object.
  * 
@@ -26,7 +28,7 @@ import java.util.Map;
  * @author George Gastaldi
  * 
  */
-public interface ReportDefinition<T extends ReportDataSource, I extends Report>
+public interface ReportDefinition<I extends Report>
 {
 
    /**
@@ -38,5 +40,5 @@ public interface ReportDefinition<T extends ReportDataSource, I extends Report>
     * @return
     * @throws ReportException
     */
-   I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
+   I fill(Object dataSource, Map<String, Object> parameters) throws ReportException;
 }

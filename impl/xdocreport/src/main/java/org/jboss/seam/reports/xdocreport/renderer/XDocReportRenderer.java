@@ -16,14 +16,32 @@
  */
 package org.jboss.seam.reports.xdocreport.renderer;
 
+import static org.jboss.seam.solder.reflection.AnnotationInspector.getAnnotation;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.InjectionPoint;
+import javax.inject.Inject;
+
+import org.apache.commons.io.IOUtils;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.exceptions.ReportException;
+import org.jboss.seam.reports.exceptions.UnsupportedReportOutputException;
+import org.jboss.seam.reports.spi.ReportOutputBinding;
+import org.jboss.seam.reports.xdocreport.ConvertVia;
 import org.jboss.seam.reports.xdocreport.XDocReport;
 import org.jboss.seam.reports.xdocreport.XDocReportSeamReport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import fr.opensagres.xdocreport.converter.ConverterRegistry;
+import fr.opensagres.xdocreport.converter.IConverter;
+import fr.opensagres.xdocreport.converter.Options;
+import fr.opensagres.xdocreport.converter.XDocConverterException;
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.template.IContext;
@@ -32,19 +50,68 @@ import fr.opensagres.xdocreport.template.IContext;
 public class XDocReportRenderer implements ReportRenderer<XDocReportSeamReport>
 {
 
+   private static Logger log = LoggerFactory.getLogger(XDocReportRenderer.class);
+
+   @Inject
+   InjectionPoint injectionPoint;
+
+   @Inject
+   BeanManager beanManager;
+
    @Override
    public void render(XDocReportSeamReport report, OutputStream output) throws IOException
    {
+      ByteArrayOutputStream baos = new ByteArrayOutputStream();
       IXDocReport delegate = report.getDelegate();
       IContext context = report.getContext();
       try
       {
-         delegate.process(context, output);
+         delegate.process(context, baos);
       }
       catch (XDocReportException e)
       {
          throw new ReportException(e);
       }
+      // Do Convert if a ReportOutputBinding was specified
+      ReportOutputBinding reportOutputBinding = getReportOutputBinding();
+      if (reportOutputBinding != null)
+      {
+         Options options = Options.getFrom(delegate.getKind()).to(reportOutputBinding.value());
+         ConvertVia via = getConvertVia();
+         if (via != null)
+         {
+            options.via(via.value());
+         }
+         log.debug("Using Options from={}, to={}, via={}",
+                  new Object[] { options.getFrom(), options.getTo(), options.getVia() });
+         IConverter converter = ConverterRegistry.getRegistry().getConverter(options);
+         if (converter == null)
+         {
+            throw new UnsupportedReportOutputException("No converter found for this injection point: " + injectionPoint);
+         }
+         try
+         {
+            converter.convert(new ByteArrayInputStream(baos.toByteArray()), output, options);
+         }
+         catch (XDocConverterException e)
+         {
+            throw new ReportException(e);
+         }
+      }
+      else
+      {
+         IOUtils.write(baos.toByteArray(), output);
+      }
+   }
+
+   protected ReportOutputBinding getReportOutputBinding()
+   {
+      return getAnnotation(injectionPoint.getAnnotated(), ReportOutputBinding.class, beanManager);
+   }
+
+   protected ConvertVia getConvertVia()
+   {
+      return getAnnotation(injectionPoint.getAnnotated(), ConvertVia.class, beanManager);
    }
 
 }

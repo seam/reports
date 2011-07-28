@@ -31,6 +31,7 @@ import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.xdocreport.XDocReport;
 import org.jboss.seam.reports.xdocreport.XDocReportSeamReport;
 import org.jboss.seam.reports.xdocreport.XDocReportSeamReportLoader;
@@ -41,6 +42,9 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import de.oio.jpdfunit.DocumentTester;
+import de.oio.jpdfunit.document.util.TextSearchType;
 
 import fr.opensagres.xdocreport.template.IContext;
 
@@ -55,6 +59,11 @@ public class XDocReportsTest
    @Inject
    @XDocReport
    XDocReportSeamReportLoader reportLoader;
+
+   @Inject
+   @XDocReport
+   @PDF
+   ReportRenderer<Report> pdfReportRenderer;
 
    @Deployment
    public static JavaArchive createArchive()
@@ -105,8 +114,7 @@ public class XDocReportsTest
       String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
       assertTrue(text.contains("Seam Reports Rocks"));
    }
-   
-   
+
    @Test
    public void testOdt(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception
    {
@@ -146,5 +154,20 @@ public class XDocReportsTest
       // Extracting the result
       String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
       assertTrue(text.contains("Seam Reports Rocks"));
+   }
+
+   @Test
+   public void testConversionFromDocxToPDF(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport)
+            throws Exception
+   {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      IContext dataSource = reportDefinition.getDelegate().createContext();
+      dataSource.put("project", "Seam Reports");
+      Report report = reportDefinition.fill(dataSource, null);
+      pdfReportRenderer.render(report, output);
+      // Testing the generated PDF
+      DocumentTester tester = new DocumentTester(new ByteArrayInputStream(output.toByteArray()));
+      tester.assertContentContainsText("Seam Reports Rocks", TextSearchType.CONTAINS);
    }
 }

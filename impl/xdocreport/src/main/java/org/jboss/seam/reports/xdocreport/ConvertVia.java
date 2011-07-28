@@ -14,27 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.spi;
+package org.jboss.seam.reports.xdocreport;
 
-import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-public class ReportUtils
+import javax.enterprise.inject.Stereotype;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
+@Stereotype
+@Target({ TYPE, METHOD, FIELD })
+@Retention(RUNTIME)
+@Documented
+public @interface ConvertVia
 {
-   private ReportUtils()
-   {
-   }
-
-   public static <T> T castDataSource(Object dataSource, Class<? extends T> clazz)
-            throws IllegalReportDataSourceException
-   {
-      if (clazz.isInstance(dataSource))
-      {
-         return clazz.cast(dataSource);
-      }
-      else
-      {
-         throw new IllegalReportDataSourceException();
-      }
-
-   }
+   String value();
 }

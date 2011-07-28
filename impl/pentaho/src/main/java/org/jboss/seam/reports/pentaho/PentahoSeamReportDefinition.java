@@ -19,8 +19,8 @@ package org.jboss.seam.reports.pentaho;
 import java.util.Map;
 
 import org.jboss.seam.reports.ReportDefinition;
+import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
 import org.jboss.seam.reports.exceptions.ReportException;
-import org.jboss.seam.reports.spi.ReportUtils;
 import org.pentaho.reporting.engine.classic.core.DataFactory;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 
@@ -58,7 +58,15 @@ public class PentahoSeamReportDefinition implements ReportDefinition<PentahoSeam
             // Should not happen
             throw new IllegalStateException("Error while cloning MasterReport", ignored);
          }
-         DataFactory dataFactory = ReportUtils.castDataSource(dataSource, DataFactory.class);
+         DataFactory dataFactory;
+         try
+         {
+            dataFactory = DataFactory.class.cast(dataSource);
+         }
+         catch (ClassCastException cce)
+         {
+            throw new IllegalReportDataSourceException();
+         }
          masterReport.setDataFactory(dataFactory);
       }
       else

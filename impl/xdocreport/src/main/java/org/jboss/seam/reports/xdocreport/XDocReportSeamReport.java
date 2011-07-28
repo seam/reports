@@ -23,7 +23,6 @@ import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
 import org.jboss.seam.reports.exceptions.ReportException;
-import org.jboss.seam.reports.spi.ReportUtils;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.document.IXDocReport;
@@ -61,7 +60,14 @@ public class XDocReportSeamReport implements ReportDefinition<XDocReportSeamRepo
       }
       else
       {
-         this.context = ReportUtils.castDataSource(dataSource, IContext.class);
+         try
+         {
+            this.context = IContext.class.cast(dataSource);
+         }
+         catch (ClassCastException cce)
+         {
+            throw new IllegalReportDataSourceException();
+         }
       }
       return this;
    }

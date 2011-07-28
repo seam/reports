@@ -25,8 +25,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.ReportDefinition;
+import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
 import org.jboss.seam.reports.exceptions.ReportException;
-import org.jboss.seam.reports.spi.ReportUtils;
 
 public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamReport>
 {
@@ -50,7 +50,15 @@ public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamRe
    {
       try
       {
-         JRDataSource ds = ReportUtils.castDataSource(dataSource, JRDataSource.class);
+         JRDataSource ds;
+         try
+         {
+            ds = JRDataSource.class.cast(dataSource);
+         }
+         catch (ClassCastException cce)
+         {
+            throw new IllegalReportDataSourceException();
+         }
          JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters, ds);
          return new JasperSeamReport(filledReport);
       }

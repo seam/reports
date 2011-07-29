@@ -30,6 +30,7 @@ import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
+import fr.opensagres.xdocreport.core.io.XDocArchive;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
@@ -57,6 +58,7 @@ public class XDocReportSeamReportLoader implements ReportLoader
       try
       {
          report = XDocReportRegistry.getRegistry().loadReport(input, engineKind);
+         return new XDocReportSeamReport(null, report, report.createContext());
       }
       catch (IOException e)
       {
@@ -67,19 +69,6 @@ public class XDocReportSeamReportLoader implements ReportLoader
       {
          throw new ReportException(e);
       }
-      return new XDocReportSeamReport(report);
-   }
-
-   @Override
-   public XDocReportSeamReport loadReportDefinition(InputStream input) throws ReportException
-   {
-      return loadReport(input);
-   }
-
-   @Override
-   public XDocReportSeamReport loadReportDefinition(String name) throws ReportException
-   {
-      return loadReport(name);
    }
 
    @Override
@@ -88,4 +77,28 @@ public class XDocReportSeamReportLoader implements ReportLoader
       InputStream resourceAsStream = resourceLoaderManager.getResourceAsStream(name);
       return loadReport(resourceAsStream);
    }
+
+   @Override
+   public XDocReportSeamReportDefinition loadReportDefinition(String name) throws ReportException
+   {
+      InputStream resourceAsStream = resourceLoaderManager.getResourceAsStream(name);
+      return loadReportDefinition(resourceAsStream);
+   }
+
+   @Override
+   public XDocReportSeamReportDefinition loadReportDefinition(InputStream input) throws ReportException
+   {
+      XDocArchive archive;
+      try
+      {
+         archive = XDocArchive.readZip(input);
+      }
+      catch (IOException e)
+      {
+         // TODO Auto-generated catch block
+         throw new ReportException(e);
+      }
+      return new XDocReportSeamReportDefinition(archive, engineKind);
+   }
+
 }

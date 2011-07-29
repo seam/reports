@@ -22,6 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -30,11 +31,11 @@ import org.apache.tika.Tika;
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
+import org.jboss.seam.reports.ReportDefinition;
+import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.xdocreport.XDocReport;
-import org.jboss.seam.reports.xdocreport.XDocReportSeamReport;
-import org.jboss.seam.reports.xdocreport.XDocReportSeamReportLoader;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -46,8 +47,7 @@ import org.junit.runner.RunWith;
 import de.oio.jpdfunit.DocumentTester;
 import de.oio.jpdfunit.document.util.TextSearchType;
 
-import fr.opensagres.xdocreport.template.IContext;
-
+@SuppressWarnings({ "unchecked", "rawtypes" })
 @RunWith(Arquillian.class)
 public class XDocReportsTest
 {
@@ -58,7 +58,7 @@ public class XDocReportsTest
 
    @Inject
    @XDocReport
-   XDocReportSeamReportLoader reportLoader;
+   ReportLoader reportLoader;
 
    @Inject
    @XDocReport
@@ -74,25 +74,12 @@ public class XDocReportsTest
                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
    }
 
-   @Test
-   public void testDocx(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport) throws Exception
-   {
-      ByteArrayOutputStream output = new ByteArrayOutputStream();
-      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      IContext dataSource = reportDefinition.getDelegate().createContext();
-      dataSource.put("project", "Seam Reports");
-      Report report = reportDefinition.fill(dataSource, null);
-      reportRenderer.render(report, output);
-      // Extracting the result
-      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
-      assertTrue(text.contains("Seam Reports Rocks"));
-   }
-
+   
    @Test
    public void testDocxWithMap(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport) throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
-      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
       Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
       Report report = reportDefinition.fill(dataSource, null);
       reportRenderer.render(report, output);
@@ -106,23 +93,9 @@ public class XDocReportsTest
             throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
-      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
       Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
       Report report = reportDefinition.fill(null, parameters);
-      reportRenderer.render(report, output);
-      // Extracting the result
-      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
-      assertTrue(text.contains("Seam Reports Rocks"));
-   }
-
-   @Test
-   public void testOdt(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception
-   {
-      ByteArrayOutputStream output = new ByteArrayOutputStream();
-      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      IContext dataSource = reportDefinition.getDelegate().createContext();
-      dataSource.put("project", "Seam Reports");
-      Report report = reportDefinition.fill(dataSource, null);
       reportRenderer.render(report, output);
       // Extracting the result
       String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
@@ -133,7 +106,7 @@ public class XDocReportsTest
    public void testOdtxWithMap(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
-      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
       Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
       Report report = reportDefinition.fill(dataSource, null);
       reportRenderer.render(report, output);
@@ -147,7 +120,7 @@ public class XDocReportsTest
             throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
-      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
       Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
       Report report = reportDefinition.fill(null, parameters);
       reportRenderer.render(report, output);
@@ -161,8 +134,8 @@ public class XDocReportsTest
             throws Exception
    {
       ByteArrayOutputStream output = new ByteArrayOutputStream();
-      XDocReportSeamReport reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      IContext dataSource = reportDefinition.getDelegate().createContext();
+      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      Map<String, Object> dataSource = new HashMap<String, Object>();
       dataSource.put("project", "Seam Reports");
       Report report = reportDefinition.fill(dataSource, null);
       pdfReportRenderer.render(report, output);

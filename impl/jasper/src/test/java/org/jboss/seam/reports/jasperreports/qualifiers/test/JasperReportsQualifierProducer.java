@@ -32,7 +32,7 @@ import net.sf.jasperreports.engine.data.JRXlsDataSource;
 import org.jboss.logging.Logger;
 import org.jboss.seam.reports.ReportCompiler;
 import org.jboss.seam.reports.ReportDefinition;
-import org.jboss.seam.reports.jasper.Jasper;
+import org.jboss.seam.reports.jasper.annotations.Jasper;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 

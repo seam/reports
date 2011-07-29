@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import net.sf.jasperreports.engine.JRExporter;
 
 import org.jboss.seam.reports.exceptions.ReportException;
-import org.jboss.seam.reports.jasper.Jasper;
+import org.jboss.seam.reports.jasper.annotations.Jasper;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
 import org.jboss.seam.solder.reflection.Reflections;
 

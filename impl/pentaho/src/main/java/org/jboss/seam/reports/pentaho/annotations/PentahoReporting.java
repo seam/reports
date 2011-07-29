@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.pentaho;
+package org.jboss.seam.reports.pentaho.annotations;
 
 import javax.inject.Qualifier;
 import java.lang.annotation.Documented;

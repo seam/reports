@@ -40,7 +40,7 @@ import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportCompiler;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.jasper.Jasper;
+import org.jboss.seam.reports.jasper.annotations.Jasper;
 import org.jboss.seam.reports.output.CSV;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.output.XML;

@@ -22,6 +22,7 @@ import java.net.URL;
 
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.exceptions.ReportException;
+import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 import org.pentaho.reporting.engine.classic.core.modules.parser.base.ReportGenerator;
 import org.pentaho.reporting.libraries.resourceloader.Resource;

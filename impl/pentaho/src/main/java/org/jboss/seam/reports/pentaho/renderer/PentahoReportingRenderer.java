@@ -27,8 +27,8 @@ import javax.inject.Inject;
 
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.exceptions.ReportException;
-import org.jboss.seam.reports.pentaho.PentahoReporting;
 import org.jboss.seam.reports.pentaho.PentahoSeamReport;
+import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 import org.pentaho.reporting.engine.classic.core.ReportProcessingException;

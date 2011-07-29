@@ -45,7 +45,7 @@ public class JasperSeamReportLoader implements ReportLoader
    }
 
    @Override
-   public Report loadReport(InputStream input) throws ReportException
+   public JasperSeamReport loadReport(InputStream input) throws ReportException
    {
       try
       {
@@ -73,7 +73,7 @@ public class JasperSeamReportLoader implements ReportLoader
    }
 
    @Override
-   public Report loadReport(String name) throws ReportException
+   public JasperSeamReport loadReport(String name) throws ReportException
    {
       try
       {

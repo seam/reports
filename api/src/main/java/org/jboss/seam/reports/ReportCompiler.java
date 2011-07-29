@@ -28,8 +28,8 @@ import org.jboss.seam.reports.exceptions.ReportException;
  */
 public interface ReportCompiler
 {
-   ReportDefinition<? extends Report> compile(InputStream input) throws ReportException;
+   ReportDefinition compile(InputStream input) throws ReportException;
 
-   ReportDefinition<? extends Report> compile(String name) throws ReportException;
+   ReportDefinition compile(String name) throws ReportException;
 
 }

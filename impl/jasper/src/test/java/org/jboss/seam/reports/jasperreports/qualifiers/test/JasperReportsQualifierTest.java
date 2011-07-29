@@ -48,7 +48,7 @@ public class JasperReportsQualifierTest
 
    @Inject
    @SalesReport
-   ReportDefinition<Report> salesReport;
+   ReportDefinition salesReport;
 
    @Inject
    @SalesReport

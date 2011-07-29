@@ -28,7 +28,7 @@ import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
 import org.jboss.seam.reports.exceptions.ReportException;
 
-public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamReport>
+public class JasperSeamReportDefinition implements ReportDefinition
 {
 
    private JasperReport compiledReport;

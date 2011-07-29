@@ -31,7 +31,7 @@ public interface Report extends Serializable
     * 
     * @return the {@link ReportDefinition} used to create this {@link Report}
     */
-   public ReportDefinition<? extends Report> getReportDefinition();
+   public ReportDefinition getReportDefinition();
 
    /**
     * Return the underlying provider object for the {@link Report}, if available

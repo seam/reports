@@ -29,7 +29,7 @@ import org.pentaho.reporting.engine.classic.core.MasterReport;
  * 
  * @author Jordan Ganoff
  */
-public class PentahoSeamReportDefinition implements ReportDefinition<PentahoSeamReport>
+public class PentahoSeamReportDefinition implements ReportDefinition
 {
    private MasterReport report;
 

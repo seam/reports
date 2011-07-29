@@ -54,7 +54,6 @@ import org.junit.runner.RunWith;
 
 import de.oio.jpdfunit.DocumentTester;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
 @RunWith(Arquillian.class)
 public class JasperReportsTest
 {

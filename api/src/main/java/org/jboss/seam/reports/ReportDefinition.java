@@ -28,7 +28,7 @@ import org.jboss.seam.reports.exceptions.ReportException;
  * @author George Gastaldi
  * 
  */
-public interface ReportDefinition<I extends Report>
+public interface ReportDefinition
 {
 
    /**
@@ -40,5 +40,5 @@ public interface ReportDefinition<I extends Report>
     * @return
     * @throws ReportException
     */
-   I fill(Object dataSource, Map<String, Object> parameters) throws ReportException;
+   Report fill(Object dataSource, Map<String, Object> parameters) throws ReportException;
 }

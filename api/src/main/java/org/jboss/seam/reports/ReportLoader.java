@@ -31,10 +31,10 @@ import org.jboss.seam.reports.exceptions.ReportException;
 public interface ReportLoader
 {
 
-   ReportDefinition<? extends Report> loadReportDefinition(InputStream input)
+   ReportDefinition loadReportDefinition(InputStream input)
             throws ReportException;
 
-   ReportDefinition<? extends Report> loadReportDefinition(String name)
+   ReportDefinition loadReportDefinition(String name)
             throws ReportException;
 
    Report loadReport(InputStream input) throws ReportException;

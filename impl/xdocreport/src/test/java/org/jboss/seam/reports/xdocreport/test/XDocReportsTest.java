@@ -47,7 +47,6 @@ import org.junit.runner.RunWith;
 import de.oio.jpdfunit.DocumentTester;
 import de.oio.jpdfunit.document.util.TextSearchType;
 
-@SuppressWarnings({ "unchecked", "rawtypes" })
 @RunWith(Arquillian.class)
 public class XDocReportsTest
 {

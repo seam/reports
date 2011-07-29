@@ -36,6 +36,7 @@ import fr.opensagres.xdocreport.core.io.XDocArchive;
 import fr.opensagres.xdocreport.document.IXDocReport;
 import fr.opensagres.xdocreport.document.registry.XDocReportRegistry;
 import fr.opensagres.xdocreport.template.TemplateEngineKind;
+import fr.opensagres.xdocreport.template.registry.TemplateEngineRegistry;
 
 @XDocReport
 public class XDocReportSeamReportLoader implements ReportLoader
@@ -51,6 +52,11 @@ public class XDocReportSeamReportLoader implements ReportLoader
       this.resourceLoaderManager = resourceLoaderManager;
       Via via = getAnnotation(injectionPoint.getAnnotated(), Via.class, beanManager);
       engineKind = (via == null) ? TemplateEngineKind.Velocity : TemplateEngineKind.valueOf(via.value());
+      if (!TemplateEngineRegistry.getRegistry().exists(engineKind, null))
+      {
+         throw new ReportException("Template engine not found: "+engineKind);
+      }
+
    }
 
    @Override

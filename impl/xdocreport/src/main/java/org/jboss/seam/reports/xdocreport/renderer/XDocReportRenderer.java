@@ -32,9 +32,9 @@ import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.exceptions.UnsupportedReportOutputException;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
-import org.jboss.seam.reports.xdocreport.Via;
-import org.jboss.seam.reports.xdocreport.XDocReport;
 import org.jboss.seam.reports.xdocreport.XDocReportSeamReport;
+import org.jboss.seam.reports.xdocreport.annotations.Via;
+import org.jboss.seam.reports.xdocreport.annotations.XDocReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

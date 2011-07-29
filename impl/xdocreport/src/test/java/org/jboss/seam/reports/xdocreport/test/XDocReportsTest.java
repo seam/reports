@@ -35,7 +35,7 @@ import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.output.PDF;
-import org.jboss.seam.reports.xdocreport.XDocReport;
+import org.jboss.seam.reports.xdocreport.annotations.XDocReport;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.ArchivePaths;
 import org.jboss.shrinkwrap.api.ShrinkWrap;

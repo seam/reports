@@ -27,6 +27,8 @@ import javax.inject.Inject;
 
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.exceptions.ReportException;
+import org.jboss.seam.reports.xdocreport.annotations.Via;
+import org.jboss.seam.reports.xdocreport.annotations.XDocReport;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 
 import fr.opensagres.xdocreport.core.XDocReportException;

@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Renders a report on an specific output
+ * Renders a report to a specific output
  * 
  * @author george
  * 
@@ -29,11 +29,13 @@ public interface ReportRenderer<I extends Report>
 {
 
    /**
-    * Renders a report on the supplied {@link OutputStream}
+    * Renders a report to the supplied {@link OutputStream}.
     * 
-    * @param report
-    * @param output
-    * @throws IOException
+    * Implementations should close the {@link OutputStream} after writing to it.
+    * 
+    * @param report - Report to be rendered
+    * @param output - Output for the report
+    * @throws IOException if writing to the {@link OutputStream} fails
     */
    void render(I report, OutputStream output) throws IOException;
 }

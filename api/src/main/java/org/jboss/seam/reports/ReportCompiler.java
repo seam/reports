@@ -23,7 +23,7 @@ import org.jboss.seam.reports.exceptions.ReportException;
 /**
  * Allows reports to be compiled. Some implementations might not need this.
  * 
- * @author george
+ * @author George Gastaldi
  * 
  */
 public interface ReportCompiler

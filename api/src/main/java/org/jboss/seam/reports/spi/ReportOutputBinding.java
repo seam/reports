@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 import org.jboss.seam.reports.ReportRenderer;
 
 /**
- * Used on {@link ReportRenderer}
+ * Used on {@link ReportRenderer}.
  * 
  * @author george
  * 

@@ -20,29 +20,34 @@ import net.sf.jasperreports.engine.JasperPrint;
 
 import org.jboss.seam.reports.Report;
 
-public class JasperSeamReport implements Report {
+public class JasperSeamReport implements Report
+{
 
-    private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
 
-    private JasperPrint jasperPrint;
-    private JasperSeamReportDefinition reportDefinition;
-    
-    public JasperSeamReport(JasperPrint jasperPrint) {
-        this.jasperPrint = jasperPrint;
-    }
+   private JasperPrint jasperPrint;
+   private JasperSeamReportDefinition reportDefinition;
 
-    public JasperSeamReport(JasperPrint jasperPrint, JasperSeamReportDefinition reportDefinition) {
-        this.jasperPrint = jasperPrint;
-        this.reportDefinition = reportDefinition;
-    }
+   public JasperSeamReport(JasperPrint jasperPrint)
+   {
+      this.jasperPrint = jasperPrint;
+   }
 
-    @Override
-    public JasperSeamReportDefinition getReportDefinition() {
-        return reportDefinition;
-    }
-    
-    @Override
-    public JasperPrint getDelegate() {
-        return jasperPrint;
-    }
+   public JasperSeamReport(JasperPrint jasperPrint, JasperSeamReportDefinition reportDefinition)
+   {
+      this.jasperPrint = jasperPrint;
+      this.reportDefinition = reportDefinition;
+   }
+
+   @Override
+   public JasperSeamReportDefinition getReportDefinition()
+   {
+      return reportDefinition;
+   }
+
+   @Override
+   public JasperPrint getDelegate()
+   {
+      return jasperPrint;
+   }
 }

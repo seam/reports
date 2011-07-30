@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 import org.jboss.seam.reports.ReportRenderer;
 
 /**
- * Used on {@link ReportRenderer}
+ * Used on {@link ReportRenderer}.
  * 
  * @author george
  * 
@@ -34,13 +34,14 @@ import org.jboss.seam.reports.ReportRenderer;
 @Target(ANNOTATION_TYPE)
 @Retention(RUNTIME)
 @Documented
-public @interface ReportOutputBinding {
+public @interface ReportOutputBinding
+{
 
-    /**
-     * The value provides a hint to the underlying renderer
-     */
-    String value();
+   /**
+    * The value provides a hint to the underlying renderer
+    */
+   String value();
 
-    String mimeType() default "*";
+   String mimeType() default "*";
 
 }

@@ -23,29 +23,39 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.ReportCompiler;
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.exceptions.ReportException;
+import org.jboss.seam.reports.jasper.annotations.Jasper;
 
 @Jasper
-public class JasperSeamReportCompiler implements ReportCompiler {
-    
-    @Override
-    public JasperSeamReportDefinition compile(InputStream input) throws ReportException {
-        try {
-            JasperReport compiledReport = JasperCompileManager.compileReport(input);
-            return new JasperSeamReportDefinition(compiledReport);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+public class JasperSeamReportCompiler implements ReportCompiler
+{
 
-    @Override
-    public JasperSeamReportDefinition compile(String name) throws ReportException {
-        try {
-            JasperReport compiledReport = JasperCompileManager.compileReport(name);
-            return new JasperSeamReportDefinition(compiledReport);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+   @Override
+   public JasperSeamReportDefinition compile(InputStream input) throws ReportException
+   {
+      try
+      {
+         JasperReport compiledReport = JasperCompileManager.compileReport(input);
+         return new JasperSeamReportDefinition(compiledReport);
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
+
+   @Override
+   public JasperSeamReportDefinition compile(String name) throws ReportException
+   {
+      try
+      {
+         JasperReport compiledReport = JasperCompileManager.compileReport(name);
+         return new JasperSeamReportDefinition(compiledReport);
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
 
 }

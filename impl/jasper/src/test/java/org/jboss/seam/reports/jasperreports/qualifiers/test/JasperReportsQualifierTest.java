@@ -22,14 +22,15 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import net.sf.jasperreports.engine.JRDataSource;
+
 import org.jboss.arquillian.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportDataSource;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.jasper.Jasper;
 import org.jboss.seam.reports.jasper.JasperSeamReportLoader;
+import org.jboss.seam.reports.jasper.annotations.Jasper;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -42,55 +43,58 @@ import org.junit.runner.RunWith;
 import de.oio.jpdfunit.DocumentTester;
 
 @RunWith(Arquillian.class)
-public class JasperReportsQualifierTest {
+public class JasperReportsQualifierTest
+{
 
-    @Inject
-    @SalesReport
-    ReportDefinition<ReportDataSource,Report> salesReport;
+   @Inject
+   @SalesReport
+   ReportDefinition salesReport;
 
-    @Inject
-    @SalesReport
-    Map<String, Object> reportParams;
+   @Inject
+   @SalesReport
+   Map<String, Object> reportParams;
 
-    @Inject
-    @SalesReport
-    @Resource("XlsDataSource.data.xls")
-    ReportDataSource dataSource;
+   @Inject
+   @SalesReport
+   @Resource("XlsDataSource.data.xls")
+   JRDataSource dataSource;
 
-    @Inject
-    @Jasper
-    @PDF
-    ReportRenderer<Report> pdfRenderer;
+   @Inject
+   @Jasper
+   @PDF
+   ReportRenderer<Report> pdfRenderer;
 
-    @Deployment
-    public static JavaArchive createArchive() {
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackages(true, "org.jboss.seam.solder")
-                .addPackages(true, "org.jboss.seam.reports")
-                .addPackages(true, "org.jboss.seam.reports.annotations")
-                .addPackages(true, "org.jboss.seam.reports.jasper")
-                .addClass(JasperSeamReportLoader.class)
-                .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
-    }
+   @Deployment
+   public static JavaArchive createArchive()
+   {
+      return ShrinkWrap.create(JavaArchive.class).addPackages(true, "org.jboss.seam.solder")
+               .addPackages(true, "org.jboss.seam.reports").addPackages(true, "org.jboss.seam.reports.annotations")
+               .addPackages(true, "org.jboss.seam.reports.jasper").addClass(JasperSeamReportLoader.class)
+               .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
+   }
 
-    /**
-     * Lifecycle is Compile, populate, render
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testReportLifecycle() throws Exception {
-        Report reportInstance = salesReport.fill(dataSource, reportParams);
+   /**
+    * Lifecycle is Compile, populate, render
+    * 
+    * @throws Exception
+    */
+   @Test
+   public void testReportLifecycle() throws Exception
+   {
+      Report reportInstance = salesReport.fill(dataSource, reportParams);
 
-        ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
-       
-        // Render output as the desired content
-        pdfRenderer.render(reportInstance, os);
-        DocumentTester tester = new DocumentTester(new ByteArrayInputStream(os.toByteArray()));
-        try {
-            tester.assertPageCountEquals(2);
-        } finally {
-            tester.close();
-        }
-    }
+      ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
+
+      // Render output as the desired content
+      pdfRenderer.render(reportInstance, os);
+      DocumentTester tester = new DocumentTester(new ByteArrayInputStream(os.toByteArray()));
+      try
+      {
+         tester.assertPageCountEquals(2);
+      }
+      finally
+      {
+         tester.close();
+      }
+   }
 }

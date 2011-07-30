@@ -25,10 +25,10 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.pentaho.PentahoReporting;
+import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.pentaho.PentahoSeamReport;
+import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 import org.pentaho.reporting.engine.classic.core.ReportProcessingException;
@@ -43,33 +43,49 @@ import org.pentaho.reporting.engine.classic.core.modules.output.table.xml.XmlTab
  * @author Jordan Ganoff
  */
 @PentahoReporting
-public class PentahoReportingRenderer implements ReportRenderer<PentahoSeamReport> {
-    @Inject
-    private InjectionPoint ip;
+public class PentahoReportingRenderer implements ReportRenderer<PentahoSeamReport>
+{
+   @Inject
+   private InjectionPoint ip;
 
-    @Inject
-    private BeanManager bm;
+   @Inject
+   private BeanManager bm;
 
-    @Override
-    public void render(PentahoSeamReport report, OutputStream output) throws ReportException {
-        ReportOutputBinding an = getAnnotation(ip.getAnnotated(), ReportOutputBinding.class, bm);
-        MasterReport mr = report.getDelegate();
-        try {
-            if ("PDF".equals(an.value())) {
-                PdfReportUtil.createPDF(mr, output);
-            } else if ("XLS".equals(an.value())) {
-                ExcelReportUtil.createXLS(mr, output);
-            } else if ("CSV".equals(an.value())) {
-                CSVReportUtil.createCSV(mr, output, "UTF-8");
-            } else if ("XML".equals(an.value())) {
-                XmlTableReportUtil.createStreamXML(mr, output);
-            } else {
-                throw new ReportException("Unknown output format: " + an);
-            }
-        } catch (ReportProcessingException ex) {
-            throw new ReportException("Error rendering report", ex);
-        } catch (IOException io) {
-            throw new ReportException("Error rendering report", io);
-        }
-    }
+   @Override
+   public void render(PentahoSeamReport report, OutputStream output) throws ReportException
+   {
+      ReportOutputBinding an = getAnnotation(ip.getAnnotated(), ReportOutputBinding.class, bm);
+      MasterReport mr = report.getDelegate();
+      try
+      {
+         if ("PDF".equals(an.value()))
+         {
+            PdfReportUtil.createPDF(mr, output);
+         }
+         else if ("XLS".equals(an.value()))
+         {
+            ExcelReportUtil.createXLS(mr, output);
+         }
+         else if ("CSV".equals(an.value()))
+         {
+            CSVReportUtil.createCSV(mr, output, "UTF-8");
+         }
+         else if ("XML".equals(an.value()))
+         {
+            XmlTableReportUtil.createStreamXML(mr, output);
+         }
+         else
+         {
+            throw new ReportException("Unknown output format: " + an);
+         }
+      }
+      catch (ReportProcessingException ex)
+      {
+         throw new ReportException("Error rendering report", ex);
+      }
+      catch (IOException io)
+      {
+         throw new ReportException("Error rendering report", io);
+      }
+   }
 }

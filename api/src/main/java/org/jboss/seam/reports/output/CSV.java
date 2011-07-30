@@ -41,7 +41,8 @@ import org.jboss.seam.reports.spi.ReportOutputBinding;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-@ReportOutputBinding(value="CSV",mimeType="text/csv")
-public @interface CSV {
+@ReportOutputBinding(value = "CSV", mimeType = "text/csv")
+public @interface CSV
+{
 
 }

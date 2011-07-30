@@ -20,21 +20,26 @@ import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.AfterBeanDiscovery;
 import javax.enterprise.inject.spi.Extension;
 
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.exceptions.ReportException;
 import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
 
 /**
  * Pentaho Reporting bootstrap to initialize the Reporting Engine at application startup
- *
+ * 
  * @author Jordan Ganoff
  */
-public class PentahoReportingExtension implements Extension {
+public class PentahoReportingExtension implements Extension
+{
 
-    public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd) {
-        try {
-            ClassicEngineBoot.getInstance().start();
-        } catch (Throwable t) {
-            abd.addDefinitionError(new ReportException("Error loading Pentaho Reporting Engine"));
-        }
-    }
+   public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd)
+   {
+      try
+      {
+         ClassicEngineBoot.getInstance().start();
+      }
+      catch (Throwable t)
+      {
+         abd.addDefinitionError(new ReportException("Error loading Pentaho Reporting Engine"));
+      }
+   }
 }

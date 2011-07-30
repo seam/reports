@@ -18,15 +18,18 @@ package org.jboss.seam.reports;
 
 import java.io.InputStream;
 
+import org.jboss.seam.reports.exceptions.ReportException;
+
 /**
  * Allows reports to be compiled. Some implementations might not need this.
  * 
- * @author george
+ * @author George Gastaldi
  * 
  */
-public interface ReportCompiler {
-    ReportDefinition<? extends ReportDataSource, ? extends Report> compile(InputStream input) throws ReportException;
+public interface ReportCompiler
+{
+   ReportDefinition compile(InputStream input) throws ReportException;
 
-    ReportDefinition<? extends ReportDataSource, ? extends Report> compile(String name) throws ReportException;
+   ReportDefinition compile(String name) throws ReportException;
 
 }

@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
-import org.jboss.seam.reports.pentaho.PentahoReporting;
+import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
 import org.jboss.seam.solder.resourceLoader.Resource;
 
 @Qualifier
@@ -37,6 +37,7 @@ import org.jboss.seam.solder.resourceLoader.Resource;
 @Documented
 @Resource("XlsDataSourceReport.jrxml")
 @PentahoReporting
-public @interface SalesReport {
+public @interface SalesReport
+{
 
 }

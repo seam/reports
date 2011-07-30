@@ -1,4 +1,4 @@
-/*
+/**
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -14,31 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.pentaho;
+package org.jboss.seam.reports.exceptions;
 
-import org.jboss.seam.reports.ReportDataSource;
-import org.pentaho.reporting.engine.classic.core.DataFactory;
+public class ReportException extends RuntimeException
+{
 
-/**
- * Pentaho Reporting Engine Data Source
- * 
- * @author Jordan Ganoff
- */
-public class PentahoSeamReportDataSource implements ReportDataSource {
-    /**
-     * Pentaho Reporting Engine Data Factory is the data source for a report
-     */
-    private DataFactory dataFactory;
+   private static final long serialVersionUID = 1L;
 
-    public PentahoSeamReportDataSource(final DataFactory factory) {
-        if (factory == null) {
-            throw new NullPointerException();
-        }
-        this.dataFactory = factory;
-    }
+   public ReportException()
+   {
+      super();
+   }
 
-    @Override
-    public DataFactory getDelegate() {
-        return dataFactory;
-    }
+   public ReportException(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
+
+   public ReportException(String message)
+   {
+      super(message);
+   }
+
+   public ReportException(Throwable cause)
+   {
+      super(cause);
+   }
+
 }

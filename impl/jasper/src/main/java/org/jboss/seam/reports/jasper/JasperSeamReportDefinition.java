@@ -25,31 +25,47 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 import org.jboss.seam.reports.ReportDefinition;
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
+import org.jboss.seam.reports.exceptions.ReportException;
 
-public class JasperSeamReportDefinition implements ReportDefinition<JasperSeamReportDataSource, JasperSeamReport> {
+public class JasperSeamReportDefinition implements ReportDefinition
+{
 
-    private JasperReport compiledReport;
+   private JasperReport compiledReport;
 
-    public JasperSeamReportDefinition(JasperReport compiledReport) {
-        super();
-        this.compiledReport = compiledReport;
-    }
+   public JasperSeamReportDefinition(JasperReport compiledReport)
+   {
+      super();
+      this.compiledReport = compiledReport;
+   }
 
-    public JasperReport getCompiledReport() {
-        return compiledReport;
-    }
+   public JasperReport getCompiledReport()
+   {
+      return compiledReport;
+   }
 
-    @Override
-    public JasperSeamReport fill(JasperSeamReportDataSource dataSource, Map<String, Object> parameters)
-            throws ReportException {
-        try {
-            JRDataSource ds = dataSource.getDelegate();
-            JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters,ds);
-            return new JasperSeamReport(filledReport);
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+   @Override
+   public JasperSeamReport fill(Object dataSource, Map<String, Object> parameters)
+            throws ReportException
+   {
+      try
+      {
+         JRDataSource ds;
+         try
+         {
+            ds = JRDataSource.class.cast(dataSource);
+         }
+         catch (ClassCastException cce)
+         {
+            throw new IllegalReportDataSourceException();
+         }
+         JasperPrint filledReport = JasperFillManager.fillReport(getCompiledReport(), parameters, ds);
+         return new JasperSeamReport(filledReport);
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
 
 }

@@ -14,21 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.jasper;
+package org.jboss.seam.reports.jasper.annotations;
 
-import net.sf.jasperreports.engine.JRDataSource;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import org.jboss.seam.reports.ReportDataSource;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
-@Jasper
-public class JasperSeamReportDataSource implements ReportDataSource {
-    private JRDataSource dataSource;
+import javax.inject.Qualifier;
 
-    public JasperSeamReportDataSource(JRDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+@Qualifier
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Retention(RUNTIME)
+@Documented
+public @interface Jasper
+{
 
-    public JRDataSource getDelegate() {
-        return dataSource;
-    }
 }

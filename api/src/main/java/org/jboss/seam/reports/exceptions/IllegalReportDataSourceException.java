@@ -14,24 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.jasper;
+package org.jboss.seam.reports.exceptions;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+public class IllegalReportDataSourceException extends ReportException
+{
+   private static final long serialVersionUID = 1L;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
+   public IllegalReportDataSourceException()
+   {
+      super();
+   }
 
-import javax.inject.Qualifier;
+   public IllegalReportDataSourceException(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
 
-@Qualifier
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
-@Retention(RUNTIME)
-@Documented
-public @interface Jasper {
+   public IllegalReportDataSourceException(String message)
+   {
+      super(message);
+   }
+
+   public IllegalReportDataSourceException(Throwable cause)
+   {
+      super(cause);
+   }
 
 }

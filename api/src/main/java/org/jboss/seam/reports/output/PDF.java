@@ -41,7 +41,8 @@ import org.jboss.seam.reports.spi.ReportOutputBinding;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
-@ReportOutputBinding(value="PDF",mimeType="application/pdf")
-public @interface PDF {
+@ReportOutputBinding(value = "PDF", mimeType = "application/pdf")
+public @interface PDF
+{
 
 }

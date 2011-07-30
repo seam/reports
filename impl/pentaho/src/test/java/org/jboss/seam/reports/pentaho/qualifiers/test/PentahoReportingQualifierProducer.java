@@ -27,56 +27,63 @@ import javax.inject.Inject;
 import org.jboss.logging.Logger;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportLoader;
-import org.jboss.seam.reports.pentaho.PentahoReporting;
+import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 
-
 /**
  * Produce qualified reports with Pentaho Reporting
- *
+ * 
  * @author Jordan Ganoff
  */
-public class PentahoReportingQualifierProducer {
+public class PentahoReportingQualifierProducer
+{
 
-    @Inject
-    private Logger logger;
+   @Inject
+   private Logger logger;
 
-    @Produces
-    @SalesReport
-    Report produceSalesReport(@PentahoReporting Instance<ReportLoader> loader, ResourceLoaderManager resourceLoader,
-                              InjectionPoint ip) {
-        logger.info("Producing Sales report");
-        Resource resource = getResource(ip);
-        return loader.get().loadReport(resource.value());
-    }
+   @Produces
+   @SalesReport
+   Report produceSalesReport(@PentahoReporting Instance<ReportLoader> loader, ResourceLoaderManager resourceLoader,
+            InjectionPoint ip)
+   {
+      logger.info("Producing Sales report");
+      Resource resource = getResource(ip);
+      return loader.get().loadReport(resource.value());
+   }
 
-    /**
-     * Retrieves the {@link Resource} annotation
-     *
-     * @param ip
-     * @return
-     */
-    private Resource getResource(InjectionPoint ip) {
-        Resource resource = null;
-        Set<Annotation> qualifiers = ip.getQualifiers();
-        for (Annotation an : qualifiers) {
+   /**
+    * Retrieves the {@link Resource} annotation
+    * 
+    * @param ip
+    * @return
+    */
+   private Resource getResource(InjectionPoint ip)
+   {
+      Resource resource = null;
+      Set<Annotation> qualifiers = ip.getQualifiers();
+      for (Annotation an : qualifiers)
+      {
+         Class<? extends Annotation> annotationType = an.annotationType();
+         if (annotationType == Resource.class)
+         {
+            resource = Resource.class.cast(an);
+            break;
+         }
+      }
+      if (resource == null)
+      {
+         for (Annotation an : qualifiers)
+         {
             Class<? extends Annotation> annotationType = an.annotationType();
-            if (annotationType == Resource.class) {
-                resource = Resource.class.cast(an);
-                break;
+            if (annotationType.isAnnotationPresent(Resource.class))
+            {
+               resource = annotationType.getAnnotation(Resource.class);
+               break;
             }
-        }
-        if (resource == null) {
-            for (Annotation an : qualifiers) {
-                Class<? extends Annotation> annotationType = an.annotationType();
-                if (annotationType.isAnnotationPresent(Resource.class)) {
-                    resource = annotationType.getAnnotation(Resource.class);
-                    break;
-                }
-            }
-        }
-        return resource;
-    }
+         }
+      }
+      return resource;
+   }
 
 }

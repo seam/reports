@@ -4,15 +4,17 @@
 	<parent>
 		<artifactId>seam-reports-parent</artifactId>
 		<groupId>org.jboss.seam.reports</groupId>
-		<version>3.0.0-SNAPSHOT</version>
+		<version>3.0.0.CR1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>seam-reports-impl</artifactId>
 	<packaging>pom</packaging>
 	<name>Seam Reports Implementations</name>
+	
 	<modules>
 		<module>jasper</module>
 		<module>pentaho</module>
+		<module>xdocreport</module>
 	</modules>
 	
 	<properties>
@@ -52,14 +54,14 @@
 		<dependency>
 			<groupId>org.jboss.arquillian</groupId>
 			<artifactId>arquillian-junit</artifactId>
-			<version>${arquillian.version}</version>
+			<version>${arquillian.version}</version><!--$NO-MVN-MAN-VER$-->
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jboss.arquillian.container</groupId>
 			<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-			<version>${arquillian.version}</version>
+			<version>${arquillian.version}</version><!--$NO-MVN-MAN-VER$-->
 			<scope>test</scope>
 		</dependency>
 

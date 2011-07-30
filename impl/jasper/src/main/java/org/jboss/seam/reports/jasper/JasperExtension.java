@@ -24,5 +24,6 @@ import javax.enterprise.inject.spi.Extension;
  * @author george
  * 
  */
-public class JasperExtension implements Extension {
+public class JasperExtension implements Extension
+{
 }

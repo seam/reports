@@ -23,29 +23,34 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 
-import org.jboss.seam.reports.ReportException;
 import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.jasper.JasperSeamReport;
 
-public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReport> {
+public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReport>
+{
 
-    @Override
-    public void render(JasperSeamReport reportInstance, OutputStream output) throws IOException {
-        JRExporter exporter = getExporter();
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getDelegate());
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, output);
-        try {
-            exporter.exportReport();
-        } catch (JRException e) {
-            throw new ReportException(e);
-        }
-    }
+   @Override
+   public void render(JasperSeamReport reportInstance, OutputStream output) throws IOException
+   {
+      JRExporter exporter = getExporter();
+      exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getDelegate());
+      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, output);
+      try
+      {
+         exporter.exportReport();
+      }
+      catch (JRException e)
+      {
+         throw new ReportException(e);
+      }
+   }
 
-    /**
-     * Returns the exporter
-     * 
-     * @return
-     */
-    protected abstract JRExporter getExporter();
+   /**
+    * Returns the exporter
+    * 
+    * @return
+    */
+   protected abstract JRExporter getExporter();
 
 }

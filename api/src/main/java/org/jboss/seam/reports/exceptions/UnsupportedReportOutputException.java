@@ -14,28 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports;
+package org.jboss.seam.reports.exceptions;
 
+public class UnsupportedReportOutputException extends ReportException
+{
 
-public class ReportException extends RuntimeException {
+   private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 1L;
+   public UnsupportedReportOutputException()
+   {
+   }
 
-    public ReportException() {
-        super();
-    }
+   public UnsupportedReportOutputException(String message, Throwable cause)
+   {
+      super(message, cause);
+   }
 
-    public ReportException(String message, Throwable cause) {
-        super(message, cause);
-    }
+   public UnsupportedReportOutputException(String message)
+   {
+      super(message);
+   }
 
-    public ReportException(String message) {
-        super(message);
-    }
-
-    public ReportException(Throwable cause) {
-        super(cause);
-    }
-    
-    
+   public UnsupportedReportOutputException(Throwable cause)
+   {
+      super(cause);
+   }
 }

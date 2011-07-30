@@ -19,23 +19,25 @@ package org.jboss.seam.reports;
 import java.io.Serializable;
 
 /**
- * A report with values filled. This object may be rendered on a {@link ReportRenderer}
+ * A "ready-to-print" report. Represents and instance of a {@link ReportDefinition}. This object may be rendered on a
+ * {@link ReportRenderer}
  * 
- * @author george
+ * @author George Gastaldi
  * 
  */
-public interface Report extends Serializable {
-    /**
-     * Return the definition (if available) that this report was based
-     * 
-     * @return the {@link ReportDefinition} used to create this {@link Report}
-     */
-    public ReportDefinition<? extends ReportDataSource, ? extends Report> getReportDefinition();
+public interface Report extends Serializable
+{
+   /**
+    * Return the definition (if available) that this report was based
+    * 
+    * @return the {@link ReportDefinition} used to create this {@link Report} or null if not available
+    */
+   public ReportDefinition getReportDefinition();
 
-    /**
-     * Return the underlying provider object for the {@link Report}, if available
-     * 
-     * @return The result of this method is implementation specific
-     */
-    public Object getDelegate();
+   /**
+    * Return the underlying provider object for the {@link Report}, if available
+    * 
+    * @return The result of this method is implementation specific
+    */
+   public Object getDelegate();
 }

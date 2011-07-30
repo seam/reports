@@ -19,39 +19,60 @@ package org.jboss.seam.reports.pentaho;
 import java.util.Map;
 
 import org.jboss.seam.reports.ReportDefinition;
-import org.jboss.seam.reports.ReportException;
+import org.jboss.seam.reports.exceptions.IllegalReportDataSourceException;
+import org.jboss.seam.reports.exceptions.ReportException;
+import org.pentaho.reporting.engine.classic.core.DataFactory;
 import org.pentaho.reporting.engine.classic.core.MasterReport;
 
 /**
  * Pentaho Reporting Engine Seam Component
- *
+ * 
  * @author Jordan Ganoff
  */
-public class PentahoSeamReportDefinition implements ReportDefinition<PentahoSeamReportDataSource, PentahoSeamReport> {
-    private MasterReport report;
+public class PentahoSeamReportDefinition implements ReportDefinition
+{
+   private MasterReport report;
 
-    public PentahoSeamReportDefinition(MasterReport report) {
-        if (report == null) {
-            throw new NullPointerException();
-        }
-        this.report = report;
-    }
+   public PentahoSeamReportDefinition(MasterReport report)
+   {
+      if (report == null)
+      {
+         throw new NullPointerException();
+      }
+      this.report = report;
+   }
 
-    @Override
-    public PentahoSeamReport fill(PentahoSeamReportDataSource dataSource, Map<String, Object> parameters) throws ReportException {
-        MasterReport masterReport;
-        if (dataSource != null) {
-            try {
-                masterReport = (MasterReport) report.clone();
-            } catch (CloneNotSupportedException ignored) {
-                // Should not happen
-                throw new IllegalStateException("Error while cloning MasterReport",ignored);
-            }
-            masterReport.setDataFactory(dataSource.getDelegate());
-            // TODO Process parameters
-        } else {
-            masterReport = report;
-        }
-        return new PentahoSeamReport(masterReport);
-    }
+   @Override
+   public PentahoSeamReport fill(Object dataSource, Map<String, Object> parameters)
+            throws ReportException
+   {
+      MasterReport masterReport;
+      if (dataSource != null)
+      {
+         try
+         {
+            masterReport = (MasterReport) report.clone();
+         }
+         catch (CloneNotSupportedException ignored)
+         {
+            // Should not happen
+            throw new IllegalStateException("Error while cloning MasterReport", ignored);
+         }
+         DataFactory dataFactory;
+         try
+         {
+            dataFactory = DataFactory.class.cast(dataSource);
+         }
+         catch (ClassCastException cce)
+         {
+            throw new IllegalReportDataSourceException();
+         }
+         masterReport.setDataFactory(dataFactory);
+      }
+      else
+      {
+         masterReport = report;
+      }
+      return new PentahoSeamReport(masterReport);
+   }
 }

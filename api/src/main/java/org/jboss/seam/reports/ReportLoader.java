@@ -18,21 +18,24 @@ package org.jboss.seam.reports;
 
 import java.io.InputStream;
 
+import org.jboss.seam.reports.exceptions.ReportException;
+
 /**
- * Loads a report from a {@link InputStream}
+ * Loads a report from a {@link InputStream} or a path name
  * 
- * The report may required to be compiled first. In these cases, the compile method should be invoked then.
- * 
- * @author george
+ * @author George Gastaldi
  * 
  */
-public interface ReportLoader {
+public interface ReportLoader
+{
 
-    ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(InputStream input) throws ReportException;
+   ReportDefinition loadReportDefinition(InputStream input)
+            throws ReportException;
 
-    ReportDefinition<? extends ReportDataSource, ? extends Report> loadReportDefinition(String name) throws ReportException;
+   ReportDefinition loadReportDefinition(String name)
+            throws ReportException;
 
-    Report loadReport(InputStream input) throws ReportException;
+   Report loadReport(InputStream input) throws ReportException;
 
-    Report loadReport(String name) throws ReportException;
+   Report loadReport(String name) throws ReportException;
 }

@@ -18,23 +18,27 @@ package org.jboss.seam.reports;
 
 import java.util.Map;
 
+import org.jboss.seam.reports.exceptions.ReportException;
+
 /**
- * A report template object.
+ * A report definition object (normally called a "template").
  * 
  * This object is normally created using a {@link ReportLoader}.
  * 
  * @author George Gastaldi
  * 
  */
-public interface ReportDefinition<T extends ReportDataSource, I extends Report> {
+public interface ReportDefinition
+{
 
-    /**
-     * Produces {@link Report} objects by filling them with a {@link ReportDataSource} object and some optional parameters
-     * 
-     * @param dataSource
-     * @param parameters
-     * @return
-     * @throws ReportException
-     */
-    I fill(T dataSource, Map<String, Object> parameters) throws ReportException;
+   /**
+    * Produces {@link Report} objects by filling them with a object that this definition can handle and some optional
+    * parameters
+    * 
+    * @param dataSource
+    * @param parameters
+    * @return
+    * @throws ReportException
+    */
+   Report fill(Object dataSource, Map<String, Object> parameters) throws ReportException;
 }

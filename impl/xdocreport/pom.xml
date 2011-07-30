@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>seam-reports-impl</artifactId>
+		<groupId>org.jboss.seam.reports</groupId>
+		<version>3.0.0.CR1-SNAPSHOT</version>
+		<relativePath>..</relativePath>
+	</parent>
+	<artifactId>seam-reports-xdocreport</artifactId>
+	<name>Seam Reports Implementation (XDocReport)</name>
+	<description>An implementation of Seam Reports using XDocReport: http://code.google.com/p/xdocreport/</description>
+	<properties>
+		<xdocreport.version>0.9.0</xdocreport.version>
+	</properties>
+	<dependencies>
+		<!-- Required Dependencies -->
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>fr.opensagres.xdocreport.template</artifactId>
+			<version>${xdocreport.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>fr.opensagres.xdocreport.document</artifactId>
+			<version>${xdocreport.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter</artifactId>
+			<version>${xdocreport.version}</version>
+		</dependency>
+
+		<!-- Supported Documents -->
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
+			<version>${xdocreport.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
+			<version>${xdocreport.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
+			<version>${xdocreport.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<!-- Converters -->
+		<dependency>
+			<groupId>fr.opensagres</groupId>
+			<artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
+			<version>${xdocreport.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+			<version>0.9</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.jpdfunit</groupId>
+			<artifactId>jpdfunit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project> 

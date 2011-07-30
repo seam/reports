@@ -4,12 +4,12 @@
 	<parent>
 		<artifactId>seam-reports-parent</artifactId>
 		<groupId>org.jboss.seam.reports</groupId>
-		<version>3.0.0.Beta1</version>
+		<version>3.0.0.CR1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>seam-reports-api</artifactId>
-	<version>3.0.0.Beta1</version>
+	<version>3.0.0.CR1-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
 	<name>Seam Reports Module API</name>

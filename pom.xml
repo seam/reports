@@ -9,7 +9,7 @@
 
 	<artifactId>seam-reports-parent</artifactId>
 	<groupId>org.jboss.seam.reports</groupId>
-	<version>3.0.0-SNAPSHOT</version>
+	<version>3.0.0.Beta1</version>
 
 	<packaging>pom</packaging>
 	<name>Seam Reports Module Parent POM</name>
@@ -206,7 +206,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -226,7 +226,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

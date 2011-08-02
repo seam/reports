@@ -15,6 +15,7 @@
 		<module>jasper</module>
 		<module>pentaho</module>
 		<module>xdocreport</module>
+		<module>mvel</module>
 	</modules>
 	
 	<properties>

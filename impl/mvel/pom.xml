@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.jboss.seam.reports</groupId>
+		<artifactId>seam-reports-impl</artifactId>
+		<version>3.0.0.CR1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>seam-reports-mvel</artifactId>
+	<packaging>jar</packaging>
+	<name>Seam Reports Implementation (MVEL)</name>
+
+	<properties>
+      <mvel.version>2.1.Beta5</mvel.version>
+	</properties>
+
+	<dependencies>
+      <dependency>
+         <groupId>org.mvel</groupId>
+         <artifactId>mvel2</artifactId>
+         <version>${mvel.version}</version>
+      </dependency>	  
+	</dependencies>
+</project>

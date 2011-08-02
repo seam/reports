@@ -69,6 +69,18 @@ public class MVELReportTest
       Report report = reportDefinition.fill(dataSource, null);
       reportRenderer.render(report, output);
       String text = output.toString();
-      assertTrue(text.contains("Seam Reports Rocks"));
+      assertTrue("Required text not found",text.contains("Seam Reports Rocks"));
+   }
+   
+   @Test
+   public void testTemplateWithForEach(@Resource("foreach.mvel") InputStream sourceReport) throws Exception
+   {
+      ByteArrayOutputStream output = new ByteArrayOutputStream();
+      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+      Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
+      Report report = reportDefinition.fill(dataSource, null);
+      reportRenderer.render(report, output);
+      String text = output.toString();
+      assertTrue("Required text not found",text.contains("Seam Reports\nSeam Reports"));
    }
 }

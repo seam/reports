@@ -17,6 +17,9 @@
 package org.jboss.seam.reports.pentaho.annotations;
 
 import javax.inject.Qualifier;
+
+import org.jboss.seam.reports.spi.ReportTypeBinding;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -28,6 +31,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
+@ReportTypeBinding
 public @interface PentahoReporting
 {
 }

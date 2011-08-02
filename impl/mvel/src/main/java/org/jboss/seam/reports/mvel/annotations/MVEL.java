@@ -28,10 +28,13 @@ import java.lang.annotation.Target;
 
 import javax.inject.Qualifier;
 
+import org.jboss.seam.reports.spi.ReportTypeBinding;
+
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented
+@ReportTypeBinding
 public @interface MVEL
 {
 

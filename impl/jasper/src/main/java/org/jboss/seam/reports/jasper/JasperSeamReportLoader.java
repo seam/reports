@@ -23,7 +23,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
-import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.jasper.annotations.Jasper;

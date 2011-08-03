@@ -49,6 +49,7 @@
                 <include>org.jboss.seam.reports:seam-reports-api</include>
                 <include>org.jboss.seam.reports:seam-reports-jasper</include>
                 <include>org.jboss.seam.reports:seam-reports-pentaho</include>
+                <include>org.jboss.seam.reports:seam-reports-xdocreport</include>
             </includes>
 			<excludes>
 				<exclude>org.jboss.seam.reports:*:*:javadoc</exclude>
@@ -99,6 +100,7 @@
             <include>org.jboss.seam.reports:seam-reports-api:*:sources</include>
             <include>org.jboss.seam.reports:seam-reports-jasper:*:sources</include>
             <include>org.jboss.seam.reports:seam-reports-pentaho:*:sources</include>
+            <include>org.jboss.seam.reports:seam-reports-xdocreport:*:sources</include>
          </includes>
          <unpackOptions>
             <excludes>

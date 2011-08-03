@@ -19,6 +19,7 @@
 	</properties>
 
 	<dependencies>
+		<!-- API -->
 		<dependency>
 			<groupId>org.jboss.seam.reports</groupId>
 			<artifactId>seam-reports-api</artifactId>
@@ -42,6 +43,7 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Jasper -->
 		<dependency>
 			<groupId>org.jboss.seam.reports</groupId>
 			<artifactId>seam-reports-jasper</artifactId>
@@ -64,6 +66,7 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Pentaho -->
 		<dependency>
 			<groupId>org.jboss.seam.reports</groupId>
 			<artifactId>seam-reports-pentaho</artifactId>
@@ -86,7 +89,30 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- XDocReport -->
+		<dependency>
+			<groupId>org.jboss.seam.reports</groupId>
+			<artifactId>seam-reports-xdocreport</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.seam.reports</groupId>
+			<artifactId>seam-reports-xdocreport</artifactId>
+			<version>${project.version}</version>
+			<classifier>sources</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.seam.reports</groupId>
+			<artifactId>seam-reports-xdocreport</artifactId>
+			<version>${project.version}</version>
+			<classifier>javadoc</classifier>
+			<optional>true</optional>
+		</dependency>
+		
+		<!-- Reference guide -->
 		<dependency>
 			<groupId>org.jboss.seam.reports</groupId>
 			<artifactId>seam-reports-reference-guide</artifactId>

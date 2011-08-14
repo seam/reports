@@ -1,21 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.jboss.seam.reports</groupId>
-		<artifactId>seam-reports-impl</artifactId>
+		<artifactId>seam-reports-parent</artifactId>
 		<version>3.0.0.CR1-SNAPSHOT</version>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
 	<artifactId>seam-reports-pentaho</artifactId>
 	<packaging>jar</packaging>
 	<name>Seam Reports Implementation (Pentaho Reporting)</name>
 	<properties>
-		<arquillian.version>1.0.0.Alpha5</arquillian.version>
 		<el-api.version>2.2</el-api.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.jboss.seam.reports</groupId>
@@ -25,8 +25,9 @@
 		<dependency>
 			<groupId>org.jboss.seam.solder</groupId>
 			<artifactId>seam-solder</artifactId>
+			<scope>compile</scope>
 		</dependency>
-		<!-- Needed to run Solder  -->
+		<!-- Needed to run Solder -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -48,14 +49,14 @@
 		<dependency>
 			<groupId>org.jboss.arquillian</groupId>
 			<artifactId>arquillian-junit</artifactId>
-			<version>${arquillian.version}</version><!--$NO-MVN-MAN-VER$-->
+			<version>1.0.0.Alpha5</version><!--$NO-MVN-MAN-VER$ -->
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.jboss.arquillian.container</groupId>
 			<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-			<version>${arquillian.version}</version><!--$NO-MVN-MAN-VER$-->
+			<version>1.0.0.Alpha5</version><!--$NO-MVN-MAN-VER$ -->
 			<scope>test</scope>
 		</dependency>
 
@@ -82,81 +83,81 @@
 			<artifactId>jpdfunit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-        <dependency>
-            <groupId>pentaho-reporting-engine</groupId>
-            <artifactId>pentaho-reporting-engine-classic-core</artifactId>
-            <version>3.8.0-GA</version>
-        </dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libloader</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-reporting-engine</groupId>
+			<artifactId>pentaho-reporting-engine-classic-core</artifactId>
+			<version>3.8.0-GA</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libserializer</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libloader</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libbase</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libserializer</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libformula</artifactId>
-            <version>1.2.3</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libbase</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libfonts</artifactId>
-            <version>1.2.3</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libformula</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libxml</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libfonts</artifactId>
+			<version>1.2.3</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libdocbundle</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libxml</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>librepository</artifactId>
-            <version>1.2.2</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libdocbundle</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>pentaho-library</groupId>
-            <artifactId>libformat</artifactId>
-            <version>1.2.3</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>librepository</artifactId>
+			<version>1.2.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>com.lowagie</groupId>
-            <artifactId>itext</artifactId>
-            <version>2.1.7</version>
-        </dependency>
+		<dependency>
+			<groupId>pentaho-library</groupId>
+			<artifactId>libformat</artifactId>
+			<version>1.2.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
 	</dependencies>
 
-    <repositories>
-      <repository>
-        <id>pentaho</id>
-        <name>Pentaho Public Repository</name>
-        <url>http://repo.pentaho.org/artifactory/pentaho/</url>
-      </repository>
-    </repositories>
+	<repositories>
+		<repository>
+			<id>pentaho</id>
+			<name>Pentaho Public Repository</name>
+			<url>http://repo.pentaho.org/artifactory/pentaho/</url>
+		</repository>
+	</repositories>
 
 	<profiles>
 		<profile>
@@ -179,4 +180,51 @@
 			</build>
 		</profile>
 	</profiles>
+
+	<!-- Needed to make Arquillian 1.0.0.Alpha5 work. Can be removed when arquillian 
+		is upgraded -->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap</groupId>
+				<artifactId>shrinkwrap-api</artifactId>
+				<version>1.0.0-alpha-12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap</groupId>
+				<artifactId>shrinkwrap-impl-base</artifactId>
+				<version>1.0.0-alpha-12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.descriptors</groupId>
+				<artifactId>shrinkwrap-descriptors-api</artifactId>
+				<version>0.1.4</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap</groupId>
+				<artifactId>shrinkwrap-spi</artifactId>
+				<version>1.0.0-alpha-12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-api</artifactId>
+				<version>1.0.0-alpha-12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-api-maven</artifactId>
+				<version>1.0.0-alpha-12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.shrinkwrap.resolver</groupId>
+				<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+				<version>1.0.0-alpha-12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian.testenricher</groupId>
+				<artifactId>arquillian-testenricher-cdi</artifactId>
+				<version>1.0.0.Alpha5</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

@@ -9,20 +9,9 @@
 	</parent>
 
 	<artifactId>seam-reports-api</artifactId>
-	<version>3.0.0.CR1-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
 	<name>Seam Reports Module API</name>
-
-	<dependencies>
-		<!-- Test Dependencies -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-
 
 	<profiles>
 		<profile>

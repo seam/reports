@@ -29,10 +29,10 @@ import javax.inject.Inject;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRXlsDataSource;
 
-import org.jboss.logging.Logger;
 import org.jboss.seam.reports.ReportCompiler;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.jasper.annotations.Jasper;
+import org.jboss.seam.solder.logging.Logger;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 

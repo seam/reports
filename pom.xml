@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.jboss.seam</groupId>
 		<artifactId>seam-parent</artifactId>
-		<version>10</version>
+		<version>12</version>
 	</parent>
 
 	<artifactId>seam-reports-parent</artifactId>
@@ -33,7 +33,7 @@
 	</modules>
 
 	<properties>
-		<seam.version>3.0.0.Final</seam.version>
+		<seam.version>3.1.0.Beta1</seam.version>
 		<jpdfunit.version>1.1</jpdfunit.version>
 	</properties>
 
@@ -45,11 +45,6 @@
 				<version>${seam.version}</version>
 				<scope>import</scope>
 				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.seam.reports</groupId>
-				<artifactId>seam-reports-api</artifactId>
-				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sf.jpdfunit</groupId>

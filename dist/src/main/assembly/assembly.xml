@@ -64,7 +64,7 @@
             <useTransitiveDependencies>true</useTransitiveDependencies>
             <excludes>
                 <exclude>org.jboss.seam.reports:*</exclude>
-	            <exclude>org.jboss.seam.solder:*</exclude>			
+                <exclude>org.jboss.seam.solder:*</exclude>			
             </excludes>
             <outputFileNameMapping>${artifact.artifactId}${dashClassifier?}.${artifact.extension}</outputFileNameMapping>
         </dependencySet>

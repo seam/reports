@@ -24,10 +24,10 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.jboss.logging.Logger;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
+import org.jboss.seam.solder.logging.Logger;
 import org.jboss.seam.solder.resourceLoader.Resource;
 import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
 

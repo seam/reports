@@ -27,7 +27,6 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.exceptions.UnsupportedReportOutputException;
@@ -100,7 +99,7 @@ public class XDocReportRenderer implements ReportRenderer<XDocReportSeamReport>
       }
       else
       {
-         IOUtils.write(baos.toByteArray(), output);
+         output.write(baos.toByteArray());
       }
    }
 

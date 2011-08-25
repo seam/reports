@@ -52,7 +52,7 @@ public class XDocReportSeamReportLoader implements ReportLoader
       this.resourceLoaderManager = resourceLoaderManager;
       Via via = getAnnotation(injectionPoint.getAnnotated(), Via.class, beanManager);
       engineKind = (via == null) ? TemplateEngineKind.Velocity : TemplateEngineKind.valueOf(via.value());
-      if (!TemplateEngineRegistry.getRegistry().exists(engineKind, null))
+      if (!TemplateEngineRegistry.getRegistry().getTemplateEngineKinds().contains(engineKind.name()))
       {
          throw new ReportException("Template engine not found: "+engineKind);
       }

@@ -27,7 +27,6 @@
 		<dependency>
 			<groupId>org.jboss.seam.reports</groupId>
 			<artifactId>seam-reports-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.seam.solder</groupId>

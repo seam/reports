@@ -81,6 +81,6 @@ public class MVELReportTest
       Report report = reportDefinition.fill(dataSource, null);
       reportRenderer.render(report, output);
       String text = output.toString();
-      assertTrue("Required text not found",text.contains("Seam Reports\nSeam Reports"));
+      assertTrue("Required text not found",text.contains("Seam ReportsSeam Reports"));
    }
 }

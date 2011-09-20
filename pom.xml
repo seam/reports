@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.jboss.seam</groupId>
 		<artifactId>seam-parent</artifactId>
-		<version>14</version>
+		<version>15-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>seam-reports-parent</artifactId>
@@ -26,6 +26,7 @@
 		<module>impl/pentaho</module>
 		<module>impl/xdocreport</module>
 		<module>impl/mvel</module>
+		<module>testsuite</module>
 	</modules>
 
 	<properties>

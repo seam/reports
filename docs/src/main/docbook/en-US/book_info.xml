@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
 
     JBoss, Home of Professional Open Source
@@ -16,14 +16,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
--->
-<!DOCTYPE bookinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+--><!DOCTYPE bookinfo PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 <bookinfo>
-   <title>Seam Reports Module</title>
-   <subtitle>Reference Guide</subtitle>
-   <productnumber>1.0.0</productnumber>
-   <edition>1.0</edition>
-   <pubsnumber>1</pubsnumber>
-   
-   <xi:include href="author_group.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+  <title id="reports.title">Seam Reports Module</title>
+  <subtitle>Reference Guide</subtitle>
+  <productnumber>3.1.0</productnumber>
+  <edition>3.1</edition>
+  <pubsnumber>1</pubsnumber>
+  <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="author_group.xml"/>
 </bookinfo>

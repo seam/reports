@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
 
     JBoss, Home of Professional Open Source
@@ -16,14 +16,43 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
--->
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+--><!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 <chapter id="reports-usage">
-    <title>Usage</title>
-    <para>The Seam Reports API is quite simple.</para>
-    <para>You inject a ReportLoader, produce ReportDefinition or Report objects.</para>
-    <para>A ReportDefinition produces Report objects. Report objects are "ready-to-be-printed"
-        reports.</para>
-    <para>Reports are rendered on a ReportRenderer object. Check the test cases for more
-        info.</para>
+  <title>Usage</title>
+  <section id="reports-quickstart">
+    <title>Quick Start</title>
+    <para>
+        Using Seam Reports is a simple four step process. These steps are the same regardless of the reporting engine
+        being used.
+      </para>
+      <para>
+        <orderedlist>
+          <listitem>
+            <para>Create a report using a favorite report editor</para>
+          </listitem>
+          <listitem>
+            <para>Load the created report</para>
+          </listitem>
+          <listitem>
+            <para>Fill the report with data</para>
+          </listitem>
+          <listitem>
+            <para>Render the report</para>
+          </listitem>
+        </orderedlist>
+      </para>
+      <para>
+        Of course some of these steps will have different ways of accomplishing the task, but at a high level they are
+        all the same. For simplicity this quick start will use JasperReports  and the first step will be assumed to have
+        already taken place and the report is available in the deployed archive. The location of the report isn't
+        important, the ability to pull it into an <literal>InputStream</literal> is all that really matters.
+      </para>
+
+      <!-- TODO: Add a programlisting with callouts which shows how to finish the last three steps. Data for the report
+                 and the report should be done with producers in separate classes. -->
+
+  </section>
+
+  <!-- TODO: We need another section documenting the use of qualifiers. -->
+  <!-- TODO: We need a trouble shooting section with frequent pitfalls and hurdles. -->
 </chapter>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
 
     JBoss, Home of Professional Open Source
@@ -16,14 +16,25 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
--->
-<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+--><!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 <preface>
-   <title>Introduction</title>
-   <para> The goal of Seam Reports is to provide a fully integrated CDI programming model portable
+  <title>Introduction</title>
+  <para>
+      The goal of Seam Reports is to provide a fully integrated CDI programming model portable
       extension for Java EE that provides APIs for compiling, populating and rendering reports from
-      existing report frameworks. </para>
-   <!--
+      existing report frameworks.
+   </para>
+  <para>
+      Seam Reports contains similar functionality to that of the Excel and PDF templates of Seam 2, however, the
+      creation and compilation of the reports is quite different. Seam Reports aligns much better with existing tools
+      in a business, making use of knowledge and expertise that exists outside of development. The functionality in Seam
+      2 was largely targeted to creating flyers and simple pages. Seam Reports can accomplish this, but also allows for
+      easy creation of multipage business reports by integrating with
+      <ulink url="http://jasperforge.org/projects/jasperreports">JasperReports</ulink>,
+      <ulink url="http://www.pentaho.com/">Pentaho</ulink>, and
+      <ulink url="http://code.google.com/p/xdocreport/">XDocReports</ulink>. Integration with other reporting solutions
+      can also be done easily by implementing five small interfaces provided by Seam Reports.
+   </para>
+<!--
 vim:et:ts=3:sw=3:tw=120
--->
-</preface>
+--></preface>

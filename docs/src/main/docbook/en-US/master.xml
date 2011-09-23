@@ -28,6 +28,7 @@
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="reports-preface.xml" />
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="reports-installation.xml" />
    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="reports-usage.xml" />
+   <!-- TODO: We need another section explaining how to extend Reports and integrate with another reporting engine -->
 
 <!--
 vim:et:ts=3:sw=3:tw=120

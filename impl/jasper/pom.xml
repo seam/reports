@@ -13,7 +13,7 @@
 	<name>Seam Reports Implementation (JasperReports)</name>
 
 	<properties>
-		<jasperreports.version>4.0.1</jasperreports.version>
+		<jasperreports.version>4.1.2</jasperreports.version>
 		<jxl.version>2.6.12</jxl.version>
 		<el-api.version>2.2</el-api.version>
 	</properties>

@@ -16,8 +16,7 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
--->
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+--><!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 <chapter id="reports-usage">
   <title>Usage</title>
   <section id="reports-quickstart">
@@ -57,7 +56,12 @@
     <programlistingco>
       <areaspec>
         <areaset>
-          <area coords="" id="scope"/>
+          <area coords="3" id="resourceInjection"/>
+          <area coords="6" id="reportCompiler"/>
+          <area coords="9" id="reportPdfRenderer"/>
+          <area coords="14" id="reportRenderingMethod"/>
+          <area coords="22" id="fillReport"/>
+          <area coords="27" id="createDatasource"/>
         </areaset>
       </areaspec>
       <programlisting role="JAVA"><![CDATA[@Model
@@ -71,25 +75,14 @@ public class PersonContactReport {
   @Inject @Jasper @PDF
   private ReportRenderer<Report> pdfRenderer;
 
-  @Inject @Jasper @XLS
-  private ReportRenderer<Report> xlsRenderer;
-
   @Inject
   private EntityManager em;
 
-  public OutputStream renderPdf() {
+  public OutputStream render() {
     final Report filledReport = this.fillReport();
     final OutputStream os = new ByteArrayOutputStream();
 
     this.pdfRenderer.render(filledReport, os);
-    return os;
-  }
-
-  public OutputStream renderXls() {
-    final Report filledReport = this.fillReport();
-    final OutputStream os = new ByteArrayOutputStream();
-
-    this.xlsRenderer.render(filledReport, os);
     return os;
   }
 
@@ -104,27 +97,61 @@ public class PersonContactReport {
   }
 }]]>
       <calloutlist>
-        <callout arearefs="">
-          <para>
+          <callout arearefs="resourceInjection">
+            <para>
+            Solder allows easy resource injection for files available in the archive. This injects the report template
+            which has been created previously (perhaps by someone else in the business) and added to the deployable
+            archive.
           </para>
-        </callout>
-      </programlistingco>
-
-    </section>
-
-    <section id="reports-qualifiers">
-      <title>Qualifiers</title>
-
-      <para>
+          </callout>
+          <callout arearefs="reportCompiler">
+            <para>
+            A <literal>ReportCompiler</literal> is an interface from Seam Reports which abstracts compiling the report
+            template into <literal>ReportDefinition</literal>. Seam Reports makes use of CDI&apos;s type safety features by
+            using qualifiers to further narrow the intended type. This allows programs to remain implementation
+            agnostic. The <literal>Jasper</literal> qualifier annotation instructs CDI to inject an implementation of
+            the <literal>ReportCompiler</literal> which contains the same qualifer.
+          </para>
+          </callout>
+          <callout arearefs="reportPdfRenderer">
+            <para>
+            This is another example of further qualifying a type for injection. In this line, CDI is instructed to
+            inject not only a <literal>ReportRenderer</literal> for the JasperReports implementation, but also a
+            renderer that is capable of outputting PDF files from the compiled report.
+          </para>
+          </callout>
+          <callout arearefs="reportRenderingMethod">
+            <para>
+            The <literal>render</literal> method is the only entry point into the class, it also returns the final
+            output of generating a report. It makes use of other methods in the class to finish the steps outlined
+            above to generate a report using Seam Report.
+          </para>
+          </callout>
+          <callout arearefs="fillReport">
+            <para>
+            At this stage data to populate the report is retrieved and added to the compiled
+            <literal>ReportDefinition</literal>. This particular report doesn&apos;t make use of any parameters, hence
+            the empty map instance being passed.
+          </para>
+          </callout>
+          <callout arearefs="createDatasource">
+            <para>
+            This last stage of using Seam Report is the only place that may require the application to use the report
+            engine API. In this example a list of JPA entities is retrieved and added to a JasperReports datasource,
+            which is then used by the calling method to populate the report template as mentioned above.
+          </para>
+          </callout>
+        </calloutlist></programlisting>
+    </programlistingco>
+  </section>
+  <section id="reports-qualifiers">
+    <title>Qualifiers</title>
+    <para>
       </para>
-
-    </section>
-
-    <section id="reports-troubleshooting">
-      <title>Troubleshooting</title>
-
-      <para>
+  </section>
+  <section id="reports-troubleshooting">
+    <title>Troubleshooting</title>
+    <para>
       </para>
-
-    </section>
+  </section>
 </chapter>

@@ -16,43 +16,115 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
---><!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
+-->
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 <chapter id="reports-usage">
   <title>Usage</title>
   <section id="reports-quickstart">
     <title>Quick Start</title>
     <para>
-        Using Seam Reports is a simple four step process. These steps are the same regardless of the reporting engine
-        being used.
-      </para>
+      Using Seam Reports is a simple four step process. These steps are the same regardless of the reporting engine
+      being used.
+    </para>
+    <para>
+      <orderedlist>
+        <listitem>
+          <para>Create a report using a favorite report editor</para>
+        </listitem>
+        <listitem>
+          <para>Load the created report</para>
+        </listitem>
+        <listitem>
+          <para>Fill the report with data</para>
+        </listitem>
+        <listitem>
+          <para>Render the report</para>
+        </listitem>
+      </orderedlist>
+    </para>
+    <para>
+      Of course some of these steps will have different ways of accomplishing the task, but at a high level they are
+      all the same. For simplicity this quick start will use JasperReports  and the first step will be assumed to have
+      already taken place and the report is available in the deployed archive. The location of the report isn&apos;t
+      important, the ability to pull it into an <literal>InputStream</literal> is all that really matters.
+    </para>
+    <para>
+      The following code demonstrates a basic way of fulfilling the last three steps in using Seam Reports using
+      JasperReports as the reporting engine. The report has already been created and is bundled inside the deployable
+      archive. There are no paramaters for the report. The report is a simple listing of people&apos;s names and contact
+      information.
+    </para>
+    <programlistingco>
+      <areaspec>
+        <areaset>
+          <area coords="" id="scope"/>
+        </areaset>
+      </areaspec>
+      <programlisting role="JAVA"><![CDATA[@Model
+public class PersonContactReport {
+  @Inject @Resource("WEB-INF/jasperreports/personContact.jrxml")
+  private InputStream reportTemplate;
+
+  @Inject @Jasper
+  private ReportCompiler reportCompiler;
+
+  @Inject @Jasper @PDF
+  private ReportRenderer<Report> pdfRenderer;
+
+  @Inject @Jasper @XLS
+  private ReportRenderer<Report> xlsRenderer;
+
+  @Inject
+  private EntityManager em;
+
+  public OutputStream renderPdf() {
+    final Report filledReport = this.fillReport();
+    final OutputStream os = new ByteArrayOutputStream();
+
+    this.pdfRenderer.render(filledReport, os);
+    return os;
+  }
+
+  public OutputStream renderXls() {
+    final Report filledReport = this.fillReport();
+    final OutputStream os = new ByteArrayOutputStream();
+
+    this.xlsRenderer.render(filledReport, os);
+    return os;
+  }
+
+  private Report fillReport() {
+    final ReportDefinition rd = this.reportCompiler.compile(reportTemplate);
+    return rd.fill(this.createDatasource(), Collections.EMPTY_MAP);
+  }
+
+  private JRDataSource createDatasource() {
+    final List<Person> personList = this.em.createQuery("select p from Person", Person.class).getResultList();
+    return new JRBeanCollectionDataSource(personList);
+  }
+}]]>
+      <calloutlist>
+        <callout arearefs="">
+          <para>
+          </para>
+        </callout>
+      </programlistingco>
+
+    </section>
+
+    <section id="reports-qualifiers">
+      <title>Qualifiers</title>
+
       <para>
-        <orderedlist>
-          <listitem>
-            <para>Create a report using a favorite report editor</para>
-          </listitem>
-          <listitem>
-            <para>Load the created report</para>
-          </listitem>
-          <listitem>
-            <para>Fill the report with data</para>
-          </listitem>
-          <listitem>
-            <para>Render the report</para>
-          </listitem>
-        </orderedlist>
       </para>
+
+    </section>
+
+    <section id="reports-troubleshooting">
+      <title>Troubleshooting</title>
+
       <para>
-        Of course some of these steps will have different ways of accomplishing the task, but at a high level they are
-        all the same. For simplicity this quick start will use JasperReports  and the first step will be assumed to have
-        already taken place and the report is available in the deployed archive. The location of the report isn't
-        important, the ability to pull it into an <literal>InputStream</literal> is all that really matters.
       </para>
 
-      <!-- TODO: Add a programlisting with callouts which shows how to finish the last three steps. Data for the report
-                 and the report should be done with producers in separate classes. -->
-
-  </section>
-
-  <!-- TODO: We need another section documenting the use of qualifiers. -->
-  <!-- TODO: We need a trouble shooting section with frequent pitfalls and hurdles. -->
+    </section>
 </chapter>

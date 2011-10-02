@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.reports.jasper.renderer;
 
-import static org.jboss.seam.solder.reflection.AnnotationInspector.getAnnotation;
+import static org.jboss.solder.reflection.AnnotationInspector.getAnnotation;
 
 import javax.enterprise.inject.spi.BeanManager;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.JRExporter;
 import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.jasper.annotations.Jasper;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
-import org.jboss.seam.solder.reflection.Reflections;
+import org.jboss.solder.reflection.Reflections;
 
 /**
  * Dynamic renderer.

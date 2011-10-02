@@ -17,19 +17,13 @@
     limitations under the License.
 
 -->
-<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
-   "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
-<book lang="en">
-
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="book_info.xml" />
-
-   <toc />
-
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="reports-preface.xml" />
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="reports-installation.xml" />
-   <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="reports-usage.xml" />
-
-<!--
-vim:et:ts=3:sw=3:tw=120
--->
-</book>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="reports-usage">
+    <title>Usage</title>
+    <para>The Seam Reports API is quite simple.</para>
+    <para>You inject a ReportLoader, produce ReportDefinition or Report objects.</para>
+    <para>A ReportDefinition produces Report objects. Report objects are "ready-to-be-printed"
+        reports.</para>
+    <para>Reports are rendered on a ReportRenderer object. Check the test cases for more
+        info.</para>
+</chapter>

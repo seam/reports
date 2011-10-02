@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.reports.xdocreport;
 
-import static org.jboss.seam.solder.reflection.AnnotationInspector.getAnnotation;
+import static org.jboss.solder.reflection.AnnotationInspector.getAnnotation;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +29,7 @@ import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.exceptions.ReportException;
 import org.jboss.seam.reports.xdocreport.annotations.Via;
 import org.jboss.seam.reports.xdocreport.annotations.XDocReport;
-import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
+import org.jboss.solder.resourceLoader.ResourceLoaderManager;
 
 import fr.opensagres.xdocreport.core.XDocReportException;
 import fr.opensagres.xdocreport.core.io.XDocArchive;
@@ -52,7 +52,7 @@ public class XDocReportSeamReportLoader implements ReportLoader
       this.resourceLoaderManager = resourceLoaderManager;
       Via via = getAnnotation(injectionPoint.getAnnotated(), Via.class, beanManager);
       engineKind = (via == null) ? TemplateEngineKind.Velocity : TemplateEngineKind.valueOf(via.value());
-      if (!TemplateEngineRegistry.getRegistry().exists(engineKind, null))
+      if (!TemplateEngineRegistry.getRegistry().getTemplateEngineKinds().contains(engineKind.name()))
       {
          throw new ReportException("Template engine not found: "+engineKind);
       }

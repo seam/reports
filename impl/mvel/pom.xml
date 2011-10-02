@@ -17,6 +17,10 @@
 		<el-api.version>2.2</el-api.version>
 	</properties>
 
+    <build>
+        <finalName>seam-reports-mvel</finalName>
+    </build>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.mvel</groupId>
@@ -27,142 +31,22 @@
 		<dependency>
 			<groupId>org.jboss.seam.reports</groupId>
 			<artifactId>seam-reports-api</artifactId>
-			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jboss.seam.solder</groupId>
-			<artifactId>seam-solder</artifactId>
+			<groupId>org.jboss.solder</groupId>
+			<artifactId>solder-impl</artifactId>
 			<scope>compile</scope>
-		</dependency>
-		<!-- Needed to run Solder -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.4</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<!-- Required by Arquillian -->
-		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>el-api</artifactId>
-			<version>${el-api.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.arquillian</groupId>
-			<artifactId>arquillian-junit</artifactId>
-			<version>1.0.0.Alpha5</version><!--$NO-MVN-MAN-VER$ -->
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.arquillian.container</groupId>
-			<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
-			<version>1.0.0.Alpha5</version><!--$NO-MVN-MAN-VER$ -->
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.weld</groupId>
-			<artifactId>weld-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.weld</groupId>
-			<artifactId>weld-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sf.jpdfunit</groupId>
-			<artifactId>jpdfunit</artifactId>
-			<scope>test</scope>
-		</dependency>
-
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>${el-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
-
-
-	<profiles>
-		<profile>
-			<id>code-coverage</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>emma-maven-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-					</plugin>
-					<plugin>
-						<groupId>org.sonatype.maven.plugin</groupId>
-						<artifactId>emma4it-maven-plugin</artifactId>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
-	<!-- Needed to make Arquillian 1.0.0.Alpha5 work. Can be removed when arquillian 
-		is upgraded -->
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.jboss.shrinkwrap</groupId>
-				<artifactId>shrinkwrap-api</artifactId>
-				<version>1.0.0-alpha-12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.shrinkwrap</groupId>
-				<artifactId>shrinkwrap-impl-base</artifactId>
-				<version>1.0.0-alpha-12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.shrinkwrap.descriptors</groupId>
-				<artifactId>shrinkwrap-descriptors-api</artifactId>
-				<version>0.1.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.shrinkwrap</groupId>
-				<artifactId>shrinkwrap-spi</artifactId>
-				<version>1.0.0-alpha-12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.shrinkwrap.resolver</groupId>
-				<artifactId>shrinkwrap-resolver-api</artifactId>
-				<version>1.0.0-alpha-12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.shrinkwrap.resolver</groupId>
-				<artifactId>shrinkwrap-resolver-api-maven</artifactId>
-				<version>1.0.0-alpha-12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.shrinkwrap.resolver</groupId>
-				<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-				<version>1.0.0-alpha-12</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.arquillian.testenricher</groupId>
-				<artifactId>arquillian-testenricher-cdi</artifactId>
-				<version>1.0.0.Alpha5</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>

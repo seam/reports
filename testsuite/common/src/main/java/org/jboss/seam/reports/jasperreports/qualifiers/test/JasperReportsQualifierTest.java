@@ -32,7 +32,7 @@ import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.jasper.annotations.Jasper;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.test.Utils;
-import org.jboss.seam.solder.resourceLoader.Resource;
+import org.jboss.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;

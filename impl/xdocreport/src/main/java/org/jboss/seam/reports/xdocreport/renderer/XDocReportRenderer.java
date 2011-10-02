@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.reports.xdocreport.renderer;
 
-import static org.jboss.seam.solder.reflection.AnnotationInspector.getAnnotation;
+import static org.jboss.solder.reflection.AnnotationInspector.getAnnotation;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

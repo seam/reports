@@ -16,7 +16,7 @@
  */
 package org.jboss.seam.reports.pentaho.renderer;
 
-import static org.jboss.seam.solder.reflection.AnnotationInspector.getAnnotation;
+import static org.jboss.solder.reflection.AnnotationInspector.getAnnotation;
 
 import java.io.IOException;
 import java.io.OutputStream;

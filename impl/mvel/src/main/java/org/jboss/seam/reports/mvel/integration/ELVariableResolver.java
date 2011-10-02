@@ -19,7 +19,7 @@ package org.jboss.seam.reports.mvel.integration;
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 
-import org.jboss.seam.solder.el.Expressions;
+import org.jboss.solder.el.Expressions;
 import org.mvel2.integration.VariableResolver;
 
 /**

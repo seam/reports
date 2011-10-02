@@ -27,9 +27,9 @@ import javax.inject.Inject;
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
-import org.jboss.seam.logging.Logger;
-import org.jboss.seam.solder.resourceLoader.Resource;
-import org.jboss.seam.solder.resourceLoader.ResourceLoaderManager;
+import org.jboss.solder.logging.Logger;
+import org.jboss.solder.resourceLoader.Resource;
+import org.jboss.solder.resourceLoader.ResourceLoaderManager;
 
 /**
  * Produce qualified reports with Pentaho Reporting

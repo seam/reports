@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
 import org.jboss.seam.reports.jasper.annotations.Jasper;
-import org.jboss.seam.solder.resourceLoader.Resource;
+import org.jboss.solder.resourceLoader.Resource;
 
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })

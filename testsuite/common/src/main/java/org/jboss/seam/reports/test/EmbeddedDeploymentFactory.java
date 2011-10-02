@@ -36,7 +36,7 @@ public class EmbeddedDeploymentFactory implements DeploymentFactory {
     @Override
     public WebArchive jasperDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-            .addPackages(true, "org.jboss.seam.solder")
+            .addPackages(true, "org.jboss.solder")
             .addPackages(true, "org.jboss.seam.reports").addPackages(true, "org.jboss.seam.reports.annotations")
             .addPackages(true, "org.jboss.seam.reports.jasper").addClass(JasperSeamReportLoader.class)
             .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
@@ -45,7 +45,7 @@ public class EmbeddedDeploymentFactory implements DeploymentFactory {
     @Override
     public WebArchive mvelDeployment() {
         return ShrinkWrap.create(WebArchive.class)
-            .addPackages(true, "org.jboss.seam.solder")
+            .addPackages(true, "org.jboss.solder")
             .addPackages(true, "org.jboss.seam.reports.annotation")
             .addPackages(true, "org.jboss.seam.reports.mvel")
             .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
@@ -53,7 +53,7 @@ public class EmbeddedDeploymentFactory implements DeploymentFactory {
 
     @Override
     public WebArchive pentahoDeployment() {
-        return ShrinkWrap.create(WebArchive.class).addPackages(true, "org.jboss.seam.solder")
+        return ShrinkWrap.create(WebArchive.class).addPackages(true, "org.jboss.solder")
             .addPackages(true, "org.jboss.seam.reports.annotation")
             .addPackages(true, "org.jboss.seam.reports.pentaho")
             .addAsServiceProvider(Extension.class, PentahoReportingExtension.class)
@@ -62,7 +62,7 @@ public class EmbeddedDeploymentFactory implements DeploymentFactory {
 
     @Override
     public WebArchive xdocreportDeployment() {
-        return ShrinkWrap.create(WebArchive.class).addPackages(true, "org.jboss.seam.solder")
+        return ShrinkWrap.create(WebArchive.class).addPackages(true, "org.jboss.solder")
             .addPackages(true, "org.jboss.seam.reports.annotation")
             .addPackages(true, "org.jboss.seam.reports.xdocreport")
             .addAsManifestResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));

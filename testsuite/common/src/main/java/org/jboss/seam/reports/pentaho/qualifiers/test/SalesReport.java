@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
 import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
-import org.jboss.seam.solder.resourceLoader.Resource;
+import org.jboss.solder.resourceLoader.Resource;
 
 @Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })

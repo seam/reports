@@ -38,20 +38,20 @@ import org.jboss.shrinkwrap.resolver.api.maven.MavenResolutionFilter;
  */
 public class DefaultDeploymentFactory implements DeploymentFactory {
 
-    public static final String SETTINGS_XML = "../../settings.xml";
-    public static final String SEAM_REPORTS_API_JAR = "../../api/target/seam-reports-api.jar";
+    public static final String SETTINGS_XML = "../settings.xml";
+    public static final String SEAM_REPORTS_API_JAR = "../api/target/seam-reports-api.jar";
     
-    public static final String SEAM_REPORTS_JASPER_JAR = "../../impl/jasper/target/seam-reports-jasper.jar";
-    public static final String SEAM_REPORTS_JASPER_POM = "../../impl/jasper/pom.xml";
+    public static final String SEAM_REPORTS_JASPER_JAR = "../impl/jasper/target/seam-reports-jasper.jar";
+    public static final String SEAM_REPORTS_JASPER_POM = "../impl/jasper/pom.xml";
     
-    public static final String SEAM_REPORTS_MVEL_JAR = "../../impl/mvel/target/seam-reports-mvel.jar";
-    public static final String SEAM_REPORTS_MVEL_POM = "../../impl/mvel/pom.xml";
+    public static final String SEAM_REPORTS_MVEL_JAR = "../impl/mvel/target/seam-reports-mvel.jar";
+    public static final String SEAM_REPORTS_MVEL_POM = "../impl/mvel/pom.xml";
     
-    public static final String SEAM_REPORTS_PENTAHO_JAR = "../../impl/pentaho/target/seam-reports-pentaho.jar";
-    public static final String SEAM_REPORTS_PENTAHO_POM = "../../impl/pentaho/pom.xml";
+    public static final String SEAM_REPORTS_PENTAHO_JAR = "../impl/pentaho/target/seam-reports-pentaho.jar";
+    public static final String SEAM_REPORTS_PENTAHO_POM = "../impl/pentaho/pom.xml";
     
-    public static final String SEAM_REPORTS_XDOCREPORT_JAR = "../../impl/xdocreport/target/seam-reports-xdocreport.jar";
-    public static final String SEAM_REPORTS_XDOCREPORT_POM = "../../impl/xdocreport/pom.xml";
+    public static final String SEAM_REPORTS_XDOCREPORT_JAR = "../impl/xdocreport/target/seam-reports-xdocreport.jar";
+    public static final String SEAM_REPORTS_XDOCREPORT_POM = "../impl/xdocreport/pom.xml";
      
     private static final MavenResolutionFilter seamReportsJarFilter = new MavenResolutionFilter() {
         @Override
@@ -90,16 +90,7 @@ public class DefaultDeploymentFactory implements DeploymentFactory {
                  .includeDependenciesFromPom(SEAM_REPORTS_JASPER_POM)
                  .artifact("net.sf.jpdfunit:jpdfunit")
                  .resolveAs(JavaArchive.class, seamReportsJarFilter))
-        .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-                
-        // Workaround for SOLDER-119
-        .addAsWebInfResource(new StringAsset("<jboss-deployment-structure>\n" +
-                 "  <deployment>\n" +
-                 "    <dependencies>\n" +
-                 "      <module name=\"org.jboss.logmanager\" />\n" +
-                 "    </dependencies>\n" +
-                 "  </deployment>\n" +
-                 "</jboss-deployment-structure>"), "jboss-deployment-structure.xml");
+        .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 
     @Override
@@ -125,16 +116,7 @@ public class DefaultDeploymentFactory implements DeploymentFactory {
                  .artifact("net.sf.jpdfunit:jpdfunit")
                  .resolveAs(JavaArchive.class, seamReportsJarFilter))
                  
-        .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
- 
-        // Workaround for SOLDER-119
-        .addAsWebInfResource(new StringAsset("<jboss-deployment-structure>\n" +
-                 "  <deployment>\n" +
-                 "    <dependencies>\n" +
-                 "      <module name=\"org.jboss.logmanager\" />\n" +
-                 "    </dependencies>\n" +
-                 "  </deployment>\n" +
-                 "</jboss-deployment-structure>"), "jboss-deployment-structure.xml");
+        .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 
     @Override
@@ -159,16 +141,7 @@ public class DefaultDeploymentFactory implements DeploymentFactory {
                  .includeDependenciesFromPom(SEAM_REPORTS_PENTAHO_POM)    
                  .artifact("commons-logging:commons-logging")
                  .artifact("net.sf.jpdfunit:jpdfunit")
-                 .resolveAs(JavaArchive.class, seamReportsJarFilter))
-                                  
-            //  Workaround for SOLDER-119
-            .addAsWebInfResource(new StringAsset("<jboss-deployment-structure>\n" +
-                 "  <deployment>\n" +
-                 "    <dependencies>\n" +
-                 "      <module name=\"org.jboss.logmanager\" />\n" +
-                 "    </dependencies>\n" +
-                 "  </deployment>\n" +
-                 "</jboss-deployment-structure>"), "jboss-deployment-structure.xml");
+                 .resolveAs(JavaArchive.class, seamReportsJarFilter));
     }
 
     @Override
@@ -194,15 +167,6 @@ public class DefaultDeploymentFactory implements DeploymentFactory {
                  .artifact("net.sf.jpdfunit:jpdfunit")
                  .artifact("org.apache.tika:tika-parsers")
                  .resolveAs(JavaArchive.class, seamReportsJarFilter))
-            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"))
-        
-            // Workaround for SOLDER-119
-            .addAsWebInfResource(new StringAsset("<jboss-deployment-structure>\n" +
-                 "  <deployment>\n" +
-                 "    <dependencies>\n" +
-                 "      <module name=\"org.jboss.logmanager\" />\n" +
-                 "    </dependencies>\n" +
-                 "  </deployment>\n" +
-                 "</jboss-deployment-structure>"), "jboss-deployment-structure.xml");
+            .addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
     }
 }

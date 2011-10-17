@@ -17,22 +17,14 @@
 
 package org.jboss.seam.reports.test;
 
-import java.util.ServiceLoader;
-
 public class Utils {
     
-    private static ServiceLoader<DeploymentFactory> deploymentFactoryLoader = ServiceLoader.load(DeploymentFactory.class);
-    
     public static DeploymentFactory getDeploymentFactory() {
-        DeploymentFactory deploymentFactory = null;
-        for (DeploymentFactory factory : deploymentFactoryLoader) {
-            deploymentFactory = factory; 
+        if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
+            return new EmbeddedDeploymentFactory();
         }
-        
-        if (deploymentFactory == null) {
-            deploymentFactory = new DefaultDeploymentFactory();
+        else {
+            return new DefaultDeploymentFactory();
         }
-        
-        return deploymentFactory;
     }
 }

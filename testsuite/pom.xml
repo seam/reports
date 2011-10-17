@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   JBoss, Home of Professional Open Source
   Copyright 2011, Red Hat, Inc., and individual contributors
@@ -14,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -24,73 +25,88 @@
         <version>3.1.0-SNAPSHOT</version>
     </parent>
 
-    <version>3.1.0-SNAPSHOT</version>
     <artifactId>seam-reports-testsuite</artifactId>
+    <name>Seam Reports Test Suite</name>
+    <packaging>jar</packaging>
 
-    <packaging>pom</packaging>
-    <name>Seam Reports Test Suite: Aggregator &amp; Parent</name>
-
-    <modules>
-        <module>common</module>
-    </modules>
-
-    <profiles>
-        <profile>
-            <id>release</id>
-            <activation>
-                <property>
-                    <name>release</name>
-                </property>
-            </activation>
-            <modules>
-                <module>weld-ee-embedded-1.1</module>
-                <module>jbossas-managed-7</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>allTests</id>
-            <activation>
-                <property>
-                    <name>allTests</name>
-                </property>
-            </activation>
-            <modules>
-                <module>weld-ee-embedded-1.1</module>
-                <module>jbossas-managed-7</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>weld-ee-embedded-1.1</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>weld-ee-embedded-1.1</name>
-                </property>
-            </activation>
-            <modules>
-                <module>weld-ee-embedded-1.1</module>
-            </modules>
-        </profile>
-       <profile>
-            <id>jbossas-managed-7</id>
-            <activation>
-                <property>
-                    <name>jbossas-managed-7</name>
-                </property>
-            </activation>
-            <modules>
-                <module>jbossas-managed-7</module>
-            </modules>
-        </profile>
-    </profiles>
+    <properties>
+        <xdocreport.version>0.9.1</xdocreport.version>
+    </properties>
 
     <dependencies>
-        <!-- Common dependencies for all the tests -->
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-api-maven</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.jboss.seam.reports</groupId>
-            <artifactId>seam-reports-testsuite-common</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
+            <artifactId>seam-reports-jasper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.reports</groupId>
+            <artifactId>seam-reports-mvel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.reports</groupId>
+            <artifactId>seam-reports-pentaho</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.seam.reports</groupId>
+            <artifactId>seam-reports-xdocreport</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jpdfunit</groupId>
+            <artifactId>jpdfunit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parsers</artifactId>
+            <version>0.9</version>
+        </dependency>
+
+        <!-- xdocreport optional dependencies-->
+        <dependency>
+            <groupId>fr.opensagres</groupId>
+            <artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
+            <version>${xdocreport.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.opensagres</groupId>
+            <artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
+            <version>${xdocreport.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.opensagres</groupId>
+            <artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
+            <version>${xdocreport.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.opensagres</groupId>
+            <artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
+            <version>${xdocreport.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
         </dependency>
 
         <!-- Declared here for the MavenDependencyResolver  -->
@@ -100,66 +116,102 @@
             <version>1.1.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.sf.jpdfunit</groupId>
-            <artifactId>jpdfunit</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-parsers</artifactId>
-            <version>0.9</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <configuration>
-                        <skip>true</skip>
-                    </configuration>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                    <systemProperties>
+                        <arquillian.launch>${arquillian}</arquillian.launch>
+                        <arquillian>${arquillian}</arquillian>
+                    </systemProperties>
+                </configuration>
 
-                    <executions>
-                        <execution>
-                            <id>surefire-it</id>
-                            <phase>integration-test</phase>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                            <configuration>
-                                <skip>false</skip>
-                                <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                                <trimStackTrace>false</trimStackTrace>
-                                <printSummary>true</printSummary>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>unpack-base-tests</id>
-                            <phase>generate-test-sources</phase>
-                            <goals>
-                                <goal>unpack-dependencies</goal>
-                            </goals>
-                            <configuration>
-                                <includeArtifactIds>
-                                    seam-reports-testsuite-common
-                                </includeArtifactIds>
-                                <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+                <executions>
+                    <execution>
+                        <id>surefire-it</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                            <trimStackTrace>false</trimStackTrace>
+                            <printSummary>true</printSummary>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>weld-ee-embedded-1.1</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>arquillian</name>
+                    <value>weld-ee-embedded-1.1</value>
+                </property>
+            </activation>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.seam.test</groupId>
+                    <artifactId>weld-ee-embedded-1.1</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemProperties>
+                                <arquillian.launch>weld-ee-embedded-1.1</arquillian.launch>
+                                <arquillian>weld-ee-embedded-1.1</arquillian>
+                            </systemProperties>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>jbossas-managed-7</id>
+            <activation>
+                <property>
+                    <name>arquillian</name>
+                    <value>jbossas-managed-7</value>
+                </property>
+            </activation>
+
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.seam.test</groupId>
+                    <artifactId>jbossas-managed-7</artifactId>
+                    <type>pom</type>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+               <plugins>
+                  <plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+                     <artifactId>maven-surefire-plugin</artifactId>
+                  </plugin>
+               </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

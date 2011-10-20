@@ -33,7 +33,7 @@ import fr.opensagres.xdocreport.template.IContext;
 
 @XDocReport
 @Default
-public class XDocReportPlainReportRenderer implements ReportRenderer {
+public class XDocReportDefaultReportRenderer implements ReportRenderer {
 
     @Override
     public void render(Report report, OutputStream output) throws IOException {

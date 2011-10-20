@@ -58,7 +58,7 @@ public class JasperReportsQualifierTest
    @Inject
    @Jasper
    @PDF
-   ReportRenderer<Report> pdfRenderer;
+   ReportRenderer pdfRenderer;
 
    @Deployment(name="JasperReportsQualifier")
    public static WebArchive createArchive()

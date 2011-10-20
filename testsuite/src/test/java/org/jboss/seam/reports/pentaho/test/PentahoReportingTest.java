@@ -72,17 +72,17 @@ public class PentahoReportingTest
    @Inject
    @PentahoReporting
    @PDF
-   private ReportRenderer<Report> pdfRenderer;
+   private ReportRenderer pdfRenderer;
 
    @Inject
    @PentahoReporting
    @XML
-   private ReportRenderer<Report> xmlRenderer;
+   private ReportRenderer xmlRenderer;
 
    @Inject
    @PentahoReporting
    @CSV
-   private ReportRenderer<Report> csvRenderer;
+   private ReportRenderer csvRenderer;
 
    @Test
    public void loadReport_inputStream()

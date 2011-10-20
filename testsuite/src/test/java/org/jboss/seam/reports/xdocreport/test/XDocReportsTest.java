@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 
 import org.apache.tika.Tika;
@@ -37,8 +38,8 @@ import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.test.Utils;
 import org.jboss.seam.reports.xdocreport.annotations.XDocReport;
-import org.jboss.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.solder.resourceLoader.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -46,97 +47,88 @@ import de.oio.jpdfunit.DocumentTester;
 import de.oio.jpdfunit.document.util.TextSearchType;
 
 @RunWith(Arquillian.class)
-public class XDocReportsTest
-{
-   
-   @Inject
-   @XDocReport
-   ReportRenderer<Report> reportRenderer;
+public class XDocReportsTest {
 
-   @Inject
-   @XDocReport
-   ReportLoader reportLoader;
+    @Inject
+    @XDocReport
+    @Default
+    ReportRenderer reportRenderer;
 
-   @Inject
-   @XDocReport
-   @PDF
-   ReportRenderer<Report> pdfReportRenderer;
+    @Inject
+    @XDocReport
+    ReportLoader reportLoader;
 
-   @Deployment(name="XDocReports")
-   public static WebArchive createArchive()
-   {
-      return Utils.getDeploymentFactory().xdocreportDeployment()
-               .addClasses(XDocReportsTest.class)
-               .addAsResource("DocxProjectWithVelocity.docx", "DocxProjectWithVelocity.docx")
-               .addAsResource("ODTProjectWithVelocity.odt", "ODTProjectWithVelocity.odt");
-   }
-   
-   @Test
-   public void testDocxWithMap(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport) throws Exception
-   {
-      ByteArrayOutputStream output = new ByteArrayOutputStream();
-      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
-      Report report = reportDefinition.fill(dataSource, null);
-      reportRenderer.render(report, output);
-      // Extracting the result
-      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
-      assertTrue(text.contains("Seam Reports Rocks"));
-   }
+    @Inject
+    @XDocReport
+    @PDF
+    ReportRenderer pdfReportRenderer;
 
-   @Test
-   public void testDocxWithMapAsParameter(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport)
-            throws Exception
-   {
-      ByteArrayOutputStream output = new ByteArrayOutputStream();
-      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
-      Report report = reportDefinition.fill(null, parameters);
-      reportRenderer.render(report, output);
-      // Extracting the result
-      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
-      assertTrue(text.contains("Seam Reports Rocks"));
-   }
+    @Deployment(name = "XDocReports")
+    public static WebArchive createArchive() {
+        return Utils.getDeploymentFactory().xdocreportDeployment().addClasses(XDocReportsTest.class)
+                .addAsResource("DocxProjectWithVelocity.docx", "DocxProjectWithVelocity.docx")
+                .addAsResource("ODTProjectWithVelocity.odt", "ODTProjectWithVelocity.odt");
+    }
 
-   @Test
-   public void testOdtxWithMap(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception
-   {
-      ByteArrayOutputStream output = new ByteArrayOutputStream();
-      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
-      Report report = reportDefinition.fill(dataSource, null);
-      reportRenderer.render(report, output);
-      // Extracting the result
-      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
-      assertTrue(text.contains("Seam Reports Rocks"));
-   }
+    @Test
+    public void testDocxWithMap(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+        Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
+        Report report = reportDefinition.fill(dataSource, null);
+        reportRenderer.render(report, output);
+        // Extracting the result
+        String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+        assertTrue(text.contains("Seam Reports Rocks"));
+    }
 
-   @Test
-   public void testOdtxWithMapAsParameter(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport)
-            throws Exception
-   {
-      ByteArrayOutputStream output = new ByteArrayOutputStream();
-      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
-      Report report = reportDefinition.fill(null, parameters);
-      reportRenderer.render(report, output);
-      // Extracting the result
-      String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
-      assertTrue(text.contains("Seam Reports Rocks"));
-   }
+    @Test
+    public void testDocxWithMapAsParameter(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+        Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
+        Report report = reportDefinition.fill(null, parameters);
+        reportRenderer.render(report, output);
+        // Extracting the result
+        String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+        assertTrue(text.contains("Seam Reports Rocks"));
+    }
 
-   @Test
-   public void testConversionFromDocxToPDF(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport)
-            throws Exception
-   {
-      ByteArrayOutputStream output = new ByteArrayOutputStream();
-      ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
-      Map<String, Object> dataSource = new HashMap<String, Object>();
-      dataSource.put("project", "Seam Reports");
-      Report report = reportDefinition.fill(dataSource, null);
-      pdfReportRenderer.render(report, output);
-      // Testing the generated PDF
-      DocumentTester tester = new DocumentTester(new ByteArrayInputStream(output.toByteArray()));
-      tester.assertContentContainsText("Seam Reports Rocks", TextSearchType.CONTAINS);
-   }
+    @Test
+    public void testOdtxWithMap(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+        Map<String, String> dataSource = Collections.singletonMap("project", "Seam Reports");
+        Report report = reportDefinition.fill(dataSource, null);
+        reportRenderer.render(report, output);
+        // Extracting the result
+        String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+        assertTrue(text.contains("Seam Reports Rocks"));
+    }
+
+    @Test
+    public void testOdtxWithMapAsParameter(@Resource("ODTProjectWithVelocity.odt") InputStream sourceReport) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+        Map<String, Object> parameters = Collections.singletonMap("project", (Object) "Seam Reports");
+        Report report = reportDefinition.fill(null, parameters);
+        reportRenderer.render(report, output);
+        // Extracting the result
+        String text = new Tika().parseToString(new ByteArrayInputStream(output.toByteArray()));
+        assertTrue(text.contains("Seam Reports Rocks"));
+    }
+
+    @Test
+    public void testConversionFromDocxToPDF(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport)
+            throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+        Map<String, Object> dataSource = new HashMap<String, Object>();
+        dataSource.put("project", "Seam Reports");
+        Report report = reportDefinition.fill(dataSource, null);
+        pdfReportRenderer.render(report, output);
+        // Testing the generated PDF
+        DocumentTester tester = new DocumentTester(new ByteArrayInputStream(output.toByteArray()));
+        tester.assertContentContainsText("Seam Reports Rocks", TextSearchType.CONTAINS);
+    }
 }

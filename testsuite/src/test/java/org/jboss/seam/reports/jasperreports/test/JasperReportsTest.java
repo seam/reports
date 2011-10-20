@@ -70,17 +70,17 @@ public class JasperReportsTest
    @Inject
    @Jasper
    @PDF
-   ReportRenderer<Report> pdfRenderer;
+   ReportRenderer pdfRenderer;
 
    @Inject
    @XML
    @Jasper
-   ReportRenderer<Report> xmlRenderer;
+   ReportRenderer xmlRenderer;
 
    @Inject
    @CSV
    @Jasper
-   ReportRenderer<Report> csvRenderer;
+   ReportRenderer csvRenderer;
 
    @Deployment(name="JasperReports")
    public static WebArchive createArchive()

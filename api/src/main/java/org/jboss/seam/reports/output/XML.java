@@ -26,7 +26,7 @@ import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import javax.enterprise.inject.Stereotype;
+import javax.inject.Qualifier;
 
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.spi.ReportOutputBinding;
@@ -37,7 +37,7 @@ import org.jboss.seam.reports.spi.ReportOutputBinding;
  * @author george
  * 
  */
-@Stereotype
+@Qualifier
 @Target({ TYPE, METHOD, PARAMETER, FIELD })
 @Retention(RUNTIME)
 @Documented

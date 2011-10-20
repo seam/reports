@@ -14,35 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.output;
+package org.jboss.seam.reports.pentaho.renderer;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.PARAMETER;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import java.io.IOException;
+import java.io.OutputStream;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import javax.inject.Qualifier;
-
+import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.spi.ReportOutputBinding;
+import org.jboss.seam.reports.output.PDF;
+import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
+import org.pentaho.reporting.engine.classic.core.MasterReport;
+import org.pentaho.reporting.engine.classic.core.modules.output.pageable.pdf.PdfReportUtil;
 
-/**
- * Used on {@link ReportRenderer}
- * 
- * @author george
- * 
- */
-@Qualifier
-@Target({ TYPE, METHOD, PARAMETER, FIELD })
-@Retention(RUNTIME)
-@Documented
-@ReportOutputBinding(value = "CSV", mimeType = "text/csv")
-public @interface CSV
+@PentahoReporting
+@PDF
+public class PentahoPDFReportRenderer implements ReportRenderer
 {
+
+   @Override
+   public void render(Report report, OutputStream output) throws IOException
+   {
+      MasterReport mr = (MasterReport) report.getDelegate();
+      PdfReportUtil.createPDF(mr, output);
+   }
 
 }

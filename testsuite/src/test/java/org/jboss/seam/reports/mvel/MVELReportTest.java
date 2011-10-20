@@ -43,7 +43,7 @@ public class MVELReportTest
 {
    @Inject
    @MVEL
-   ReportRenderer<Report> reportRenderer;
+   ReportRenderer reportRenderer;
 
    @Inject
    @MVEL

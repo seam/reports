@@ -71,7 +71,7 @@ public class PersonContactReport {
   private ReportCompiler reportCompiler;
 
   @Inject @Jasper @PDF
-  private ReportRenderer<Report> pdfRenderer;
+  private ReportRenderer pdfRenderer;
 
   @Inject
   private EntityManager em;
@@ -161,6 +161,7 @@ public class PersonContactReport {
     <para>
       These annotations are only used when injecting a <literal>ReportRenderer</literal>. Only one of them may be used
       per renderer. Multiple renderers must be injected if multiple renderering types are desired.
+    </para>
   </section>
   <section id="reports-troubleshooting">
     <title>Troubleshooting</title>

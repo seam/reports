@@ -14,26 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.mvel.renderer;
+package org.jboss.seam.reports.jasper.renderer;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
 
-import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.mvel.annotations.MVEL;
+import org.jboss.seam.reports.jasper.annotations.Jasper;
+import org.jboss.seam.reports.output.XLS;
 
-@MVEL
-public class MVELReportRenderer implements ReportRenderer
-{
+@Jasper
+@XLS
+public class JasperXLSReportRenderer extends AbstractJasperReportRenderer {
 
-   @Override
-   public void render(Report report, OutputStream output) throws IOException
-   {
-      OutputStreamWriter writer = new OutputStreamWriter(output);
-      writer.append((CharSequence)report.getDelegate());
-      writer.flush();
-      writer.close();
-   }
+    @Override
+    protected JRExporter getExporter() {
+        return new JRXlsExporter();
+    }
+
 }

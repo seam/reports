@@ -25,7 +25,7 @@ import java.io.OutputStream;
  * @author george
  * 
  */
-public interface ReportRenderer<I extends Report>
+public interface ReportRenderer
 {
 
    /**
@@ -37,5 +37,5 @@ public interface ReportRenderer<I extends Report>
     * @param output - Output for the report
     * @throws IOException if writing to the {@link OutputStream} fails
     */
-   void render(I report, OutputStream output) throws IOException;
+   void render(Report report, OutputStream output) throws IOException;
 }

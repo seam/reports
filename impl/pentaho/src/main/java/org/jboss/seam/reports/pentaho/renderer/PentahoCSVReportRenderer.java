@@ -14,26 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.mvel.renderer;
+package org.jboss.seam.reports.pentaho.renderer;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 
 import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.mvel.annotations.MVEL;
+import org.jboss.seam.reports.exceptions.ReportException;
+import org.jboss.seam.reports.output.CSV;
+import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
+import org.pentaho.reporting.engine.classic.core.MasterReport;
+import org.pentaho.reporting.engine.classic.core.ReportProcessingException;
+import org.pentaho.reporting.engine.classic.core.modules.output.table.csv.CSVReportUtil;
 
-@MVEL
-public class MVELReportRenderer implements ReportRenderer
+@PentahoReporting
+@CSV
+public class PentahoCSVReportRenderer implements ReportRenderer
 {
 
    @Override
    public void render(Report report, OutputStream output) throws IOException
    {
-      OutputStreamWriter writer = new OutputStreamWriter(output);
-      writer.append((CharSequence)report.getDelegate());
-      writer.flush();
-      writer.close();
+      MasterReport mr = (MasterReport) report.getDelegate();
+      try
+      {
+         CSVReportUtil.createCSV(mr, output, "UTF-8");
+      }
+      catch (ReportProcessingException ex)
+      {
+         throw new ReportException("Error rendering report", ex);
+      }
    }
+
 }

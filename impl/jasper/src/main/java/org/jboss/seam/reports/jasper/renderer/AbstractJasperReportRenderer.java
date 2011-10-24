@@ -23,15 +23,15 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
 
+import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.exceptions.ReportException;
-import org.jboss.seam.reports.jasper.JasperSeamReport;
 
-public abstract class AbstractJasperReportRenderer implements ReportRenderer<JasperSeamReport>
+public abstract class AbstractJasperReportRenderer implements ReportRenderer
 {
 
    @Override
-   public void render(JasperSeamReport reportInstance, OutputStream output) throws IOException
+   public void render(Report reportInstance, OutputStream output) throws IOException
    {
       JRExporter exporter = getExporter();
       exporter.setParameter(JRExporterParameter.JASPER_PRINT, reportInstance.getDelegate());

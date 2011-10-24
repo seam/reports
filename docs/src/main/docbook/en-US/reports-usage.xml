@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!--
 
     JBoss, Home of Professional Open Source
@@ -16,14 +16,160 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
--->
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+--><!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 <chapter id="reports-usage">
-    <title>Usage</title>
-    <para>The Seam Reports API is quite simple.</para>
-    <para>You inject a ReportLoader, produce ReportDefinition or Report objects.</para>
-    <para>A ReportDefinition produces Report objects. Report objects are "ready-to-be-printed"
-        reports.</para>
-    <para>Reports are rendered on a ReportRenderer object. Check the test cases for more
-        info.</para>
+  <title>Usage</title>
+  <section id="reports-quickstart">
+    <title>Quick Start</title>
+    <para>
+      Using Seam Reports is a simple four step process. These steps are the same regardless of the reporting engine
+      being used.
+    </para>
+    <para>
+      <orderedlist>
+        <listitem>
+          <para>Create a report using a favorite report editor</para>
+        </listitem>
+        <listitem>
+          <para>Load the created report</para>
+        </listitem>
+        <listitem>
+          <para>Fill the report with data</para>
+        </listitem>
+        <listitem>
+          <para>Render the report</para>
+        </listitem>
+      </orderedlist>
+    </para>
+    <para>
+      Of course some of these steps will have different ways of accomplishing the task, but at a high level they are
+      all the same. For simplicity this quick start will use JasperReports  and the first step will be assumed to have
+      already taken place and the report is available in the deployed archive. The location of the report isn&apos;t
+      important, the ability to pull it into an <literal>InputStream</literal> is all that really matters.
+    </para>
+    <para>
+      The following code demonstrates a basic way of fulfilling the last three steps in using Seam Reports using
+      JasperReports as the reporting engine. The report has already been created and is bundled inside the deployable
+      archive. There are no paramaters for the report. The report is a simple listing of people&apos;s names and contact
+      information.
+    </para>
+    <programlistingco>
+      <areaspec>
+        <area coords="3" id="resourceInjection"/>
+        <area coords="6" id="reportCompiler"/>
+        <area coords="9" id="reportPdfRenderer"/>
+        <area coords="14" id="reportRenderingMethod"/>
+        <area coords="22" id="fillReport"/>
+        <area coords="27" id="createDatasource"/>
+      </areaspec>
+      <programlisting role="JAVA"><![CDATA[@Model
+public class PersonContactReport {
+  @Inject @Resource("WEB-INF/jasperreports/personContact.jrxml")
+  private InputStream reportTemplate;
+
+  @Inject @Jasper
+  private ReportCompiler reportCompiler;
+
+  @Inject @Jasper @PDF
+  private ReportRenderer pdfRenderer;
+
+  @Inject
+  private EntityManager em;
+
+  public OutputStream render() {
+    final Report filledReport = this.fillReport();
+    final OutputStream os = new ByteArrayOutputStream();
+
+    this.pdfRenderer.render(filledReport, os);
+    return os;
+  }
+
+  private Report fillReport() {
+    final ReportDefinition rd = this.reportCompiler.compile(reportTemplate);
+    return rd.fill(this.createDatasource(), Collections.EMPTY_MAP);
+  }
+
+  private JRDataSource createDatasource() {
+    final List<Person> personList = this.em.createQuery("select p from Person", Person.class).getResultList();
+    return new JRBeanCollectionDataSource(personList);
+  }
+}]]></programlisting>
+      <calloutlist>
+          <callout arearefs="resourceInjection">
+            <para>
+            Solder allows easy resource injection for files available in the archive. This injects the report template
+            which has been created previously (perhaps by someone else in the business) and added to the deployable
+            archive.
+          </para>
+          </callout>
+          <callout arearefs="reportCompiler">
+            <para>
+            A <literal>ReportCompiler</literal> is an interface from Seam Reports which abstracts compiling the report
+            template into <literal>ReportDefinition</literal>. Seam Reports makes use of CDI&apos;s type safety features by
+            using qualifiers to further narrow the intended type. This allows programs to remain implementation
+            agnostic. The <literal>Jasper</literal> qualifier annotation instructs CDI to inject an implementation of
+            the <literal>ReportCompiler</literal> which contains the same qualifer.
+          </para>
+          </callout>
+          <callout arearefs="reportPdfRenderer">
+            <para>
+              This is an instance of using both a qualifer (<literal>@Jasper</literal>) and also a metadata
+              annotation, which happens to be a stereotype. The <literal>@PDF</literal> annotation is a CDI stereotype,
+              which essentially means it&apos;s a group of other annotations. It carries metadata about the type it is
+              decorating. More about this later.
+          </para>
+          </callout>
+          <callout arearefs="reportRenderingMethod">
+            <para>
+            The <literal>render</literal> method is the only entry point into the class, it also returns the final
+            output of generating a report. It makes use of other methods in the class to finish the steps outlined
+            above to generate a report using Seam Reports.
+          </para>
+          </callout>
+          <callout arearefs="fillReport">
+            <para>
+            At this stage data to populate the report is retrieved and added to the compiled
+            <literal>ReportDefinition</literal>. This particular report doesn&apos;t make use of any parameters, hence
+            the empty map instance being passed.
+          </para>
+          </callout>
+          <callout arearefs="createDatasource">
+            <para>
+            This last stage of using Seam Reports is the only place that may require the application to use the report
+            engine API. In this example a list of JPA entities is retrieved and added to a JasperReports datasource,
+            which is then used by the calling method to populate the report template as mentioned above.
+          </para>
+          </callout>
+        </calloutlist>
+    </programlistingco>
+  </section>
+  <section id="reports-annotations">
+    <title>Annotations</title>
+    <para>
+      There are four API level annotations to be aware of when using Seam Reports. All four of them declare metadata
+      about objects that are being injected. They&apos;re also all CDI stereotypes which instruct the implementing renderer
+      the mimetype that should be used.
+    </para>
+    <para>
+      <itemizedlist>
+        <listitem><para>CSV</para></listitem>
+        <listitem><para>PDF</para></listitem>
+        <listitem><para>XLS</para></listitem>
+        <listitem><para>XML</para></listitem>
+      </itemizedlist>
+    </para>
+    <para>
+      These annotations are only used when injecting a <literal>ReportRenderer</literal>. Only one of them may be used
+      per renderer. Multiple renderers must be injected if multiple renderering types are desired.
+    </para>
+  </section>
+  <section id="reports-troubleshooting">
+    <title>Troubleshooting</title>
+    <para>
+      <!-- TODO: George, I think you'll probably be aware of any of these -->
+    </para>
+  </section>
+  <!--
+  vim:et:ts=3:sw=3:tw=120
+  -->
 </chapter>

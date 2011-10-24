@@ -14,26 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.mvel.renderer;
+package org.jboss.seam.reports.xdocreport.renderer;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import org.jboss.seam.reports.output.XLS;
+import org.jboss.seam.reports.xdocreport.annotations.XDocReport;
 
-import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.mvel.annotations.MVEL;
+@XDocReport
+@XLS
+public class XDocReportXLSReportRenderer extends AbstractXDocReportRenderer {
 
-@MVEL
-public class MVELReportRenderer implements ReportRenderer
-{
+    @Override
+    protected String getOutput() {
+        return "XLS";
+    }
 
-   @Override
-   public void render(Report report, OutputStream output) throws IOException
-   {
-      OutputStreamWriter writer = new OutputStreamWriter(output);
-      writer.append((CharSequence)report.getDelegate());
-      writer.flush();
-      writer.close();
-   }
 }

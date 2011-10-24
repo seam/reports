@@ -1,4 +1,4 @@
-/**
+/*
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -14,26 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.mvel.renderer;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+package org.jboss.seam.reports.test;
 
-import org.jboss.seam.reports.Report;
-import org.jboss.seam.reports.ReportRenderer;
-import org.jboss.seam.reports.mvel.annotations.MVEL;
-
-@MVEL
-public class MVELReportRenderer implements ReportRenderer
-{
-
-   @Override
-   public void render(Report report, OutputStream output) throws IOException
-   {
-      OutputStreamWriter writer = new OutputStreamWriter(output);
-      writer.append((CharSequence)report.getDelegate());
-      writer.flush();
-      writer.close();
-   }
+public class Utils {
+    
+    public static DeploymentFactory getDeploymentFactory() {
+        if ("weld-ee-embedded-1.1".equals(System.getProperty("arquillian"))) {
+            return new EmbeddedDeploymentFactory();
+        }
+        else {
+            return new DefaultDeploymentFactory();
+        }
+    }
 }

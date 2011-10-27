@@ -153,6 +153,7 @@ public class PersonContactReport {
     <para>
       <itemizedlist>
         <listitem><para>CSV</para></listitem>
+        <listitem><para>HTML</para></listitem>
         <listitem><para>PDF</para></listitem>
         <listitem><para>XLS</para></listitem>
         <listitem><para>XML</para></listitem>

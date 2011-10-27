@@ -42,152 +42,155 @@ import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportRenderer;
 import org.jboss.seam.reports.jasper.annotations.Jasper;
 import org.jboss.seam.reports.output.CSV;
+import org.jboss.seam.reports.output.HTML;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.output.XML;
 import org.jboss.seam.reports.test.Utils;
-import org.jboss.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.solder.resourceLoader.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import de.oio.jpdfunit.DocumentTester;
 
 @RunWith(Arquillian.class)
-public class JasperReportsTest
-{
-   @Inject
-   @Resource("XlsDataSourceReport.jrxml")
-   InputStream sourceReport;
+public class JasperReportsTest {
+    @Inject
+    @Resource("XlsDataSourceReport.jrxml")
+    InputStream sourceReport;
 
-   @Inject
-   @Jasper
-   ReportCompiler compiler;
+    @Inject
+    @Jasper
+    ReportCompiler compiler;
 
-   @Inject
-   @Jasper
-   JRDataSource jasperDataSource;
+    @Inject
+    @Jasper
+    JRDataSource jasperDataSource;
 
-   @Inject
-   @Jasper
-   @PDF
-   ReportRenderer pdfRenderer;
+    @Inject
+    @Jasper
+    @PDF
+    ReportRenderer pdfRenderer;
 
-   @Inject
-   @XML
-   @Jasper
-   ReportRenderer xmlRenderer;
+    @Deployment(name = "JasperReports")
+    public static WebArchive createArchive() {
+        return Utils.getDeploymentFactory().jasperDeployment().addClasses(JasperReportsTest.class, JasperReportsProducer.class)
+                .addAsResource("XlsDataSource.data.xls", "XlsDataSource.data.xls")
+                .addAsResource("XlsDataSourceReport.jrxml", "XlsDataSourceReport.jrxml");
+    }
 
-   @Inject
-   @CSV
-   @Jasper
-   ReportRenderer csvRenderer;
+    @Test
+    public void testCompilerNotNull() throws Exception {
+        assertNotNull(compiler);
+    }
 
-   @Deployment(name="JasperReports")
-   public static WebArchive createArchive()
-   {
-      return Utils.getDeploymentFactory().jasperDeployment()
-               .addClasses(JasperReportsTest.class, JasperReportsProducer.class)               
-               .addAsResource("XlsDataSource.data.xls", "XlsDataSource.data.xls")
-               .addAsResource("XlsDataSourceReport.jrxml", "XlsDataSourceReport.jrxml");
-   }
+    @Test
+    public void testReportLifecycle() throws Exception {
+        // source
+        ReportDefinition report = compiler.compile(sourceReport);
 
-   @Test
-   public void testCompilerNotNull() throws Exception
-   {
-      assertNotNull(compiler);
-   }
+        Map<String, Object> params = new HashMap<String, Object>();
+        // Preparing parameters
+        params.put("ReportTitle", "Address Report");
+        params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
+        Set<String> states = new HashSet<String>();
+        states.add("Active");
+        states.add("Trial");
+        params.put("IncludedStates", states);
 
-   @Test
-   public void testReportLifecycle() throws Exception
-   {
-      // source
-      ReportDefinition report = compiler.compile(sourceReport);
+        Report reportInstance = report.fill(jasperDataSource, params);
 
-      Map<String, Object> params = new HashMap<String, Object>();
-      // Preparing parameters
-      params.put("ReportTitle", "Address Report");
-      params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
-      Set<String> states = new HashSet<String>();
-      states.add("Active");
-      states.add("Trial");
-      params.put("IncludedStates", states);
+        ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
+        // Render output as the desired content
+        pdfRenderer.render(reportInstance, os);
+        DocumentTester tester = new DocumentTester(new ByteArrayInputStream(os.toByteArray()));
+        try {
+            tester.assertPageCountEquals(2);
+        } finally {
+            tester.close();
+        }
+    }
 
-      Report reportInstance = report.fill(jasperDataSource, params);
+    @Test
+    public void testReportXML(@XML @Jasper ReportRenderer xmlRenderer) throws Exception {
+        // source
+        ReportDefinition report = compiler.compile(sourceReport);
 
-      ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
-      // Render output as the desired content
-      pdfRenderer.render(reportInstance, os);
-      DocumentTester tester = new DocumentTester(new ByteArrayInputStream(os.toByteArray()));
-      try
-      {
-         tester.assertPageCountEquals(2);
-      }
-      finally
-      {
-         tester.close();
-      }
-   }
+        Map<String, Object> params = new HashMap<String, Object>();
+        // Preparing parameters
+        params.put("ReportTitle", "Address Report");
+        params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
+        Set<String> states = new HashSet<String>();
+        states.add("Active");
+        states.add("Trial");
+        params.put("IncludedStates", states);
 
-   @Test
-   public void testReportXML() throws Exception
-   {
-      // source
-      ReportDefinition report = compiler.compile(sourceReport);
+        Report reportInstance = report.fill(jasperDataSource, params);
 
-      Map<String, Object> params = new HashMap<String, Object>();
-      // Preparing parameters
-      params.put("ReportTitle", "Address Report");
-      params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
-      Set<String> states = new HashSet<String>();
-      states.add("Active");
-      states.add("Trial");
-      params.put("IncludedStates", states);
+        ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
+        // Render output as the desired content
 
-      Report reportInstance = report.fill(jasperDataSource, params);
+        xmlRenderer.render(reportInstance, os);
+        assertThat(os.size(), not(0));
+    }
 
-      ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
-      // Render output as the desired content
+    @Test
+    public void testReportCSV(@CSV @Jasper ReportRenderer csvRenderer) throws Exception {
+        // source
+        ReportDefinition report = compiler.compile(sourceReport);
 
-      xmlRenderer.render(reportInstance, os);
-      assertThat(os.size(), not(0));
-   }
+        Map<String, Object> params = new HashMap<String, Object>();
+        // Preparing parameters
+        params.put("ReportTitle", "Address Report");
+        params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
+        Set<String> states = new HashSet<String>();
+        states.add("Active");
+        states.add("Trial");
+        params.put("IncludedStates", states);
 
-   @Test
-   public void testReportCSV() throws Exception
-   {
-      // source
-      ReportDefinition report = compiler.compile(sourceReport);
+        Report reportInstance = report.fill(jasperDataSource, params);
 
-      Map<String, Object> params = new HashMap<String, Object>();
-      // Preparing parameters
-      params.put("ReportTitle", "Address Report");
-      params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
-      Set<String> states = new HashSet<String>();
-      states.add("Active");
-      states.add("Trial");
-      params.put("IncludedStates", states);
+        ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
+        // Render output as the desired content
 
-      Report reportInstance = report.fill(jasperDataSource, params);
+        csvRenderer.render(reportInstance, os);
+        assertThat(os.size(), not(0));
+    }
 
-      ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
-      // Render output as the desired content
+    @Test
+    public void testReportHTML(@HTML @Jasper ReportRenderer htmlRenderer) throws Exception {
+        // source
+        ReportDefinition report = compiler.compile(sourceReport);
 
-      csvRenderer.render(reportInstance, os);
-      assertThat(os.size(), not(0));
-   }
-   
-   public static class JasperReportsProducer
-   {
-      @Produces
-      @Jasper
-      JRDataSource getDataSource(@Resource("XlsDataSource.data.xls") InputStream dataSource) throws Exception
-      {
-         JRXlsDataSource ds;
-         String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
-         int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
-         ds = new JRXlsDataSource(dataSource);
-         ds.setColumnNames(columnNames, columnIndexes);
-         return ds;
-      }
-   }
+        Map<String, Object> params = new HashMap<String, Object>();
+        // Preparing parameters
+        params.put("ReportTitle", "Address Report");
+        params.put("DataFile", "XlsDataSource.data.xls - XLS data source");
+        Set<String> states = new HashSet<String>();
+        states.add("Active");
+        states.add("Trial");
+        params.put("IncludedStates", states);
+
+        Report reportInstance = report.fill(jasperDataSource, params);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream(); // OutputStream
+        // Render output as the desired content
+
+        htmlRenderer.render(reportInstance, os);
+
+        assertThat(os.size(), not(0));
+    }
+
+    public static class JasperReportsProducer {
+        @Produces
+        @Jasper
+        JRDataSource getDataSource(@Resource("XlsDataSource.data.xls") InputStream dataSource) throws Exception {
+            JRXlsDataSource ds;
+            String[] columnNames = new String[] { "city", "id", "name", "address", "state" };
+            int[] columnIndexes = new int[] { 0, 2, 3, 4, 5 };
+            ds = new JRXlsDataSource(dataSource);
+            ds.setColumnNames(columnNames, columnIndexes);
+            return ds;
+        }
+    }
 }

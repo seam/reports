@@ -35,6 +35,7 @@ import org.jboss.seam.reports.Report;
 import org.jboss.seam.reports.ReportDefinition;
 import org.jboss.seam.reports.ReportLoader;
 import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.output.HTML;
 import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.test.Utils;
 import org.jboss.seam.reports.xdocreport.annotations.XDocReport;
@@ -57,11 +58,6 @@ public class XDocReportsTest {
     @Inject
     @XDocReport
     ReportLoader reportLoader;
-
-    @Inject
-    @XDocReport
-    @PDF
-    ReportRenderer pdfReportRenderer;
 
     @Deployment(name = "XDocReports")
     public static WebArchive createArchive() {
@@ -119,8 +115,8 @@ public class XDocReportsTest {
     }
 
     @Test
-    public void testConversionFromDocxToPDF(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport)
-            throws Exception {
+    public void testConversionFromDocxToPDF(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport,
+            @XDocReport @PDF ReportRenderer pdfReportRenderer) throws Exception {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
         Map<String, Object> dataSource = new HashMap<String, Object>();
@@ -130,5 +126,18 @@ public class XDocReportsTest {
         // Testing the generated PDF
         DocumentTester tester = new DocumentTester(new ByteArrayInputStream(output.toByteArray()));
         tester.assertContentContainsText("Seam Reports Rocks", TextSearchType.CONTAINS);
+    }
+
+    @Test
+    public void testConversionFromDocxToHTML(@Resource("DocxProjectWithVelocity.docx") InputStream sourceReport,
+            @XDocReport @HTML ReportRenderer htmlReportRenderer) throws Exception {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        ReportDefinition reportDefinition = reportLoader.loadReportDefinition(sourceReport);
+        Map<String, Object> dataSource = new HashMap<String, Object>();
+        dataSource.put("project", "Seam Reports");
+        Report report = reportDefinition.fill(dataSource, null);
+        htmlReportRenderer.render(report, output);
+        // Testing the generated HTML
+        assertTrue(output.toString().contains("<span style=\"font-size:-1.0pt;\">Seam Reports</span><span style=\"font-size:-1.0pt;\"> Rocks&nbsp;!</span>"));
     }
 }

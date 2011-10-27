@@ -39,7 +39,7 @@ public class PentahoReportingExtension implements Extension
       }
       catch (Throwable t)
       {
-         abd.addDefinitionError(new ReportException("Error loading Pentaho Reporting Engine"));
+         abd.addDefinitionError(new ReportException("Error loading Pentaho Reporting Engine",t));
       }
    }
 }

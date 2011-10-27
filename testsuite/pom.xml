@@ -30,7 +30,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <xdocreport.version>0.9.1</xdocreport.version>
+        <xdocreport.version>0.9.2</xdocreport.version>
     </properties>
 
     <dependencies>
@@ -83,22 +83,22 @@
 
         <!-- xdocreport optional dependencies-->
         <dependency>
-            <groupId>fr.opensagres</groupId>
+            <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.xdocreport.template.velocity</artifactId>
             <version>${xdocreport.version}</version>
         </dependency>
         <dependency>
-            <groupId>fr.opensagres</groupId>
+            <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.xdocreport.document.docx</artifactId>
             <version>${xdocreport.version}</version>
         </dependency>
         <dependency>
-            <groupId>fr.opensagres</groupId>
+            <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.xdocreport.document.odt</artifactId>
             <version>${xdocreport.version}</version>
         </dependency>
         <dependency>
-            <groupId>fr.opensagres</groupId>
+            <groupId>fr.opensagres.xdocreport</groupId>
             <artifactId>fr.opensagres.xdocreport.converter.docx.xwpf</artifactId>
             <version>${xdocreport.version}</version>
         </dependency>

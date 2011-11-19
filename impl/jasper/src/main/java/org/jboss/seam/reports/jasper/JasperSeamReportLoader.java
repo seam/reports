@@ -63,7 +63,7 @@ public class JasperSeamReportLoader implements ReportLoader
    {
       try
       {
-         JasperReport report = (JasperReport) JRLoader.loadObject(name);
+         JasperReport report = (JasperReport) JRLoader.loadObjectFromFile(name);
          return new JasperSeamReportDefinition(report);
       }
       catch (JRException e)
@@ -77,7 +77,7 @@ public class JasperSeamReportLoader implements ReportLoader
    {
       try
       {
-         JasperPrint print = (JasperPrint) JRLoader.loadObject(name);
+         JasperPrint print = (JasperPrint) JRLoader.loadObjectFromFile(name);
          return new JasperSeamReport(print);
       }
       catch (JRException e)

@@ -38,8 +38,8 @@ import org.jboss.seam.reports.output.PDF;
 import org.jboss.seam.reports.output.XML;
 import org.jboss.seam.reports.pentaho.annotations.PentahoReporting;
 import org.jboss.seam.reports.test.Utils;
-import org.jboss.solder.resourceLoader.Resource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.solder.resourceLoader.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -51,86 +51,60 @@ import de.oio.jpdfunit.DocumentTester;
  * @author Jordan Ganoff
  */
 @RunWith(Arquillian.class)
-public class PentahoReportingTest
-{
-   @Deployment(name="PentahoReporting")
-   public static WebArchive createArchive()
-   {
-      return Utils.getDeploymentFactory().pentahoDeployment() 
-               .addClass(PentahoReportingTest.class)
-               .addAsResource("pentaho-simple.prpt", "pentaho-simple.prpt");              
-   }
+public class PentahoReportingTest {
+    @Deployment(name = "PentahoReporting")
+    public static WebArchive createArchive() {
+        return Utils.getDeploymentFactory().pentahoDeployment().addClass(PentahoReportingTest.class)
+                .addAsResource("pentaho-simple.prpt", "pentaho-simple.prpt");
+    }
 
-   @Inject
-   @Resource("pentaho-simple.prpt")
-   private InputStream sourceReport;
+    @Inject
+    @Resource("pentaho-simple.prpt")
+    private InputStream sourceReport;
 
-   @Inject
-   @PentahoReporting
-   private ReportLoader loader;
+    @Inject
+    @PentahoReporting
+    private ReportLoader loader;
 
-   @Inject
-   @PentahoReporting
-   @PDF
-   private ReportRenderer pdfRenderer;
+    @Test
+    public void loadReport_inputStream() {
+        Report report = loader.loadReport(sourceReport);
+        assertNotNull(report);
+    }
 
-   @Inject
-   @PentahoReporting
-   @XML
-   private ReportRenderer xmlRenderer;
+    @Test
+    public void renderReport(@PentahoReporting @PDF ReportRenderer pdfRenderer) throws ReportException, IOException {
+        Report report = loader.loadReport(sourceReport);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        pdfRenderer.render(report, baos);
+        assertTrue("Report is empty", baos.size() > 0);
+        DocumentTester tester = new DocumentTester(new ByteArrayInputStream(baos.toByteArray()));
+        try {
+            tester.assertPageCountEquals(1);
+        } finally {
+            tester.close();
+        }
+    }
 
-   @Inject
-   @PentahoReporting
-   @CSV
-   private ReportRenderer csvRenderer;
+    @Test
+    public void renderReportAsXML(@PentahoReporting @XML ReportRenderer xmlRenderer) throws ReportException, IOException {
+        Report report = loader.loadReport(sourceReport);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        xmlRenderer.render(report, baos);
+        assertTrue("Report is empty", baos.size() > 0);
+    }
 
-   @Test
-   public void loadReport_inputStream()
-   {
-      Report report = loader.loadReport(sourceReport);
-      assertNotNull(report);
-   }
+    @Test
+    public void renderReportAsCSV(@PentahoReporting @CSV ReportRenderer csvRenderer) throws ReportException, IOException {
+        Report report = loader.loadReport(sourceReport);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        csvRenderer.render(report, baos);
+        assertTrue("Report is empty", baos.size() > 0);
+    }
 
-   @Test
-   public void renderReport() throws ReportException, IOException
-   {
-      Report report = loader.loadReport(sourceReport);
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      pdfRenderer.render(report, baos);
-      assertTrue("Report is empty", baos.size() > 0);
-      DocumentTester tester = new DocumentTester(new ByteArrayInputStream(baos.toByteArray()));
-      try
-      {
-         tester.assertPageCountEquals(1);
-      }
-      finally
-      {
-         tester.close();
-      }
-   }
-
-   @Test
-   public void renderReportAsXML() throws ReportException, IOException
-   {
-      Report report = loader.loadReport(sourceReport);
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      xmlRenderer.render(report, baos);
-      assertTrue("Report is empty", baos.size() > 0);
-   }
-
-   @Test
-   public void renderReportAsCSV() throws ReportException, IOException
-   {
-      Report report = loader.loadReport(sourceReport);
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      csvRenderer.render(report, baos);
-      assertTrue("Report is empty", baos.size() > 0);
-   }
-
-   @Test
-   public void loadReport_name(@Resource("pentaho-simple.prpt") URL sourceReport)
-   {
-      Report report = loader.loadReport(sourceReport.toExternalForm());
-      assertNotNull(report);
-   }
+    @Test
+    public void loadReport_name(@Resource("pentaho-simple.prpt") URL sourceReport) {
+        Report report = loader.loadReport(sourceReport.toExternalForm());
+        assertNotNull(report);
+    }
 }

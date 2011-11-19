@@ -64,7 +64,7 @@ public abstract class AbstractXDocReportRenderer implements ReportRenderer {
         XDocReportSeamReport seamReport = (XDocReportSeamReport) report;
         IXDocReport delegate = seamReport.getDelegate();
         IContext context = seamReport.getContext();
-        Options options = Options.getFrom(delegate.getKind()).to("PDF");
+        Options options = Options.getFrom(delegate.getKind()).to(getOutput());
         if (via != null) {
             options.via(via);
         }

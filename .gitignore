@@ -6,3 +6,4 @@ target
 test-output
 bin
 *.log
+velocity.log*

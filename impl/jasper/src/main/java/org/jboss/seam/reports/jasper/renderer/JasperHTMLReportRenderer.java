@@ -1,4 +1,4 @@
-/*
+/**
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -14,32 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.pentaho;
+package org.jboss.seam.reports.jasper.renderer;
 
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.AfterBeanDiscovery;
-import javax.enterprise.inject.spi.Extension;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
 
-import org.jboss.seam.reports.exceptions.ReportException;
-import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
+import org.jboss.seam.reports.jasper.annotations.Jasper;
+import org.jboss.seam.reports.output.HTML;
 
-/**
- * Pentaho Reporting bootstrap to initialize the Reporting Engine at application startup
- * 
- * @author Jordan Ganoff
- */
-public class PentahoReportingExtension implements Extension
-{
+@Jasper
+@HTML
+public class JasperHTMLReportRenderer extends AbstractJasperReportRenderer {
 
-   public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd)
-   {
-      try
-      {
-         ClassicEngineBoot.getInstance().start();
-      }
-      catch (Throwable t)
-      {
-         abd.addDefinitionError(new ReportException("Error loading Pentaho Reporting Engine",t));
-      }
-   }
+    @Override
+    protected JRExporter getExporter() {
+        return new JRHtmlExporter();
+    }
+
 }

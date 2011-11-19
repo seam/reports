@@ -1,4 +1,4 @@
-/*
+/**
  * JBoss, Home of Professional Open Source
  * Copyright 2011, Red Hat, Inc. and/or its affiliates, and individual
  * contributors by the @authors tag. See the copyright.txt in the
@@ -14,32 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.jboss.seam.reports.pentaho;
+package org.jboss.seam.reports.output;
 
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.AfterBeanDiscovery;
-import javax.enterprise.inject.spi.Extension;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.ElementType.PARAMETER;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import org.jboss.seam.reports.exceptions.ReportException;
-import org.pentaho.reporting.engine.classic.core.ClassicEngineBoot;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import javax.inject.Qualifier;
+
+import org.jboss.seam.reports.ReportRenderer;
+import org.jboss.seam.reports.spi.ReportOutputBinding;
 
 /**
- * Pentaho Reporting bootstrap to initialize the Reporting Engine at application startup
+ * Used on {@link ReportRenderer}
  * 
- * @author Jordan Ganoff
+ * @author george
+ * 
  */
-public class PentahoReportingExtension implements Extension
+@Qualifier
+@Target({ TYPE, METHOD, PARAMETER, FIELD })
+@Retention(RUNTIME)
+@Documented
+@ReportOutputBinding(value = "HTML", mimeType = "text/html")
+public @interface HTML
 {
 
-   public void afterBeanDiscovery(@Observes AfterBeanDiscovery abd)
-   {
-      try
-      {
-         ClassicEngineBoot.getInstance().start();
-      }
-      catch (Throwable t)
-      {
-         abd.addDefinitionError(new ReportException("Error loading Pentaho Reporting Engine",t));
-      }
-   }
 }

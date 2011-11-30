@@ -9,7 +9,7 @@
 
 	<artifactId>seam-reports-parent</artifactId>
 	<groupId>org.jboss.seam.reports</groupId>
-	<version>3.1.0.CR1</version>
+	<version>3.1.0-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 	<name>Seam Reports Module Parent POM</name>

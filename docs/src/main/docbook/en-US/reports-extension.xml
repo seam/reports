@@ -19,8 +19,8 @@
 --><!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd" []>
 <chapter id="reports-extension">
   <title>Extending Seam Reports</title>
-  <section id="reports-quickstart">
-    <title>Quick Start</title>
+  <section id="reports-extension-api">
+    <title>Interfaces to be implemented</title>
     <para>
       Extending Seam Reports is simple, and requires that you provide a qualifier annotation along with an implementation
       of the following interfaces:

@@ -4,12 +4,12 @@
    <parent>
       <groupId>org.jboss.seam</groupId>
       <artifactId>seam-parent</artifactId>
-      <version>18</version>
+      <version>19</version>
    </parent>
 
 	<artifactId>seam-reports-parent</artifactId>
 	<groupId>org.jboss.seam.reports</groupId>
-	<version>3.1.0-SNAPSHOT</version>
+	<version>3.2.0-SNAPSHOT</version>
 
 	<packaging>pom</packaging>
 	<name>Seam Reports Module Parent POM</name>
@@ -30,7 +30,7 @@
 	</modules>
 
 	<properties>
-		<seam.version>3.1.0.CR1</seam.version>
+		<seam.version>3.1.0.Final</seam.version>
 		<jpdfunit.version>1.1</jpdfunit.version>
 	</properties>
 

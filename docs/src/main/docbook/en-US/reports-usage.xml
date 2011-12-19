@@ -113,10 +113,7 @@ public class PersonContactReport {
           </callout>
           <callout arearefs="reportPdfRenderer">
             <para>
-              This is an instance of using both a qualifer (<literal>@Jasper</literal>) and also a metadata
-              annotation, which happens to be a stereotype. The <literal>@PDF</literal> annotation is a CDI stereotype,
-              which essentially means it&apos;s a group of other annotations. It carries metadata about the type it is
-              decorating. More about this later.
+              This is an instance of using both qualifers (<literal>@Jasper</literal> and <literal>@PDF</literal>).
           </para>
           </callout>
           <callout arearefs="reportRenderingMethod">
@@ -147,7 +144,7 @@ public class PersonContactReport {
     <title>Annotations</title>
     <para>
       There are four API level annotations to be aware of when using Seam Reports. All four of them declare metadata
-      about objects that are being injected. They&apos;re also all CDI stereotypes which instruct the implementing renderer
+      about objects that are being injected. They&apos;re also all CDI qualifiers which instruct the implementing renderer
       the mimetype that should be used.
     </para>
     <para>
